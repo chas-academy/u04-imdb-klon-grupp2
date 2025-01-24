@@ -1,0 +1,10 @@
+groups:
+  - name: devs
+    reviewers: 2
+    usernames:
+      - beforeAW
+      - dcbwe
+      - ell-ska
+      - DavidDyberg
+      - ADchasacademy
+      - Jelena8206
