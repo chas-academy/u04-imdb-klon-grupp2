@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 80);
             $table->string('description')->nullable();
-            $table->enum('visability', ['public', 'private', 'friends']);
+            $table->enum('visibility', ['public', 'private', 'friends']);
             $table->timestamps();
         });
     }
