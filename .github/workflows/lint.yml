@@ -1,0 +1,40 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.4]
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, dom, curl, libxml, mbstring
+          coverage: none
+
+      - name: install pint
+        run: composer global require laravel/pint
+
+      - name: run pint
+        run: pint --test
+
+      - name: install prettier and plugins
+        run: npm install prettier prettier-plugin-blade prettier-plugin-tailwindcss
+
+      - name: run prettier
+        run: npx prettier --check .
