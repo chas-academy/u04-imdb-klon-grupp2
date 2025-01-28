@@ -16,14 +16,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('director');
             $table->integer('year');
-            $table->integer('duration');
-            $table->text('description');
-            $table->binary('poster');
-            $table->binary('cover_image');
+            $table->string('duration');
+            $table->string('description');
+            $table->string('poster');
+            $table->string('cover_image');
             $table->float('rating_average');
             $table->integer('rating_amount');
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
             $table->timestamps();
         });
     }
