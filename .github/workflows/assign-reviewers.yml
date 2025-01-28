@@ -2,11 +2,12 @@ on:
   pull_request:
     types: [opened, ready_for_review, reopened]
 
+permissions:
+  contents: write
+
 jobs:
   assign_reviewers:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: uesteibar/reviewer-lottery@v3
-        with:
-          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
