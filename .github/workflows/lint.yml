@@ -28,5 +28,13 @@ jobs:
       - name: run pint
         run: pint
 
+      - name: install prettier and plugins
+        run: npm install prettier prettier-plugin-blade prettier-plugin-tailwindcss
+
+      - name: run prettier
+        run: npx prettier --write .
+
       - name: commit linted files
         uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: lint files"
