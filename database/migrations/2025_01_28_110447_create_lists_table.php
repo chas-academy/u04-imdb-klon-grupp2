@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('lists', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 80);
+            $table->string('description')->nullable();
+            $table->enum('visability', ['public', 'private', 'friends']);
             $table->timestamps();
         });
     }
