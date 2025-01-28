@@ -1,11 +1,11 @@
 services:
-    mariadb:
-        image: mariadb:latest
-        restart: always
-        environment:
-            MYSQL_USER: mariadb
-            MYSQL_PASSWORD: mariadb
-            MYSQL_DATABASE: imdb-clone
-            MARIADB_ROOT_PASSWORD: mariadb
-        ports:
-            - 3306:3306
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: mariadb
+      MYSQL_DATABASE: imdb-clone
+      MARIADB_ROOT_PASSWORD: mariadb
+    ports:
+      - 3306:3306
