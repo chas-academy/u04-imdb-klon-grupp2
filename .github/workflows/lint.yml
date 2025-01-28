@@ -26,15 +26,10 @@ jobs:
         run: composer global require laravel/pint
 
       - name: run pint
-        run: pint
+        run: pint --test
 
       - name: install prettier and plugins
         run: npm install prettier prettier-plugin-blade prettier-plugin-tailwindcss
 
       - name: run prettier
-        run: npx prettier --write .
-
-      - name: commit linted files
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: lint files"
+        run: npx prettier --check .
