@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'genres';
-    public $timestamps =true;
-    protected $fillable = [ 'name',];
+
+    public $timestamps = true;
+
+    protected $fillable = ['name'];
 }
