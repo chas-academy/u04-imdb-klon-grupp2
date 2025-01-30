@@ -9,6 +9,6 @@ class Movie extends Model
 {
     public function lists(): BelongsToMany
     {
-        return $this->belongsToMany(MovieList::class, 'list_movie')->withTimestamps();
+        return $this->belongsToMany(MovieList::class, 'list_id')->withTimestamps();
     }
 }
