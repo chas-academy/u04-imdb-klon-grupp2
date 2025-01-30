@@ -42,13 +42,11 @@ class MovieFactory extends Factory
             'https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_.jpg',
             'https://m.media-amazon.com/images/M/MV5BMzdhODkyYmUtMzE3ZS00YmQxLThlMGItNTQwNGJmYTk3ZjE3XkEyXkFqcGc@._V1_QL75_UY281_CR7,0,190,281_.jpg',
             'https://m.media-amazon.com/images/M/MV5BNTg1Y2U0ZmQtMDhiMy00OWYzLWI1OWMtNzUxOWE3MGNlZjc1XkEyXkFqcGc@._V1_.jpg',
-
-
         ];
 
         return [
-            'title' => fake()->sentence(),
-            'description' => fake()->text(255),
+            'title' => fake()->realText(rand(10, 40)),
+            'description' => fake()->realText(rand(20, 255)),
             'director' => fake()->name(),
             'year' => fake()->year(),
             'duration' => fake()->numberBetween(60, 180),
