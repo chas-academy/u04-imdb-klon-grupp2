@@ -1,7 +1,7 @@
 <div>
-    <footer class="bg-slate-800 py-2 text-slate-50">
+    <footer class="bg-slate-800 py-2 text-xs leading-4 text-[#818CF8]">
         <div class="container mx-auto text-center">
-            <p class="text-xs">&copy; {{ date('Y') }} Made by Grupp 2</p>
+            <p>&copy; {{ date('Y') }} Made by Grupp 2</p>
         </div>
     </footer>
 </div>
