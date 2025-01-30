@@ -5,6 +5,7 @@
 
 @php
     $posters = array_pad($posters, 4, ['src' => null, 'alt' => null]);
+    $posters = array_slice($posters, 0, 4);
 @endphp
 
 <div {{ $attributes->merge(['class' => 'flex flex-col gap-2']) }}>
