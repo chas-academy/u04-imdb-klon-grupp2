@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Movie extends Model
 {
-    public function lists(): BelongsToMany
+    public function lists(): HasMany
     {
-        return $this->belongsToMany(MovieList::class, 'list_id')->withTimestamps();
+        return $this->hasMany(Movie::class);
     }
 }
