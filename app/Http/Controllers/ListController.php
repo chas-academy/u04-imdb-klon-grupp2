@@ -34,7 +34,7 @@ class ListController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MovieList $movieList)
+    public function show(MovieList $list)
     {
         //
     }
@@ -42,7 +42,7 @@ class ListController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MovieList $movieList)
+    public function edit(MovieList $list)
     {
         //
     }
@@ -50,7 +50,7 @@ class ListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, MovieList $movieList)
+    public function update(Request $request, MovieList $list)
     {
         //
     }
@@ -58,7 +58,7 @@ class ListController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MovieList $movieList)
+    public function destroy(MovieList $list)
     {
         //
     }
