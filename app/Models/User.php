@@ -50,7 +50,9 @@ class User extends Authenticatable
     public function lists()
     {
         return $this->belongsToMany(MovieList::class, 'list_users')
-            ->withPivot('status', 'role') // Include pivot data
-            ->withTimestamps(); // Automatically manage created_at and updated_at
+            ->withPivot('status', 'role')
+            // Include pivot data
+            ->withTimestamps();
+        // Automatically manage created_at and updated_at
     }
 }
