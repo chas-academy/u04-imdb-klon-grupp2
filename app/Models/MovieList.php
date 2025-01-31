@@ -13,4 +13,12 @@ class MovieList extends Model
     {
         return $this->belongsToMany(MovieList::class, 'list_id');
     }
+
+    // Define the many-to-many relationship with User
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'list_users')
+            ->withPivot('status', 'role') // If you want to access pivot data
+            ->withTimestamps(); // Automatically manage created_at and updated_at
+    }
 }

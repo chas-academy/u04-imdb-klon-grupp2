@@ -2,6 +2,7 @@
 
 use App\Models\MovieList;
 use App\Models\User;
+use App\Models\UserMany;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'accepted']);
             $table->enum('role', ['owner', 'collaborator']);
             $table->foreignIdFor(MovieList::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class, 'user_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
