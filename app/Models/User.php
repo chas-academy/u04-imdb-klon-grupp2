@@ -45,4 +45,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Many-to-many relationship with MovieList
+    public function lists()
+    {
+        return $this->belongsToMany(MovieList::class, 'list_users')
+            ->withPivot('status', 'role') // Include pivot data
+            ->withTimestamps(); // Automatically manage created_at and updated_at
+    }
 }
