@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Genre;
 use App\Models\Movie;
 use Database\Factories\ListFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,5 +17,12 @@ class DatabaseSeeder extends Seeder
     {
         Movie::factory(100)->create();
         ListFactory::new()->count(10)->create();
+
+        // Generates the genres statically
+        $genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Science Fiction', 'Thriller', 'Romance'];
+
+        foreach ($genres as $genre) {
+            Genre::create(['name' => $genre]);
+        }
     }
 }
