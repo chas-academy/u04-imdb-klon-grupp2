@@ -9,7 +9,10 @@
     $posters = array_slice($posters, 0, 4);
 @endphp
 
-<a href="{{ $link }}" {{ $attributes->merge(['class' => 'flex cursor-pointer flex-col gap-2 transition hover:scale-102']) }}>
+<a
+    href="{{ $link }}"
+    {{ $attributes->merge(['class' => 'flex cursor-pointer flex-col gap-2 transition hover:scale-102']) }}
+>
     <div class="grid grid-cols-2 overflow-hidden rounded-xs">
         @foreach ($posters as $poster)
             <x-poster
@@ -19,5 +22,5 @@
             />
         @endforeach
     </div>
-    <p class="font-bold">{{ $title }}</p>
-</div>
+    <p class="line-clamp-3 text-base/snug font-bold">{{ $title }}</p>
+</a>
