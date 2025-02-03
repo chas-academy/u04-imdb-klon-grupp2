@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Movie extends Model
 {
-    use HasFactory;
-
-    public function lists(): HasMany
+    public function lists(): BelongsToMany
     {
-        return $this->hasMany(Movie::class);
+        return $this->belongsToMany(MovieList::class, 'list_movie', 'movie_id', 'list_id');
     }
 }
