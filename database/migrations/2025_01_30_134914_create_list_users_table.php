@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->enum('status', ['pending', 'accepted']);
             $table->enum('role', ['owner', 'collaborator']);
-            $table->foreignIdFor(MovieList::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(MovieList::class, 'list_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'user_id')->constrained()->onDelete('cascade');
+            $table->unique(['user_id', 'list_id']);
             $table->timestamps();
         });
     }

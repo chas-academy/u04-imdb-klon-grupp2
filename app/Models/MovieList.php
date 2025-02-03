@@ -17,7 +17,7 @@ class MovieList extends Model
     // Define the many-to-many relationship with User
     public function users()
     {
-        return $this->belongsToMany(User::class, 'list_users')
+        return $this->belongsToMany(User::class, 'list_users', 'list_id', 'user_id')  // Explicitly defining the foreign key and related key
             ->withPivot('status', 'role') // If you want to access pivot data
             ->withTimestamps(); // Automatically manage created_at and updated_at
     }
