@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/sign-up', function () {
+    return view('auth.sign-up');
+});
+
 Route::get('/log-in', function () {
     return view('auth.log-in');
 });
