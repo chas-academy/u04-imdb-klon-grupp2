@@ -32,7 +32,7 @@ class Friend extends Model
    const STATUS_ACCEPTED = 'accepted';
    const STATUS_DECLINED = 'declined';
 
-   public static status = [
+   public static $status = [
     self::STATUS_PENDING,
     self::STATUS_ACCEPTED,
     self::STATUS_DECLINED,
