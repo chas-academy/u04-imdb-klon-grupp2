@@ -39,6 +39,10 @@ Route::get('/review/{id}', function () {
     return view('review');
 });
 
+Route::get('/list/{id}', function () {
+    return view('movieList');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
