@@ -27,6 +27,14 @@ Route::get('/review/{id}', function () {
     return view('review');
 });
 
+Route::get('/u/{username}/reviews', function () {
+    return view('reviews');
+});
+
+Route::get('/m/{movieTitle}-{id}/reviews', function () {
+    return view('reviews');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
