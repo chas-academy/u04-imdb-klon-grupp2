@@ -15,8 +15,9 @@ class CreateListMovieTable extends Migration
     {
         Schema::create('list_movie', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdfor(MovieList::class, 'list_id')->constrained()->onDelete('cascade');
-            $table->foreignIdfor(Movie::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(MovieList::class, 'list_id')->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Movie::class)->constrained()->onDelete('cascade');
+            $table->unique(['list_id', 'movie_id']); // Composite unique key to prevent duplicates
             $table->timestamps();
         });
     }
