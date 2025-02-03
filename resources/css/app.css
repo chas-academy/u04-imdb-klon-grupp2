@@ -5,3 +5,14 @@
 @theme {
   --font-primary: 'Outfit', sans-serif;
 }
+
+@layer base {
+  * {
+    @apply outline-offset-1 outline-indigo-300;
+  }
+
+  *:focus,
+  *:focus-visible {
+    @apply outline-1;
+  }
+}
