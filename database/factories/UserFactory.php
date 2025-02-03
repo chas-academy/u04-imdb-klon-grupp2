@@ -24,9 +24,13 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'username' => fake()->unique()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'image' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D',
+            'role' => fake()->randomElement(['user', 'admin']),
+            'banned_until' => fake()->optional()->dateTimeBetween('now', '+1 year'),
+            'banned_total' => fake()->numberBetween(0, 10),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
