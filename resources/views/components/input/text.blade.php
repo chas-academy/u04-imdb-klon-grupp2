@@ -1,10 +1,13 @@
 @props([
     'name',
+    'label',
     'placeholder',
 ])
 
 <div {{ $attributes->class('flex flex-col gap-1') }}>
-    <x-input.label for="{{ $name }}">test</x-input.label>
+    <x-input.label for="{{ $name }}">
+        {{ $label }}
+    </x-input.label>
     <input
         type="text"
         id="{{ $name }}"
