@@ -9,7 +9,7 @@
 ])
 
 @php
-    $formattedDate = format_date($created_at);
+    $formattedDate = formatDate($created_at);
 @endphp
 
 <a
