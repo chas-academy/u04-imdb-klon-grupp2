@@ -4,6 +4,9 @@
 
 @theme {
   --font-primary: 'Outfit', sans-serif;
+
+  --spacing-header-mobile: 4rem;
+  --spacing-header-desktop: 5rem;
 }
 
 @layer base {

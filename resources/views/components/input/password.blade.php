@@ -25,6 +25,7 @@
 
         <x-button
             x-show="hidden"
+            x-cloak
             @click="hidden = !hidden"
             variant="icon"
             srLabel="Show password"
