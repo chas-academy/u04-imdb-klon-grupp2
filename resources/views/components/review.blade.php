@@ -8,6 +8,10 @@
     'username' => null,
 ])
 
+@php
+    $formattedDate = format_date($created_at);
+@endphp
+
 <a
     {{ $attributes->class('pointer flex max-w-sm cursor-pointer rounded-lg bg-slate-700 p-2 text-white shadow-lg transition hover:scale-102') }}
     href="{{ $link }}"
@@ -32,7 +36,7 @@
             @endif
 
             <p class="text-xs text-slate-400">
-                {{ $created_at }}
+                {{ $formattedDate }}
             </p>
         </div>
     </div>
