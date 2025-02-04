@@ -44,31 +44,31 @@ Route::get('/list/{id}', function () {
 });
 
 Route::get('/admin', function () {
-    return view('admin');
+    return view('admin.admin');
 });
 
 Route::get('/admin/create-movie', function () {
-    return view('create-movie');
+    return view('admin.create-movie');
 });
 
 Route::get('/admin/create-user', function () {
-    return view('create-user');
+    return view('admin.create-user');
 });
 
 Route::get('/admin/users', function () {
-    return view('users');
+    return view('admin.users');
 });
 
 Route::get('/admin/featured', function () {
-    return view('featured-lists');
+    return view('admin.featured-lists');
 });
 
 Route::get('/admin/reports/users', function () {
-    return view('reported-users');
+    return view('admin.reported-users');
 });
 
 Route::get('/admin/reports/reviews', function () {
-    return view('reported-reviews');
+    return view('admin.reported-reviews');
 });
 
 Route::get('/dashboard', function () {
