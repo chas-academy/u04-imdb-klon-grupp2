@@ -6,10 +6,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateReportsTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up(): void
     {
@@ -17,23 +19,29 @@ return new class extends Migration
             $table->id();
             $table->string('reason');
             $table->boolean('decision_made')->default(0);
-            $table->foreignIdFor(Review::class)                  
+
+            // Correct way to make foreign keys nullable with foreignIdFor in Laravel 11
+            $table->foreignIdFor(Review::class)
                 ->nullable() // Makes the foreign key optional
                 ->constrained()
                 ->onDelete('cascade');
+                
             $table->foreignIdFor(User::class)
                 ->nullable() // Makes the foreign key optional
                 ->constrained()
                 ->onDelete('cascade');
+                
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down(): void
     {
         Schema::dropIfExists('reports');
     }
-};
+}
