@@ -20,11 +20,11 @@ class CreateReportsTable extends Migration
             $table->foreignIdFor(Review::class)
                 ->nullable() // Makes the foreign key optional
                 ->constrained()
-                ->onDelete('cascade');          
+                ->onDelete('cascade');
             $table->foreignIdFor(User::class)
                 ->nullable() // Makes the foreign key optional
                 ->constrained()
-                ->onDelete('cascade');     
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
