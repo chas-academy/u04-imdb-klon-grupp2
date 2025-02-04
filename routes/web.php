@@ -19,8 +19,16 @@ Route::get('/u/{username}', function () {
     return view('profile');
 });
 
+Route::get('/u/{username}/reviews', function () {
+    return view('reviews');
+});
+
 Route::get('/m/{id}/{title}', function () {
     return view('movie');
+});
+
+Route::get('/m/{id}/{title}/reviews', function () {
+    return view('reviews');
 });
 
 Route::get('/review/{id}', function () {
