@@ -19,20 +19,20 @@ Route::get('/u/{username}', function () {
     return view('profile');
 });
 
-Route::get('/m/{id}/{title}', function () {
-    return view('movie');
-});
-
-Route::get('/review/{id}', function () {
-    return view('review');
-});
-
 Route::get('/u/{username}/reviews', function () {
     return view('reviews');
 });
 
+Route::get('/m/{id}/{title}', function () {
+    return view('movie');
+});
+
 Route::get('/m/{id}/{title}/reviews', function () {
     return view('reviews');
+});
+
+Route::get('/review/{id}', function () {
+    return view('review');
 });
 
 Route::get('/dashboard', function () {
