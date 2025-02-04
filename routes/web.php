@@ -40,7 +40,7 @@ Route::get('/review/{id}', function () {
 });
 
 Route::get('/list/{id}', function () {
-    return view('movieList');
+    return view('movie-list');
 });
 
 Route::get('/dashboard', function () {
