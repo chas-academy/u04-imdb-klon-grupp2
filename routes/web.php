@@ -15,6 +15,10 @@ Route::get('/log-in', function () {
     return view('auth.log-in');
 });
 
+Route::get('/u/{username}', function () {
+    return view('profile');
+});
+
 Route::get('/review/{id}', function () {
     return view('review');
 });
