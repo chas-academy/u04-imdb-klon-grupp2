@@ -31,7 +31,7 @@ Route::get('/u/{username}/reviews', function () {
     return view('reviews');
 });
 
-Route::get('/m/{movieTitle}/{id}/reviews', function () {
+Route::get('/m/{id}/{title}/reviews', function () {
     return view('reviews');
 });
 
