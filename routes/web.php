@@ -55,6 +55,10 @@ Route::get('/admin/create-movie', function () {
     return view('create-movie');
 });
 
+Route::get('/admin/create-user', function () {
+    return view('create-user');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
