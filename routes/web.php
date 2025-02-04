@@ -15,6 +15,10 @@ Route::get('/log-in', function () {
     return view('auth.log-in');
 });
 
+Route::get('/review/{id}', function () {
+    return view('review');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
