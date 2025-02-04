@@ -71,6 +71,10 @@ Route::get('/admin/reports/users', function () {
     return view('reported-users');
 });
 
+Route::get('/admin/reports/reviews', function () {
+    return view('reported-reviews');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
