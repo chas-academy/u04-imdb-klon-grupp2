@@ -63,6 +63,10 @@ Route::get('/admin/users', function () {
     return view('users');
 });
 
+Route::get('/admin/featured', function () {
+    return view('featured-lists');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
