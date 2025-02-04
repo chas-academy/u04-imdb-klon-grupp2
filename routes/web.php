@@ -35,10 +35,6 @@ Route::get('/m/{id}/{title}/reviews', function () {
     return view('reviews');
 });
 
-Route::get('/admin', function () {
-    return view('admin');
-});
-
 Route::get('/review/{id}', function () {
     return view('review');
 });
