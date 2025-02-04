@@ -28,6 +28,7 @@
     <x-button
         variant="icon"
         srLabel="Clear search"
+        type="button"
         x-show="search.length > 0"
         @click="clear()"
     >
