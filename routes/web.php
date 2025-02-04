@@ -59,6 +59,10 @@ Route::get('/admin/create-user', function () {
     return view('create-user');
 });
 
+Route::get('/admin/users', function () {
+    return view('users');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
