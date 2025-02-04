@@ -13,13 +13,13 @@
 @endphp
 
 <a
-    {{ $attributes->class('pointer flex max-w-sm cursor-pointer rounded-lg bg-slate-700 p-2 text-white shadow-lg transition hover:scale-102') }}
+    {{ $attributes->class('pointer flex max-w-sm cursor-pointer rounded-sm bg-slate-700 p-2 transition hover:scale-102') }}
     href="{{ $link }}"
 >
-    <x-poster alt="Image for {{ $title }}" :src="$image" class="w-28" />
+    <x-poster :src="$image" class="w-28" alt="Image for {{ $title }}" />
 
-    <div class="ml-4 flex flex-col gap-2">
-        <div class="flex items-start gap-2">
+    <div class="ml-3 flex flex-col">
+        <div class="flex items-start justify-between gap-2">
             <h2 class="text-lg font-bold text-slate-50">
                 {{ $title }}
             </h2>
@@ -35,7 +35,7 @@
                 </p>
             @endif
 
-            <p class="text-xs text-slate-400">
+            <p class="ml-auto text-xs text-slate-400">
                 {{ $formattedDate }}
             </p>
         </div>
