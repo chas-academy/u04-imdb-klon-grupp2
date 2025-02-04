@@ -2,6 +2,7 @@
     'name',
     'label',
     'placeholder',
+    'error',
 ])
 
 <div
@@ -39,4 +40,5 @@
             <x-lucide-eye-off class="size-6 text-slate-400" />
         </x-button>
     </div>
+    <x-input.error message="{{ $error }}" />
 </div>
