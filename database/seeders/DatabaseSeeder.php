@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Report;
+use App\Models\Review;
 use App\Models\User;
 use Database\Factories\ListFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -49,5 +50,6 @@ class DatabaseSeeder extends Seeder
         }
 
         Report::factory(20)->create();
+        Review::factory(50)->create();
     }
 }
