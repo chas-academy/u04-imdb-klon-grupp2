@@ -49,6 +49,5 @@ class DatabaseSeeder extends Seeder
         }
 
         Report::factory(20)->create();
-
     }
 }
