@@ -6,7 +6,7 @@ use App\Models\Movie;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
@@ -27,10 +27,10 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'content' => $this->faker->paragraph, // Random review content
-            'rating' => $this->faker->numberBetween(1, 10), // Random rating between 1 and 10
-            'movie_id' => Movie::factory(), // Create a movie if none exists
-            'user_id' => User::factory(), // Create a user if none exists
+            'user_id' => User::factory(),
+            'movie_id' => Movie::factory(),
+            'rating' => $this->faker->numberBetween(1, 10),
+            'content' => $this->faker->paragraph,
         ];
     }
 }
