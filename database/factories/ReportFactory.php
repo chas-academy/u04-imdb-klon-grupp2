@@ -24,9 +24,9 @@ class ReportFactory extends Factory
     public function definition(): array
     {
         return [
-            'review_id' => Review::factory(), // Create a review if none exists
-            'reason' => $this->faker->paragraph, // Random reason
-            'user_id' => User::factory(), // Create a user if none exists
+            'review_id' => Review::factory(),
+            'reason' => $this->faker->paragraph,
+            'user_id' => User::factory(),
         ];
     }
 }
