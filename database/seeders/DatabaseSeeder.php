@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Review;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\User;
@@ -27,9 +28,7 @@ class DatabaseSeeder extends Seeder
         foreach ($genres as $genre) {
             Genre::create(['name' => $genre]);
         }
-        // call the ReviewSeeder
-        $this->call([
-            ReportSeeder::class,
-        ]);
+
+        Report::factory(20)->create();
     }
 }
