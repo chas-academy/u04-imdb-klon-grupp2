@@ -12,7 +12,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        return view('home');
     }
 
     /**
@@ -20,7 +20,7 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create-movie');
     }
 
     /**
@@ -34,15 +34,15 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Movie $list)
+    public function show(Movie $movie)
     {
-        //
+        return view('movie');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Movie $list)
+    public function edit(Movie $movie)
     {
         //
     }
@@ -50,7 +50,7 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Movie $list)
+    public function update(Request $request, Movie $movie)
     {
         //
     }
@@ -58,7 +58,7 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movie $list)
+    public function destroy(Movie $movie)
     {
         //
     }

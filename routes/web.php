@@ -1,84 +1,44 @@
 <?php
 
+use App\Http\Controllers\ListController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
+Route::controller(MovieController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/m/{id}/{title}', 'show')->name('movie');
 });
 
-Route::get('/sign-up', function () {
-    return view('auth.sign-up');
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('/u/{username}', 'show')->name('profile');
 });
 
-Route::get('/log-in', function () {
-    return view('auth.log-in');
+Route::controller(ListController::class)->group(function () {
+    Route::get('/u/{username}/lists', 'index')->name('lists');
+    Route::get('/list/{id}', 'show')->name('list');
 });
 
-Route::get('/u/{username}', function () {
-    return view('profile');
+Route::controller(ReviewController::class)->group(function () {
+    Route::get('/u/{username}/reviews', 'index')->name('reviews.user');
+    Route::get('/m/{id}/{title}/reviews', 'index')->name('reviews.movie');
+    Route::get('/review/{id}', 'show')->name('review');
 });
 
-Route::get('/u/{username}/lists', function () {
-    return view('lists');
-});
+// TODO: create admin middleware
+// FIXME: i think we need an admin controller?
+Route::middleware(['auth', 'admin'])->prefix('/admin')->group(function () {
+    Route::get('/', fn () => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('/create-movie', [MovieController::class, 'create'])->name('admin.create.movie');
+    Route::get('/create-user', fn () => view('admin.create-user'))->name('admin.create.user');
+    Route::get('/users', fn () => view('admin.users'))->name('admin.users');
+    Route::get('/featured', fn () => view('admin.featured-lists'))->name('admin.featured');
 
-Route::get('/u/{username}/reviews', function () {
-    return view('reviews');
-});
-
-Route::get('/m/{id}/{title}', function () {
-    return view('movie');
-});
-
-Route::get('/m/{id}/{title}/reviews', function () {
-    return view('reviews');
-});
-
-Route::get('/review/{id}', function () {
-    return view('review');
-});
-
-Route::get('/list/{id}', function () {
-    return view('movie-list');
-});
-
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-});
-
-Route::get('/admin/create-movie', function () {
-    return view('admin.create-movie');
-});
-
-Route::get('/admin/create-user', function () {
-    return view('admin.create-user');
-});
-
-Route::get('/admin/users', function () {
-    return view('admin.users');
-});
-
-Route::get('/admin/featured', function () {
-    return view('admin.featured-lists');
-});
-
-Route::get('/admin/reports/users', function () {
-    return view('admin.reported-users');
-});
-
-Route::get('/admin/reports/reviews', function () {
-    return view('admin.reported-reviews');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
+        Route::get('/users', 'index')->name('reports.user');
+        Route::get('/reviews', 'index')->name('reports.review');
+    });
 });
 
 require __DIR__.'/auth.php';
