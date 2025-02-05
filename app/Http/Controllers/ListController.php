@@ -12,7 +12,7 @@ class ListController extends Controller
      */
     public function index()
     {
-        //
+        return view('lists');
     }
 
     /**
@@ -36,7 +36,7 @@ class ListController extends Controller
      */
     public function show(MovieList $list)
     {
-        //
+        return view('movie-list');
     }
 
     /**
