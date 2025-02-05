@@ -28,6 +28,7 @@
             @click="hidden = !hidden"
             variant="icon"
             srLabel="Show password"
+            type="button"
         >
             <x-lucide-eye class="size-6 text-slate-400" />
         </x-button>
@@ -36,6 +37,7 @@
             @click="hidden = !hidden"
             variant="icon"
             srLabel="Hide password"
+            type="button"
         >
             <x-lucide-eye-off class="size-6 text-slate-400" />
         </x-button>
