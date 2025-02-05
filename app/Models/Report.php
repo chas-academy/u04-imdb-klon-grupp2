@@ -15,7 +15,7 @@ class Report extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
+        'reason',
         'review_id',
         'user_id',
     ];
