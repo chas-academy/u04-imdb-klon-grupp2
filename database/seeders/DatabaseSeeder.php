@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Review;
 use App\Models\Genre;
 use App\Models\Movie;
-use App\Models\User;
 use App\Models\Report;
+use App\Models\User;
 use Database\Factories\ListFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

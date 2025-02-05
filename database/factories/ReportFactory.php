@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Report;
-use App\Models\User;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReportFactory extends Factory
