@@ -35,10 +35,6 @@ Route::get('/m/{id}/{title}/reviews', function () {
     return view('reviews');
 });
 
-Route::get('/admin', function () {
-    return view('admin');
-});
-
 Route::get('/review/{id}', function () {
     return view('review');
 });
@@ -48,7 +44,31 @@ Route::get('/list/{id}', function () {
 });
 
 Route::get('/admin', function () {
-    return view('admin');
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/create-movie', function () {
+    return view('admin.create-movie');
+});
+
+Route::get('/admin/create-user', function () {
+    return view('admin.create-user');
+});
+
+Route::get('/admin/users', function () {
+    return view('admin.users');
+});
+
+Route::get('/admin/featured', function () {
+    return view('admin.featured-lists');
+});
+
+Route::get('/admin/reports/users', function () {
+    return view('admin.reported-users');
+});
+
+Route::get('/admin/reports/reviews', function () {
+    return view('admin.reported-reviews');
 });
 
 Route::get('/dashboard', function () {
