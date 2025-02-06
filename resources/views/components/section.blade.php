@@ -20,6 +20,7 @@
 
     function generateVariable(string $breakpoint, int $number)
     {
+        validateBreakpoint($breakpoint);
         return '--section-grid-cols-' . $breakpoint . ': repeat(' . $number . ', minmax(0, 1fr))';
     }
 
