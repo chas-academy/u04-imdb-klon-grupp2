@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('list_users', function (Blueprint $table) {
+        Schema::create('list_user', function (Blueprint $table) {
             $table->id();
             $table->enum('status', ['pending', 'accepted']);
             $table->enum('role', ['owner', 'collaborator']);
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_users');
+        Schema::dropIfExists('list_user');
     }
 };
