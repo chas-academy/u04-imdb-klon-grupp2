@@ -34,9 +34,11 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Review $review)
+    public function show($id)
     {
-        return view('review');
+        $review = Review::with(['user', 'movie'])->findOrFail($id);
+
+        return view('review', ['review' => $review]);
     }
 
     /**
