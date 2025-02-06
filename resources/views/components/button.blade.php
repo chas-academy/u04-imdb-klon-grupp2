@@ -18,7 +18,7 @@
 @endphp
 
 @if ($href)
-    <a {{ $attributes->merge(['class' => $classes]) }} href="{{ $href }}">
+    <a {{ $attributes->twMerge(['class' => $classes]) }} href="{{ $href }}">
         @isset($srLabel)
             <span class="sr-only">
                 {{ $srLabel }}
@@ -28,7 +28,7 @@
         {{ $slot }}
     </a>
 @else
-    <button {{ $attributes->merge(['class' => $classes]) }}>
+    <button {{ $attributes->twMerge(['class' => $classes]) }}>
         @isset($srLabel)
             <span class="sr-only">
                 {{ $srLabel }}

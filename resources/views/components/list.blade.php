@@ -11,7 +11,7 @@
 
 <a
     href="{{ $link }}"
-    {{ $attributes->merge(['class' => 'flex cursor-pointer flex-col gap-2 transition hover:scale-102']) }}
+    {{ $attributes->twMerge(['class' => 'flex cursor-pointer flex-col gap-2 transition hover:scale-102']) }}
 >
     <div class="grid grid-cols-2 overflow-hidden rounded-xs">
         @foreach ($posters as $poster)
