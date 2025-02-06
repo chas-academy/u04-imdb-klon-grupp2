@@ -1,24 +1,36 @@
 @props([
     'user',
+    'buttons',
     'stats' => [
                 'lists' => 0,
                 'reviews' => 0,
                 'friends' => 0
             ],
-    'layout' => 'desktop',
 ])
 
+<div class="flex relative w-full">
 
-<div class="bg-slate-800 flex flex-col gap-4 w-full p-4">
+    <div class="absolute top-0 right-0">
+        <x-lucide-ellipsis-vertical class="w-6 h-6 text-slate-50" />
+    </div>
 
-    <div class="flex flex-row gap-4 items-center w-auto">
-        <x-avatar :image="$user->image" size="md" />
+    <div class="flex flex-wrap flex-row gap-4 items-center w-full mr-6">
+        <div class="flex flex-none size-30 justify-center items-center">
+            @isset($user)
+                <x-avatar :image="$user->image" size="lg" />
+            @else
+                <x-avatar size="lg" />
+            @endisset
+        </div>
 
-        <div class="flex flex-col gap-3 text-slate-50 w-full">
+        <div class="flex grow flex-col gap-3 text-slate-50 pr-10">
             <div class="text-lg font-bold">
-                {{$user->username}}
+                @isset($user)
+                    {{$user->username}}
+                @else
+                    @username
+                @endisset
             </div>
-
             <div class="flex flex-row text-slate-50 gap-6">
                 @foreach ($stats as $stat => $sum)
                 <div class="flex flex-col">
@@ -32,34 +44,12 @@
                 @endforeach
             </div>
         </div>
-
-    @if ($layout === 'mobile')
-        <div class="self-start justify-self-end">
-            <x-lucide-ellipsis-vertical class="w-6 h-6 text-slate-50" />
+        
+        <div class="flex flex-none flex-row gap-2 self-start">
+            @isset($buttons)
+                {{ $buttons }}
+            @endisset
         </div>
     </div>
 
-    <div class="flex flex-row gap-2">
-        <x-button variant="primary" size="md" type="button">
-            Notifications
-        </x-button>
-        <x-button variant="secondary" size="md" type="button">
-            Edit
-        </x-button>
-    </div>
-    @endif
-
-    @if ($layout === 'desktop')
-        <div class="flex flex-row gap-2 self-start justify-self-end">
-            <x-button variant="primary" size="md" type="button">
-                Notifications
-            </x-button>
-            <x-button variant="secondary" size="md" type="button">
-                Edit
-            </x-button>
-        </div>
-        <div class="self-start justify-self-end">
-            <x-lucide-ellipsis-vertical class="w-6 h-6 text-slate-50" />
-        </div>
-    @endif
 </div>
