@@ -16,12 +16,12 @@
 @props([
     'label',
     'variant' => 'default',
-    'href' => null,
+    'href' => '#',
 ])
 
 @php
-    $baseClasses = 'block rounded-lg px-4 py-2 text-center transition-colors duration-200 ease-out ';
-    $hoverClasses = ' focus:outline-0 hover:bg-slate-600 focus:bg-slate-600';
+    $baseClasses = 'block rounded-lg px-4 py-2 text-center transition-all duration-200 ease-out';
+    $hoverClasses = 'cursor-pointer hover:bg-slate-600 focus:bg-slate-600 focus:outline-0';
 
     $variantClasses = match ($variant) {
         'highlights' => 'font-bold text-indigo-400',
@@ -32,7 +32,7 @@
 
 <a
     href="{{ $href }}"
-    class="{{ $baseClasses }} {{ $variantClasses }} {{ $hoverClasses }}"
+    {{ $attributes->merge(['class' => "$baseClasses $variantClasses $hoverClasses"]) }}
 >
     {{ $label }}
 </a>
