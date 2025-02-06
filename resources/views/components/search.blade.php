@@ -3,7 +3,7 @@
 ])
 
 <div
-    class="flex max-w-xs items-center gap-1 rounded-full bg-slate-700 px-4 py-2"
+    {{ $attributes->twMerge('flex max-w-xs items-center gap-1 rounded-full bg-slate-700 px-4 py-2') }}
     x-data="{
         search: '',
         clear() {
