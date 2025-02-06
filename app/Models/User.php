@@ -49,9 +49,9 @@ class User extends Authenticatable
 
     public function lists()
     {
-        return $this->belongsToMany(MovieList::class, 'list_user', 'user_id', 'list_id')  // Explicitly defining the foreign key and related key
-            ->withPivot('status', 'role') // Include pivot data
-            ->withTimestamps(); // Automatically manage created_at and updated_at
+        return $this->belongsToMany(MovieList::class, 'list_user', 'user_id', 'list_id')
+            ->withPivot('status', 'role')
+            ->withTimestamps();
     }
 
     protected function friendsOfMine(): BelongsToMany
