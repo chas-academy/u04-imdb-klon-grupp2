@@ -21,7 +21,7 @@
 
 @php
     $baseClasses = 'block rounded-lg px-4 py-2 text-center transition-all duration-200 ease-out';
-    $hoverClasses = 'cursor-pointer hover:bg-slate-600 focus:bg-slate-600 focus:outline-0';
+    $hoverClasses = 'hover:bg-slate-600 focus:bg-slate-600 focus:outline-0';
 
     $variantClasses = match ($variant) {
         'highlights' => 'font-bold text-indigo-400',
