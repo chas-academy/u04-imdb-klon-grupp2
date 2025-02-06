@@ -8,25 +8,46 @@
         </div>
     </div>
 
-    <form class="flex flex-col gap-8">
+    <form
+        method="post"
+        action="{{ route('sign-up') }}"
+        class="flex flex-col gap-8"
+    >
+        @csrf
+
         <div class="flex flex-col gap-4">
             <x-input.text
                 name="username"
+                :value="old('username')"
+                autofocus
+                autocomplete="username"
+                required
+                :error="$errors->first('username')"
                 label="Username"
                 placeholder="Enter your username"
             />
             <x-input.text
                 name="email"
+                :value="old('email')"
+                autocomplete="email"
+                required
+                :error="$errors->first('email')"
                 label="Email"
                 placeholder="Enter your email"
             />
             <x-input.password
                 name="password"
+                autocomplete="new-password"
+                required
+                :error="$errors->first('password')"
                 label="Password"
                 placeholder="Enter your password"
             />
             <x-input.password
-                name="confirm-password"
+                name="password_confirmation"
+                autocomplete="new-password"
+                required
+                :error="$errors->first('password_confirmation')"
                 label="Confirm your pasword"
                 placeholder="Enter your password again"
             />
@@ -42,7 +63,7 @@
 
     <div class="flex flex-col items-center font-bold">
         <span>Already have an account?</span>
-        <a href="{{ url('/log-in') }}" class="flex items-center gap-1">
+        <a href="{{ route('log-in') }}" class="flex items-center gap-1">
             <span class="text-indigo-300">Log in</span>
             <x-lucide-move-right class="size-6 text-indigo-200" />
         </a>

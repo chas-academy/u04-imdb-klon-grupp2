@@ -2,6 +2,7 @@
     'name',
     'label',
     'placeholder',
+    'value' => null,
     'error',
 ])
 
@@ -13,6 +14,7 @@
         type="text"
         id="{{ $name }}"
         name="{{ $name }}"
+        value="{{ $value }}"
         placeholder="{{ $placeholder }}"
         class="rounded-full bg-slate-700 px-4 py-2 text-base text-slate-50 placeholder:text-slate-400"
     />
