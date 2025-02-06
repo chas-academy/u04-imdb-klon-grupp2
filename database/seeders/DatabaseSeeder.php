@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Report;
 use App\Models\User;
 use Database\Factories\ListFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,5 +27,7 @@ class DatabaseSeeder extends Seeder
         foreach ($genres as $genre) {
             Genre::create(['name' => $genre]);
         }
+
+        Report::factory(20)->create();
     }
 }
