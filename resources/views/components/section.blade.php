@@ -10,25 +10,11 @@
 
     $twVariables = [];
 
-    function validateBreakpoint(string $breakpoint)
-    {
-        $validBreakpoints = ['base', 'sm', 'md', 'lg'];
-        if (! in_array($breakpoint, $validBreakpoints)) {
-            throw new Exception("$breakpoint is not a valid breakpoint");
-        }
-    }
-
-    function generateVariable(string $breakpoint, int $number)
-    {
-        validateBreakpoint($breakpoint);
-        return '--section-grid-cols-' . $breakpoint . ': repeat(' . $number . ', minmax(0, 1fr))';
-    }
-
     foreach ($columns as $breakpoint => $number) {
         if ($breakpoint === 0) {
-            $twVariables[] = generateVariable('base', $number);
+            $twVariables[] = generateSectionGridVariable('base', $number);
         } else {
-            $twVariables[] = generateVariable($breakpoint, $number);
+            $twVariables[] = generateSectionGridVariable($breakpoint, $number);
         }
     }
 
@@ -49,7 +35,7 @@
     {{ $slot }}
     @if ($scrollableOnMobile)
         <div
-            class="gradient pointer-events-none fixed -right-4 h-full w-12 bg-linear-to-l from-slate-800 to-slate-800/0 sm:hidden"
+            class="gradient pointer-events-none sticky -right-4 min-h-full min-w-12 bg-linear-to-l from-slate-800 to-slate-800/0 sm:hidden"
         ></div>
     @endif
 </section>
