@@ -25,7 +25,7 @@ class ReportFactory extends Factory
     {
         return [
             'review_id' => Review::factory(),
-            'reason' => $this->faker->paragraph,
+            'reason' => $this->faker->paragraph(rand(50, 255)),
             'user_id' => User::factory(),
         ];
     }
