@@ -30,7 +30,7 @@ class ReviewFactory extends Factory
             'user_id' => User::factory(),
             'movie_id' => Movie::factory(),
             'rating' => $this->faker->numberBetween(1, 10),
-            'content' => $this->faker->paragraph(rand(50, 800)),
+            'content' => $this->faker->realText(rand(50, 800)),
         ];
     }
 }
