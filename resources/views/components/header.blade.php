@@ -1,5 +1,5 @@
 <header
-    class="fixed flex h-16 w-full max-w-5xl items-center justify-between bg-slate-800/90 px-6 backdrop-blur-sm has-[.search-open]:px-4 sm:h-20"
+    class="fixed flex h-16 w-full max-w-5xl items-center justify-between bg-slate-800/90 px-6 backdrop-blur-sm sm:h-20"
 >
     <a href="/">
         <img src="{{ asset('images/logo.svg') }}" alt="Popco logo" />
