@@ -21,4 +21,5 @@
             @endforeach
         </x-section>
     </div>
+    <x-input.rating rating="8" label="Rating:" />
 </x-layout>
