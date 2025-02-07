@@ -17,17 +17,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
         Movie::factory(100)->create();
-        ListFactory::new()->count(10)->create();
+        $lists = ListFactory::new()->count(50)->create();
 
         // Generates the genres statically
         $genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Science Fiction', 'Thriller', 'Romance'];
+
+        foreach ($users as $user) {
+            $user->lists()->attach(
+                $lists->random(rand(1, 5))->pluck('id'),
+                [
+                    'status' => fake()->randomElement(['pending', 'accepted']),
+                    'role' => fake()->randomElement(['owner', 'collaborator']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+        }
 
         foreach ($genres as $genre) {
             Genre::create(['name' => $genre]);
         }
 
         Report::factory(20)->create();
+
     }
 }
