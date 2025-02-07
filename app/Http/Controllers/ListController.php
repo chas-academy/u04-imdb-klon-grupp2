@@ -11,12 +11,9 @@ class ListController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($username)
+    public function index()
     {
-        $user = User::where('username', $username)->firstOrFail();
-        $lists = $user->lists;
-
-        return view('lists', ['user' => $user, 'lists' => $lists]);
+        return view('lists');
     }
 
     /**
