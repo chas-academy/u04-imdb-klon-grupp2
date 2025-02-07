@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MovieList;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ListController extends Controller
@@ -10,9 +11,12 @@ class ListController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($username)
     {
-        return view('lists');
+        $user = User::where('username', $username)->firstOrFail();
+        $lists = $user->lists()->with('movies')->get();
+
+        return view('lists', ['user' => $user, 'lists' => $lists]);
     }
 
     /**
