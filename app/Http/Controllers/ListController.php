@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\MovieList;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class ListController extends Controller
