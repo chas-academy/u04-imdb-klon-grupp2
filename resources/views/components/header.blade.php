@@ -6,18 +6,30 @@
     </a>
 
     <nav class="flex items-center gap-4">
-        {{-- mobile --}}
         <x-button variant="icon" srLabel="Open search" class="sm:hidden">
             <x-lucide-search class="size-6 text-slate-50" />
         </x-button>
-        <x-button size="sm" href="{{ route('log-in') }}" class="sm:hidden">
-            Log in
-        </x-button>
-
-        {{-- desktop --}}
         <x-search placeholder="Search..." class="hidden w-80 sm:flex" />
-        <x-button size="md" href="{{ route('log-in') }}" class="hidden sm:flex">
-            Log in
-        </x-button>
+
+        @auth
+            <a
+                href="{{ route('profile', ['username' => auth()->user()->username]) }}"
+            >
+                <x-avatar size="sm" :image="auth()->user()->image" />
+            </a>
+        @endauth
+
+        @guest
+            <x-button size="sm" href="{{ route('log-in') }}" class="sm:hidden">
+                Log in
+            </x-button>
+            <x-button
+                size="md"
+                href="{{ route('log-in') }}"
+                class="hidden sm:flex"
+            >
+                Log in
+            </x-button>
+        @endguest
     </nav>
 </header>
