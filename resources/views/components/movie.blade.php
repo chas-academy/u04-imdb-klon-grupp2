@@ -7,7 +7,7 @@
 
 <a
     href="{{ $link }}"
-    {{ $attributes->merge(['class' => 'flex cursor-pointer flex-col gap-2 transition hover:scale-102']) }}
+    {{ $attributes->twMerge(['class' => 'flex cursor-pointer flex-col gap-2 transition hover:scale-102']) }}
 >
     <x-poster :src="$image" alt="Poster for {{ $title }}" />
     <div class="flex flex-col gap-0.5">
