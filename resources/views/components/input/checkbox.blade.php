@@ -4,55 +4,50 @@
     'checked' => false,
 ])
 
-<div class="float-left flex flex-col gap-1">
-    <!-- Label Text (Clickable) -->
+<div class="flex flex-col gap-1">
 
-    <label
-        for="{{ $name }}"
-        class="cursor-pointer text-sm font-medium text-slate-50"
-    >
+    <x-input.label for="{{ $name }}">
         {{ $label }}
-    </label>
+    </x-input.label>
 
-    <!-- Hidden Checkbox Input (Starts Unchecked) -->
     <input
         type="checkbox"
         id="{{ $name }}"
         name="{{ $name }}"
-        @if($checked) checked @endif
+        :checked="$checked"
         class="peer hidden"
     />
 
-    <!-- Custom Visual Checkbox -->
     <span
         tabindex="0"
         role="checkbox"
-        aria-checked="{{ $checked ? 'true' : 'false' }}"
-        class="h-6 w-6 cursor-pointer justify-center rounded border-2 border-slate-50 bg-indigo-400 peer-checked:border-indigo-400 peer-checked:bg-slate-50"
+        :aria-checked="$checked"
+        class="size-5 cursor-pointer justify-center rounded border-2 border-indigo-400 bg-slate-50 peer-checked:border-indigo-400 peer-checked:bg-indigo-400"
         onclick="toggleCheckbox('{{ $name }}')"
         onkeydown="handleKeyPress(event, '{{ $name }}')"
     >
-        <x-lucide-check class="h-5 w-5 text-slate-50" />
+        <x-lucide-check class="size-4 text-slate-50" />
     </span>
 </div>
 
 <script>
     function toggleCheckbox(checkboxId) {
         const checkbox = document.getElementById(checkboxId)
-        const visualCheckbox = checkbox.nextElementSibling // Get the <span>
+        const visualCheckbox = checkbox.nextElementSibling
 
-        checkbox.checked = !checkbox.checked // Toggle checkbox state
+        checkbox.checked = !checkbox.checked
         visualCheckbox.setAttribute(
             'aria-checked',
             checkbox.checked ? 'true' : 'false',
-        ) // Update aria-checked
-        checkbox.dispatchEvent(new Event('change')) // Fire change event for Livewire/Vue if needed
+        )
     }
 
     function handleKeyPress(event, checkboxId) {
         if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault() // Prevent scrolling on Space key
+            event.preventDefault()
             toggleCheckbox(checkboxId)
         }
     }
 </script>
+
+</div>
