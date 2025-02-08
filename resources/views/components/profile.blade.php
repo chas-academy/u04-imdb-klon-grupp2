@@ -31,7 +31,7 @@
                     @username
                 @endisset
             </div>
-            <div class="flex flex-row gap-6 text-slate-50">
+            <div class="flex gap-6 text-slate-50">
                 @foreach ($stats as $stat => $sum)
                     <div class="flex flex-col">
                         <p class="text-sm font-bold">
