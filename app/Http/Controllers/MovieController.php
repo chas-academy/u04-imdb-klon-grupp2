@@ -12,7 +12,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $topRatedMovies = Movie::orderByDesc('rating_average')->limit(11)->get();
+
+        return view('home', ['topRatedMovies' => $topRatedMovies]);
     }
 
     /**
