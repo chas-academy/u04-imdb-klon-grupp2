@@ -5,7 +5,6 @@
 ])
 
 <div class="flex flex-col gap-1">
-
     <x-input.label for="{{ $name }}">
         {{ $label }}
     </x-input.label>
@@ -29,7 +28,6 @@
         <x-lucide-check class="size-4 text-slate-50" />
     </span>
 </div>
-
 <script>
     function toggleCheckbox(checkboxId) {
         const checkbox = document.getElementById(checkboxId)
@@ -49,5 +47,3 @@
         }
     }
 </script>
-
-</div>
