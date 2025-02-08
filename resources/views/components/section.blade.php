@@ -21,7 +21,7 @@
     $styleAttributeValue = implode('; ', $twVariables);
 @endphp
 
-<section class="relative">
+<section class="relative max-w-full">
     <div
         style="{{ $styleAttributeValue }}"
         @class([
