@@ -11,7 +11,7 @@
 
 <div class="relative flex w-full">
     <div class="absolute top-0 right-0">
-        <x-lucide-ellipsis-vertical class="h-6 w-6 text-slate-50" />
+        <x-lucide-ellipsis-vertical class="size-6 text-slate-50" />
     </div>
 
     <div class="mr-6 flex w-full flex-row flex-wrap items-center gap-4">
