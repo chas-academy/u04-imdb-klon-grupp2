@@ -1,6 +1,6 @@
 @php
     $formattedDate = formatDate($review->created_at);
-    $backLabel = request('from') === 'movie' ? 'Back to movie' : 'Back to profile';
+    $backLabel = request('from') === 'movie' ? 'Back to movie' : (request('from') === 'profile' ? 'Back to profile' : 'Back');
     $backHref = url()->previous();
 @endphp
 
@@ -12,7 +12,7 @@
         backLabel="{{ $backLabel }}"
     />
     <div class="relative mt-3 flex items-center gap-4">
-        <x-poster class="w-32 sm:w-40" src="{{ $review->movie->poster}}" />
+        <x-poster class="w-32 sm:w-40" src="{{ $review->movie->cover_image}}" />
         <x-lucide-ellipsis-vertical
             class="absolute top-0 right-0 size-6 cursor-pointer text-slate-50 sm:-top-10"
         />
