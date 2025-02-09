@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,9 +15,21 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show($username): View
     {
-        return view('profile');
+        $profile = User::where('username', $username)
+            ->with(['reviews' => function ($query) {
+                $query->take(4)->with('movie');
+            }])
+            ->firstOrFail();
+
+        $isCurrentUserProfile = $username === Auth::user()->username;
+
+        return view('profile', [
+            'username' => $username,
+            'isCurrentUserProfile' => $isCurrentUserProfile,
+            'reviews' => $profile->reviews,
+        ]);
     }
 
     /**
