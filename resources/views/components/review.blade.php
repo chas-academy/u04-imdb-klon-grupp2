@@ -1,6 +1,6 @@
 @props([
     'title',
-    'description',
+    'content',
     'created_at',
     'rating',
     'image',
@@ -13,20 +13,22 @@
 @endphp
 
 <a
-    {{ $attributes->class('flex cursor-pointer gap-3 rounded-sm bg-slate-700 p-2 transition hover:scale-101') }}
+    {{ $attributes->class('flex gap-3 rounded-sm bg-slate-700 p-2 transition hover:scale-101') }}
     href="{{ $link }}"
 >
     <x-poster :src="$image" class="w-28" alt="Poster for {{ $title }}" />
 
     <div class="flex flex-1 flex-col gap-1">
-        <div class="flex justify-between gap-2">
-            <h2 class="text-lg font-bold text-slate-50">
-                {{ $title }}
-            </h2>
-            <x-rating :rating="$rating" size="md" />
-        </div>
+        <div class="flex-1 space-y-1">
+            <div class="flex justify-between gap-2">
+                <h2 class="text-lg font-bold text-slate-50">
+                    {{ $title }}
+                </h2>
+                <x-rating :rating="$rating" size="md" />
+            </div>
 
-        <p class="line-clamp-3 flex-1 text-slate-300">{{ $description }}</p>
+            <p class="line-clamp-3 text-slate-300">{{ $content }}</p>
+        </div>
 
         <div class="flex justify-between">
             @if ($username)
