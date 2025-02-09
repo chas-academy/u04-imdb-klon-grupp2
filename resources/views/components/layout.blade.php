@@ -10,7 +10,7 @@
     <body class="flex min-h-screen flex-col items-center">
         <x-header />
         <main
-            {{ $attributes->twMerge(['class' => 'mt-header-mobile md:mt-header-desktop mb-16 w-full max-w-5xl flex-1 px-4 md:mb-20']) }}
+            {{ $attributes->twMerge(['class' => 'mt-header-mobile sm:mt-header-desktop mb-16 w-full max-w-5xl flex-1 px-4 md:mb-20']) }}
         >
             {{ $slot }}
         </main>
