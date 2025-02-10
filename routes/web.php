@@ -27,11 +27,11 @@ Route::controller(ReviewController::class)->group(function () {
 });
 
 Route::middleware(['auth'])->prefix('/admin')->group(function () {
-    Route::get('/', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('/', fn () => view('admin.dashboard'))->name('admin.dashboard');
     Route::get('/create-movie', [MovieController::class, 'create'])->name('admin.create.movie');
-    Route::get('/create-user', fn() => view('admin.create-user'))->name('admin.create.user');
-    Route::get('/users', fn() => view('admin.users'))->name('admin.users');
-    Route::get('/featured', fn() => view('admin.featured-lists'))->name('admin.featured');
+    Route::get('/create-user', fn () => view('admin.create-user'))->name('admin.create.user');
+    Route::get('/users', fn () => view('admin.users'))->name('admin.users');
+    Route::get('/featured', fn () => view('admin.featured-lists'))->name('admin.featured');
 
     Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'index')->name('reports.user');
@@ -39,4 +39,4 @@ Route::middleware(['auth'])->prefix('/admin')->group(function () {
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
