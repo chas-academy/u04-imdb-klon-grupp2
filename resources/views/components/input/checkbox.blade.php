@@ -13,27 +13,30 @@
         type="checkbox"
         id="{{ $name }}"
         name="{{ $name }}"
-        :checked="$checked"
         class="peer hidden"
     />
 
     <span
         tabindex="0"
         role="checkbox"
-        :aria-checked="$checked"
-        class="size-5 cursor-pointer justify-center rounded border-2 border-indigo-400 bg-slate-50 peer-checked:border-indigo-400 peer-checked:bg-indigo-400"
+        aria-checked="{{ $checked ? 'true' : 'false' }}"
+        class="flex size-5 cursor-pointer items-center justify-center rounded border-1 border-indigo-400 bg-slate-50 peer-checked:border-indigo-400 peer-checked:bg-indigo-400"
         onclick="toggleCheckbox('{{ $name }}')"
         onkeydown="handleKeyPress(event, '{{ $name }}')"
     >
-        <x-lucide-check class="size-4 text-slate-50" />
+        <x-lucide-check class="size-5 text-slate-50" />
     </span>
 </div>
 <script>
     function toggleCheckbox(checkboxId) {
         const checkbox = document.getElementById(checkboxId)
-        const visualCheckbox = checkbox.nextElementSibling
 
         checkbox.checked = !checkbox.checked
+        checkbox.setAttribute('checked', checkbox.checked ? 'checked' : null)
+
+        const visualCheckbox = document.querySelector(
+            `[aria-checked][role="checkbox"][tabindex="0"]`,
+        )
         visualCheckbox.setAttribute(
             'aria-checked',
             checkbox.checked ? 'true' : 'false',
