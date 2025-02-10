@@ -5,9 +5,9 @@
 ])
 
 <div>
-    @if ($extraLabel)
+    @isset($extraLabel)
         <span class="text-sm text-indigo-400">{{ $extraLabel }}</span>
-    @endif
+    @endisset
 
     <a href="{{ $href }}" class="group flex flex-col">
         <div class="flex items-center gap-2">
