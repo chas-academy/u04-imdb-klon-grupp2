@@ -23,7 +23,7 @@ class ProfileController extends Controller
             }])
             ->firstOrFail();
 
-        $isCurrentUserProfile = $username === Auth::user()->username;
+        $isCurrentUserProfile = Auth::check() && $username === Auth::user()->username;
 
         return view('profile', [
             'username' => $username,

@@ -8,13 +8,12 @@
             <x-section-header.link
                 title="{!! $title !!}"
                 href="{{ route('reviews.user', ['username' => $username]) }}"
-                extraLabel=""
             />
             <x-section :columns="[1, 'md' => 2]">
                 @foreach ($reviews as $review)
                     <x-review
                         title="{!! $review->movie->title !!}"
-                        description="{!! $review->content !!}"
+                        content="{!! $review->content !!}"
                         created_at="{{ $review->created_at }}"
                         rating="{{ $review->rating }}"
                         image="{{ $review->movie->cover_image }}"
