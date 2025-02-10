@@ -4,6 +4,7 @@
     'placeholder',
     'value' => null,
     'error',
+    'color' => 'dark',
 ])
 
 <div
@@ -13,7 +14,13 @@
     <x-input.label for="{{ $name }}">
         {{ $label }}
     </x-input.label>
-    <div class="flex h-10 rounded-full bg-slate-700 px-3 py-2">
+    <div
+        @class([
+            'bg-slate-700' => $color === 'dark',
+            'bg-slate-600' => $color === 'light',
+            'flex h-10 rounded-full px-3 py-2',
+        ])
+    >
         <button @click="$refs.datepicker.showPicker()" class="rounded-xs px-1">
             <x-lucide-calendar class="size-4 text-slate-50" />
         </button>
