@@ -63,9 +63,11 @@
 
     <div class="flex flex-col items-center font-bold">
         <span>Already have an account?</span>
-        <a href="{{ route('log-in') }}" class="flex items-center gap-1">
-            <span class="text-indigo-300">Log in</span>
-            <x-lucide-move-right class="size-6 text-indigo-200" />
+        <a
+            href="{{ route('log-in') }}"
+            class="flex items-center gap-1 text-indigo-300 transition hover:text-indigo-400"
+        >
+            Log in
         </a>
     </div>
 </x-layout>
