@@ -38,9 +38,11 @@ class ListController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MovieList $list)
+    public function show($id)
     {
-        return view('movie-list');
+        $list = MovieList::with('movies')->findOrFail($id);
+        
+        return view('movie-list', compact('list'));
     }
 
     /**
