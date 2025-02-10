@@ -17,8 +17,6 @@ class MovieController extends Controller
         $topRatedMovies = Movie::orderByDesc('rating_average')->limit(11)->get();
         $movies = Movie::latest()->limit(30)->get();
 
-
-
         if (Auth::check()) {
             $user = User::findOrFail(Auth::user()->id);
             $lists = $user->lists()->with('movies')->latest()->get();
@@ -28,24 +26,24 @@ class MovieController extends Controller
                 return [
                     'id' => $list->id,
                     'title' => $list->title,
-                    'posters' => $list->movies->map(fn($movie) => [
+                    'posters' => $list->movies->map(fn ($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
                     ]),
                 ];
             });
 
-
             if ($latestList && $latestEdited && $latestList->id === $latestEdited->id) {
                 $latestEdited = $user->lists()->with('movies')->where('lists.id', '!=', $latestList->id)->latest('updated_at')->first();
             }
+
             return view('home', [
                 'topRatedMovies' => $topRatedMovies,
                 'myLists' => $lists,
                 'latestList' => $latestList,
                 'latestEdited' => $latestEdited,
                 'movies' => $movies,
-                'user' => $user
+                'user' => $user,
             ]);
         }
 
