@@ -26,9 +26,7 @@ Route::controller(ReviewController::class)->group(function () {
     Route::get('/review/{id}', 'show')->name('review');
 });
 
-// TODO: create admin middleware
-// FIXME: i think we need an admin controller?
-Route::middleware(['auth', 'admin'])->prefix('/admin')->group(function () {
+Route::middleware(['auth'])->prefix('/admin')->group(function () {
     Route::get('/', fn () => view('admin.dashboard'))->name('admin.dashboard');
     Route::get('/create-movie', [MovieController::class, 'create'])->name('admin.create.movie');
     Route::get('/create-user', fn () => view('admin.create-user'))->name('admin.create.user');
