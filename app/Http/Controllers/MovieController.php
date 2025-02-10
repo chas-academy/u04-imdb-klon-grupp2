@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -15,6 +17,40 @@ class MovieController extends Controller
         $topRatedMovies = Movie::orderByDesc('rating_average')->limit(11)->get();
 
         return view('home', ['topRatedMovies' => $topRatedMovies]);
+        $movies = Movie::latest()->limit(30)->get();
+
+        if (Auth::check()) {
+            $user = User::findOrFail(Auth::user()->id);
+            $lists = $user->lists()->with('movies')->latest()->get();
+            $latestList = $lists->first();
+            $latestEdited = $user->lists()->with('movies')->latest('updated_at')->first();
+            $lists = $lists->map(function ($list) {
+                return [
+                    'id' => $list->id,
+                    'title' => $list->title,
+                    'posters' => $list->movies->map(function ($movie) {
+                        return [
+                            'src' => $movie->poster,
+                            'title' => $movie->title,
+                        ];
+                    }),
+                ];
+            });
+
+            if ($latestList && $latestEdited && $latestList->id === $latestEdited->id) {
+                $latestEdited = $user->lists()->with('movies')->where('lists.id', '!=', $latestList->id)->latest('updated_at')->first();
+            }
+
+            return view('home', [
+                'myLists' => $lists,
+                'latestList' => $latestList,
+                'latestEdited' => $latestEdited,
+                'movies' => $movies,
+                'user' => $user,
+            ]);
+        }
+
+        return view('home', ['movies' => $movies]);
     }
 
     /**
