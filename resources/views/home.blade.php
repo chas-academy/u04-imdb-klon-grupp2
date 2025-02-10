@@ -93,10 +93,9 @@
 
     <div class="mt-16">
         <div class="mb-4">
-            <x-section-header.link
-                title="New Arrivals"
+            <x-section-header.no-link
+                title="Movies & Popcorn—The Perfect Pair!"
                 extraLabel="Movies"
-                href="{{ route('movies') }}"
             />
         </div>
         <x-section :columns="[3, 'sm' => 4, 'lg' => 6]">
