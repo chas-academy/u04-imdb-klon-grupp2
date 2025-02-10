@@ -1,6 +1,6 @@
 @props([
     'title',
-    'extraLabel',
+    'extraLabel' => null,
     'href',
     'backLabel',
 ])

@@ -12,7 +12,8 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        return view('reviews');
+        $reviews = Review::with(['user', 'movie'])->latest()->get();
+        return view('reviews', ['reviews' => $reviews]);
     }
 
     /**
