@@ -30,6 +30,10 @@
     scrollbar-width: none;
   }
 
+  .hide-calendar-picker-indicator::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
   /* this is used by alpine.js to properly hide elements on load */
   [x-cloak] {
     @apply hidden;
