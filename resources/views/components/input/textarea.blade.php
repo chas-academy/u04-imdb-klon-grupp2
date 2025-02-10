@@ -19,10 +19,10 @@
         @class([
             'bg-slate-700' => $color === 'dark',
             'bg-slate-600' => $color === 'light',
-            'resize-none rounded-lg px-4 py-2 text-base text-slate-50 placeholder:text-slate-400',
+            'resize-none rounded-2xl px-4 py-2 text-base text-slate-50 placeholder:text-slate-400',
         ])
     >
-        {{ $value }}
-    </textarea>
+{{ $value }}</textarea
+    >
     <x-input.error message="{{ $error }}" />
 </div>
