@@ -18,8 +18,11 @@
                 >
                     <x-poster src="{{ $movie->poster }}" class="size-full" />
                 </a>
+            @endforeach
+        </x-section>
+    </div>
     @auth
-        <div class="mb-4">
+        <div class="mt-16 mb-4">
             <x-section-header.link
                 title="My List"
                 href="{{ route('lists', ['username' => auth()->user()->username]) }}"
@@ -80,7 +83,7 @@
                         :title="$movie->title"
                         :image="$movie->poster"
                         :rating="$movie->rating_average"
-                        class="w-40 md:sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                        class="w-40 sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
                         link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
                     />
                 @endforeach
