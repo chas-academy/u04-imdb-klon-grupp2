@@ -21,5 +21,4 @@
             @endforeach
         </x-section>
     </div>
-    <x-input.checkbox name="admin" label="Is admin:" checked="false" />
 </x-layout>
