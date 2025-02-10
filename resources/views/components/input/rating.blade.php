@@ -1,7 +1,7 @@
 <div x-data="{ rating: 0 }" class="flex flex-col gap-1">
-    <span class="font-semibold text-slate-50" id="rating-label">
+    <x-input.label for="{{ $name }}">
         {{ $label }}
-    </span>
+    </x-input.label>
 
     <div
         class="flex space-x-1"
