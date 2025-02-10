@@ -53,7 +53,7 @@
             href="{{ route('sign-up') }}"
             class="flex items-center gap-1 text-indigo-300 transition hover:text-indigo-400"
         >
-            Sign in
+            Sign up
         </a>
     </div>
 </x-layout>
