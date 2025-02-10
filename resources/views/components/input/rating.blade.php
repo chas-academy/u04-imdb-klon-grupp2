@@ -11,7 +11,6 @@
         @for ($i = 1; $i <= 10; $i++)
             <button
                 type="button"
-                class="focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                 aria-label="Rate {{ $i }} star{{ $i > 1 ? 's' : '' }}"
                 role="radio"
                 :aria-checked="rating === {{ $i }} ? 'true' : 'false'"
