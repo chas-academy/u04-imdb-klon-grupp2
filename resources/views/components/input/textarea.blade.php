@@ -14,9 +14,9 @@
         name="{{ $name }}"
         placeholder="{{ $placeholder }}"
         rows="4"
-        style="resize: none"
-        class="rounded-lg bg-slate-700 px-4 py-2 text-base text-slate-50 placeholder:text-slate-400"
+        class="resize-none rounded-lg bg-slate-700 px-4 py-2 text-base text-slate-50 placeholder:text-slate-400"
     >
-{{ $value }}</textarea
-    >
+        {{ $value }}
+    </textarea>
+    <x-input.error message="{{ $error }}" />
 </div>
