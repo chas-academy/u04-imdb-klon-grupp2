@@ -26,7 +26,7 @@
         style="{{ $styleAttributeValue }}"
         @class([
             'grid *:size-full' => ! $scrollableOnMobile,
-            'hide-scrollbar -mr-4 flex snap-x overflow-x-scroll pr-4 *:snap-start *:not-[.gradient]:min-w-32 sm:mr-0 sm:grid sm:overflow-visible sm:*:size-full' => $scrollableOnMobile,
+            'hide-scrollbar -mr-4 flex snap-x overflow-x-scroll pr-4 *:snap-start *:not-[.gradient]:min-w-32 sm:mr-0 sm:grid sm:overflow-visible sm:pr-0 sm:*:size-full' => $scrollableOnMobile,
             'sm:grid-cols-(--section-grid-cols-sm)' => isset($columns['sm']),
             'md:grid-cols-(--section-grid-cols-md)' => isset($columns['md']),
             'lg:grid-cols-(--section-grid-cols-lg)' => isset($columns['lg']),
