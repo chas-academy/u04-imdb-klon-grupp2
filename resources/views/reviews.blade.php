@@ -1,8 +1,8 @@
-<x-layout class="pt-6 sm:pt-10">
-    @php
-        $title = $isCurrentUserProfile ? 'My reviews' : "$username's reviews";
-    @endphp
+@php
+    $title = $isCurrentUserProfile ? 'My reviews' : "$username's reviews";
+@endphp
 
+<x-layout class="pt-6 sm:pt-10">
     <x-section-header.back-link
         href="{{ route('profile', ['username' => $username]) }}"
         :title="$title"
