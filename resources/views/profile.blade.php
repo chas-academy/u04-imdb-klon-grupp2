@@ -6,7 +6,7 @@
     @if ($reviews->isNotEmpty())
         <div class="flex flex-col items-start gap-4">
             <x-section-header.link
-                title="{!! $title !!}"
+                :title="$title"
                 href="{{ route('reviews.user', ['username' => $username]) }}"
             />
             <x-section :columns="[1, 'md' => 2]">
