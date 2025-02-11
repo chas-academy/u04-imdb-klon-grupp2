@@ -22,6 +22,17 @@ class Review extends Model
         'user_id',
     ];
 
+    protected static function booted(): void
+    {
+        static::saved(function ($review) {
+            $review->movie->updateRating();
+        });
+
+        static::deleted(function ($review) {
+            $review->movie->updateRating();
+        });
+    }
+
     /**
      * Get the user who wrote the review.
      */
