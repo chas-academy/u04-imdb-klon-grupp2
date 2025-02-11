@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::controller(RegisteredUserController::class)->group(function () {
-        Route::get('/sign-up', 'create')->name('sign-up');
-        Route::post('/sign-up', 'store');
+        Route::get('/register', 'create')->name('register');
+        Route::post('/register', 'store');
     });
 
     Route::controller(AuthenticatedSessionController::class)->group(function () {
-        Route::get('/log-in', 'create')->name('log-in');
-        Route::post('/log-in', 'store');
+        Route::get('/login', 'create')->name('login');
+        Route::post('/login', 'store');
     });
 
     // Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
