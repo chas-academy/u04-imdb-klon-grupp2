@@ -15,12 +15,31 @@ class ListController extends Controller
      * Display a listing of the resource.
      */
     public function index($username)
-    {
-        $user = User::where('username', $username)->firstOrFail();
-        $lists = $user->lists()->with('movies')->get();
 
-        return view('lists', ['user' => $user, 'lists' => $lists]);
+
+
+
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $lists = $user->lists()->with('movies')->latest()->get();
+            $lists = $lists->map(function ($list) {
+                return [
+                    'id' => $list->id,
+                    'title' => $list->title,
+                    'posters' => $list->movies->map(fn($movie) => [
+                        'src' => $movie->poster,
+                        'title' => $movie->title,
+                    ]),
+                ];
+            });
+            return view('lists', [
+                'myLists' => $lists,
+                'user' => $user,
+            ]);
+        }
     }
+
 
     /**
      * Store a newly created resource in storage.
