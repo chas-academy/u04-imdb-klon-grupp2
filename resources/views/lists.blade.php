@@ -11,6 +11,7 @@
                 <div
                     class="top-1/2 flex -translate-y-1/2 transform flex-col gap-4 text-center"
                 >
+                    <<<<<<< HEAD
                     {{-- <x-empty-state content="You don’t have any lists yet!" /> --}}
                     <x-button
                         x-data
@@ -18,6 +19,10 @@
                     >
                         Create list
                     </x-button>
+                    =======
+                    <x-empty-state content="You don’t have any lists yet!" />
+                    <x-button size="md" href="# ">Create list</x-button>
+                    >>>>>>> 736351e (fix: linting issue)
                 </div>
             </div>
         </div>
@@ -39,7 +44,6 @@
             </div>
         </div>
     @endif
-
     @auth
         <x-section :columns="[2, 'sm' => 4, 'lg' => 6]">
             @foreach ($myLists as $list)
