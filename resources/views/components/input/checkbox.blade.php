@@ -32,7 +32,7 @@
         const checkbox = document.getElementById(checkboxId)
 
         checkbox.checked = !checkbox.checked
-        checkbox.setAttribute('checked', checkbox.checked ? 'checked' : null)
+        checkbox.setAttribute('checked', checkbox.checked ? 'true' : 'false')
 
         const visualCheckbox = document.querySelector(
             `[aria-checked][role="checkbox"][tabindex="0"]`,
