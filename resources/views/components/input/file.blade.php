@@ -1,67 +1,64 @@
 @props([
     'name',
     'label',
-    'placeholder',
     'value' => null,
     'error',
+    'filePickedLabel' => 'File Picked:',
+    //Defaultvalueforthesecondrowlabel,
 ])
+
 <div
     {{ $attributes->class('flex flex-col gap-1') }}
-    x-data="{ fileName: '', showFileName: false }"
+    x-data="{ fileName: '', fileSelected: false }"
 >
     <x-input.label for="{{ $name }}">
         {{ $label }}
     </x-input.label>
-    <button
+
+    <x-button
+        x-show="!fileSelected"
+        class="w-32"
         type="button"
         id="file-upload-button"
-        class="cursor-pointer"
-        tabindex="0"
-        aria-label="Choose File"
-        @click="
-            console.log('Button clicked');
-            setTimeout(() => document.getElementById('file-upload').click(), 0);
-        "
-        @keydown.space.prevent.stop="
-            console.log('Space pressed');
-            setTimeout(() => document.getElementById('file-upload').click(), 0);
-        "
-        @keydown.enter.prevent.stop="
-            console.log('Enter pressed');
-            setTimeout(() => document.getElementById('file-upload').click(), 0);
-        "
+        size="sm"
+        @click="$refs.fileInput.click()"
     >
-        <x-button size="sm" class="w-32">Choose File</x-button>
-    </button>
+        Choose File
+    </x-button>
+
+    <div class="flex flex-col items-start" x-show="fileSelected">
+        <label for="file-upload" class="ml-2 text-xs text-slate-400">
+            {{ $filePickedLabel }}
+        </label>
+        <div class="flex items-center">
+            <span
+                x-text="fileName"
+                class="mt-1 mr-2 ml-2 text-sm text-slate-200"
+            ></span>
+            <x-button
+                variant="secondary"
+                class="mt-1 w-32"
+                type="button"
+                id="change-file-button"
+                size="sm"
+                @click="$refs.fileInput.click()"
+            >
+                Change File
+            </x-button>
+        </div>
+    </div>
+
     <input
         type="file"
-        x-ref="fileInput"
-        id="file-upload"
         name="{{ $name }}"
-        accept="image/png, image/jpeg"
-        class="absolute h-0 w-0 opacity-0"
+        id="{{ $name }}"
+        class="hidden"
+        value="{{ $value }}"
+        x-ref="fileInput"
         @change="
-        console.log('File selected');
-        if ($refs.fileInput.files.length > 0) {
-            fileName = $refs.fileInput.files[0].name;
-            showFileName = true;
-        }
-    "
+            fileSelected = $refs.fileInput.files.length > 0;
+            fileName = fileSelected ? $refs.fileInput.files[0].name : '';
+        "
     />
-
-    <div id="file-name" x-show="showFileName">
-        <x-button
-            variant="secondary"
-            size="sm"
-            class="w-32"
-            @click="
-                console.log('Change File clicked');
-                setTimeout(() => document.getElementById('file-upload').click(), 0);
-            "
-        >
-            Change File
-        </x-button>
-        <span id="file-display-name" x-text="fileName"></span>
-    </div>
     <x-input.error message="{{ $error }}" />
 </div>
