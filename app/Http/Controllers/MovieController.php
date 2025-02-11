@@ -15,18 +15,18 @@ class MovieController extends Controller
     public function index()
     {
         $topRatedMovies = Movie::orderByDesc('rating_average')->limit(11)->get();
-        $movies = Movie::latest()->limit(30)->get();
+        $latestMovies = Movie::latest()->limit(30)->get();
 
         if (Auth::check()) {
             $user = User::findOrFail(Auth::user()->id);
-            $lists = $user->lists()->with('movies')->latest()->get();
+            $lists = $user->lists()->with('movies')->latest()->limit(10)->get();
             $latestList = $lists->first();
             $latestEdited = $user->lists()->with('movies')->latest('updated_at')->first();
             $lists = $lists->map(function ($list) {
                 return [
                     'id' => $list->id,
                     'title' => $list->title,
-                    'posters' => $list->movies->map(fn ($movie) => [
+                    'posters' => $list->movies->map(fn($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
                     ]),
@@ -42,12 +42,12 @@ class MovieController extends Controller
                 'myLists' => $lists,
                 'latestList' => $latestList,
                 'latestEdited' => $latestEdited,
-                'movies' => $movies,
+                'latestMovies' => $latestMovies,
                 'user' => $user,
             ]);
         }
 
-        return view('home', ['movies' => $movies, 'topRatedMovies' => $topRatedMovies]);
+        return view('home', ['latestMovies' => $latestMovies, 'topRatedMovies' => $topRatedMovies]);
     }
 
     /**
