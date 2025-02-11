@@ -26,7 +26,7 @@ class MovieController extends Controller
                 return [
                     'id' => $list->id,
                     'title' => $list->title,
-                    'posters' => $list->movies->map(fn($movie) => [
+                    'posters' => $list->movies->map(fn ($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
                     ]),
