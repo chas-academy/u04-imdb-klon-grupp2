@@ -49,6 +49,16 @@ class DatabaseSeeder extends Seeder
             Genre::create(['name' => $genre]);
         }
 
+        foreach ($movies as $movie) {
+            $movie->genres()->attach(
+                Genre::all()->random(rand(1, 7))->pluck('id'),
+                [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+        }
+
         Report::factory(20)->create();
         Review::factory(50)->create();
     }
