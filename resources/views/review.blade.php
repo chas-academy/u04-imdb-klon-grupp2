@@ -4,35 +4,55 @@
     $backHref = url()->previous();
 @endphp
 
-<x-layout>
-    <x-section-header.back-link
-        title="{{ $review->movie->title }}"
-        extraLabel="Review"
-        href="{{ $backHref }}"
-        backLabel="{{ $backLabel }}"
-    />
-    <div class="relative mt-3 flex items-center gap-4">
-        <x-poster class="w-32 sm:w-40" src="{{ $review->movie->cover_image}}" />
-        <x-lucide-ellipsis-vertical
-            class="absolute top-0 right-0 size-6 cursor-pointer text-slate-50 sm:-top-10"
+<x-layout class="pt-1 sm:pt-10">
+    <div class="flex items-start justify-between gap-6">
+        <x-section-header.back-link
+            :title="$review->movie->title"
+            extraLabel="Review"
+            href="{{ $backHref }}"
+            backLabel="{{ $backLabel }}"
         />
+        <x-button
+            variant="icon"
+            srLabel="Open review menu"
+            class="hidden sm:block"
+        >
+            <x-lucide-ellipsis-vertical
+                class="size-6 cursor-pointer text-slate-50"
+            />
+        </x-button>
+    </div>
+    <div class="relative mt-3 flex items-center gap-4">
+        <x-poster
+            class="w-32 sm:w-40"
+            src="{{ $review->movie->cover_image }}"
+        />
+        <x-button
+            variant="icon"
+            srLabel="Open review menu"
+            class="absolute top-0 right-0 block sm:hidden"
+        >
+            <x-lucide-ellipsis-vertical
+                class="size-6 cursor-pointer text-slate-50 sm:hidden"
+            />
+        </x-button>
 
         <div class="flex w-full flex-col gap-3">
-            <x-rating size="lg" rating="{{ $review->movie->rating_average }}" />
+            <x-rating size="lg" :rating="$review->rating" />
 
             <div
-                class="flex items-center justify-between sm:flex-col sm:items-start sm:gap-1"
+                class="flex items-center justify-between sm:flex-col sm:items-start sm:gap-2"
             >
                 <x-profile-simplified
-                    username="{{ $review->user->username }}"
-                    image="{{ $review->user->image }}"
+                    :username="$review->user->username"
+                    :image="$review->user->image"
                     size="sm"
                 />
                 <p class="text-xs text-slate-400">{{ $formattedDate }}</p>
             </div>
         </div>
     </div>
-    <p class="mt-6 max-w-xl text-base/snug text-slate-100">
-        {{ $review->content }}
+    <p class="mt-6 max-w-xl text-slate-100">
+        {!! $review->content !!}
     </p>
 </x-layout>
