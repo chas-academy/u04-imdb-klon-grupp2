@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+
 class ProfileController extends Controller
 {
     /**
@@ -40,14 +41,15 @@ class ProfileController extends Controller
         return view('profile', [
             'user' => $user,
             'isCurrentUserProfile' => $isCurrentUserProfile,
-            'lists' => $lists->map(fn ($list) => [
-                'id' => $list->id,
-                'title' => $list->title,
-                'posters' => $list->movies->map(fn ($movie) => [
-                    'src' => $movie->poster,
-                    'title' => $movie->title,
-                ]),
-            ]
+            'lists' => $lists->map(
+                fn($list) => [
+                    'id' => $list->id,
+                    'title' => $list->title,
+                    'posters' => $list->movies->map(fn($movie) => [
+                        'src' => $movie->poster,
+                        'title' => $movie->title,
+                    ]),
+                ]
             ),
             'reviews' => $reviews,
             'statistics' => [
