@@ -24,7 +24,7 @@
     @auth
         <div class="mt-16 mb-4">
             <x-section-header.link
-                title="My List"
+                title="My Lists"
                 href="{{ route('lists', ['username' => auth()->user()->username]) }}"
             />
         </div>
@@ -33,61 +33,67 @@
             <x-empty-state
                 content="Looks like your list section is empty. Time to add your favorites!"
             />
-        @endif
-
-        <x-section :columns="[3, 'sm' => 4, 'lg' => 6]" scrollableOnMobile>
-            @foreach ($myLists->take(10) as $list)
-                <x-list
-                    :title="$list['title']"
-                    :posters="$list['posters']->toArray()"
-                    link="{{ route('list', ['id' => $list['id']]) }}"
-                    class="w-40 sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
-                />
-            @endforeach
-        </x-section>
-
-        @if ($latestList)
-            <div class="mt-16 mb-4">
-                <x-section-header.link
-                    :title="$latestList->title"
-                    extraLabel="From my collection"
-                    href="{{ route('list', ['id' => $latestList->id]) }}"
-                />
-            </div>
-
+        @else
             <x-section :columns="[3, 'sm' => 4, 'lg' => 6]" scrollableOnMobile>
-                @foreach ($latestList->movies->take(10) as $movie)
-                    <x-movie
-                        :title="$movie->title"
-                        :image="$movie->poster"
-                        :rating="$movie->rating_average"
-                        class="w-40 sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
-                        link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
+                @foreach ($myLists as $list)
+                    <x-list
+                        :title="$list['title']"
+                        :posters="$list['posters']->toArray()"
+                        link="{{ route('list', ['id' => $list['id']]) }}"
+                        class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
                     />
                 @endforeach
             </x-section>
-        @endif
 
-        @if ($latestEdited && (! $latestList || $latestEdited->id !== $latestList->id))
-            <div class="mt-16 mb-4">
-                <x-section-header.link
-                    :title="$latestEdited->title"
-                    extraLabel="From my collection"
-                    href="{{ route('list', ['id' => $latestEdited->id]) }}"
-                />
-            </div>
-
-            <x-section :columns="[3, 'sm' => 4, 'lg' => 6]" scrollableOnMobile>
-                @foreach ($latestEdited->movies->take(10) as $movie)
-                    <x-movie
-                        :title="$movie->title"
-                        :image="$movie->poster"
-                        :rating="$movie->rating_average"
-                        class="w-40 sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
-                        link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
+            @if ($latestList)
+                <div class="mt-16 mb-4">
+                    <x-section-header.link
+                        :title="$latestList->title"
+                        extraLabel="From my collection"
+                        href="{{ route('list', ['id' => $latestList->id]) }}"
                     />
-                @endforeach
-            </x-section>
+                </div>
+
+                <x-section
+                    :columns="[3, 'sm' => 4, 'lg' => 6]"
+                    scrollableOnMobile
+                >
+                    @foreach ($latestList->movies->take(10) as $movie)
+                        <x-movie
+                            :title="$movie->title"
+                            :image="$movie->poster"
+                            :rating="$movie->rating_average"
+                            class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                            link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
+                        />
+                    @endforeach
+                </x-section>
+            @endif
+
+            @if ($latestEdited)
+                <div class="mt-16 mb-4">
+                    <x-section-header.link
+                        :title="$latestEdited->title"
+                        extraLabel="From my collection"
+                        href="{{ route('list', ['id' => $latestEdited->id]) }}"
+                    />
+                </div>
+
+                <x-section
+                    :columns="[3, 'sm' => 4, 'lg' => 6]"
+                    scrollableOnMobile
+                >
+                    @foreach ($latestEdited->movies->take(10) as $movie)
+                        <x-movie
+                            :title="$movie->title"
+                            :image="$movie->poster"
+                            :rating="$movie->rating_average"
+                            class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                            link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
+                        />
+                    @endforeach
+                </x-section>
+            @endif
         @endif
     @endauth
 
@@ -99,12 +105,11 @@
             />
         </div>
         <x-section :columns="[3, 'sm' => 4, 'lg' => 6]">
-            @foreach ($movies as $movie)
+            @foreach ($latestMovies as $movie)
                 <x-movie
                     :title="$movie->title"
                     :image="$movie->poster"
                     :rating="$movie->rating_average"
-                    class="w-40"
                     link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
                 />
             @endforeach
