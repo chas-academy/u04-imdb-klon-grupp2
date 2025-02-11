@@ -20,11 +20,11 @@
         tabindex="0"
         role="checkbox"
         aria-checked="{{ $checked ? 'true' : 'false' }}"
-        class="flex size-5 cursor-pointer items-center justify-center rounded border-1 border-indigo-400 bg-slate-50 peer-checked:border-indigo-400 peer-checked:bg-indigo-400"
+        class="flex size-4 cursor-pointer items-center justify-center rounded border-1 border-indigo-400 bg-slate-50 peer-checked:border-indigo-400 peer-checked:bg-indigo-400"
         onclick="toggleCheckbox('{{ $name }}')"
         onkeydown="handleKeyPress(event, '{{ $name }}')"
     >
-        <x-lucide-check class="size-5 text-slate-50" />
+        <x-lucide-check class="size-4 text-slate-50" />
     </span>
 </div>
 <script>
