@@ -10,7 +10,7 @@
 
     <form
         method="post"
-        action="{{ route('sign-up') }}"
+        action="{{ route('register') }}"
         class="flex flex-col gap-8"
     >
         @csrf
@@ -64,7 +64,7 @@
     <div class="flex flex-col items-center font-bold">
         <span>Already have an account?</span>
         <a
-            href="{{ route('log-in') }}"
+            href="{{ route('login') }}"
             class="flex items-center gap-1 text-indigo-300 transition hover:text-indigo-400"
         >
             Log in

@@ -20,12 +20,12 @@
         @endauth
 
         @guest
-            <x-button size="sm" href="{{ route('log-in') }}" class="sm:hidden">
+            <x-button size="sm" href="{{ route('login') }}" class="sm:hidden">
                 Log in
             </x-button>
             <x-button
                 size="md"
-                href="{{ route('log-in') }}"
+                href="{{ route('login') }}"
                 class="hidden sm:flex"
             >
                 Log in
