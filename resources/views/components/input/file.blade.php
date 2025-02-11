@@ -4,7 +4,6 @@
     'value' => null,
     'error',
     'filePickedLabel' => 'File Picked:',
-    //Defaultvalueforthesecondrowlabel,
 ])
 
 <div
