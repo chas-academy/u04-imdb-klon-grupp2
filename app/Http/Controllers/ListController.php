@@ -15,10 +15,6 @@ class ListController extends Controller
      * Display a listing of the resource.
      */
     public function index($username)
-
-
-
-
     {
         if (Auth::check()) {
             $user = Auth::user();
@@ -27,19 +23,19 @@ class ListController extends Controller
                 return [
                     'id' => $list->id,
                     'title' => $list->title,
-                    'posters' => $list->movies->map(fn($movie) => [
+                    'posters' => $list->movies->map(fn ($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
                     ]),
                 ];
             });
+
             return view('lists', [
                 'myLists' => $lists,
                 'user' => $user,
             ]);
         }
     }
-
 
     /**
      * Store a newly created resource in storage.
