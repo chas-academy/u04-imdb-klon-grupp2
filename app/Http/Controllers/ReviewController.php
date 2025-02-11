@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($username)
     {
-        $reviews = Review::with(['user', 'movie'])->latest()->get();
-        return view('reviews', ['reviews' => $reviews]);
+        $user = User::where('username', $username)->firstOrFail();
+        $reviews = Review::with('movie')->where('user_id', $user->id)->get();
+        $isCurrentUserProfile = Auth::check() && $username === Auth::user()->username;
+
+        return view('reviews', [
+            'reviews' => $reviews,
+            'username' => $username,
+            'isCurrentUserProfile' => $isCurrentUserProfile,
+        ]);
     }
 
     /**

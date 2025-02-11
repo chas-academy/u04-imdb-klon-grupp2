@@ -1,20 +1,24 @@
-<x-layout>
+<x-layout class="pt-6 sm:pt-10">
+    @php
+        $title = $isCurrentUserProfile ? 'My reviews' : "$username's reviews";
+    @endphp
+
     <x-section-header.back-link
-        href=""
-        title="My reviews"
+        href="{{ route('profile', ['username' => $username]) }}"
+        :title="$title"
         backLabel="Back to profile"
     />
 
-    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
         @foreach ($reviews as $review)
             <x-review
                 :title="$review->movie->title"
-                :description="$review->content"
-                rating="{{ $review->rating }}"
-                image="{{ $review->movie->cover_image }}"
-                username="{{ $review->user->username }}"
+                :content="$review->content"
+                :rating="$review->rating"
+                :image="$review->movie->cover_image"
+                :created_at="$review->created_at"
+                :username="$isCurrentUserProfile ? null : $username"
                 link="{{ route('review', ['id' => $review->id]) }}"
-                created_at="{{ $review->created_at }}"
             />
         @endforeach
     </div>
