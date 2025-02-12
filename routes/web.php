@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(MovieController::class)->group(function () {
@@ -36,7 +36,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::get('/create-user', [AdminController::class, 'createUserForm'])->name('admin.create.user');
     Route::post('/create-user', [AdminController::class, 'createUser'])->name('admin.store.user');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/featured', fn() => view('admin.featured-lists'))->name('admin.featured');
+    Route::get('/featured', fn () => view('admin.featured-lists'))->name('admin.featured');
 
     Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'index')->name('reports.user');
@@ -44,4 +44,4 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
