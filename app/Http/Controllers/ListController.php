@@ -51,9 +51,12 @@ class ListController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(MovieList $list)
+    public function show($id)
     {
-        return view('list');
+        $list = MovieList::findOrFail($id);
+        $isListOwner = Auth::check() && $list->isOwnedBy(Auth::user()->id);
+
+        return view('list', ['list' => $list, 'isListOwner' => $isListOwner]);
     }
 
     /**
@@ -75,8 +78,24 @@ class ListController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MovieList $list)
+    public function destroy($id)
     {
-        //
+        try {
+            $list = MovieList::findOrFail($id);
+            $user = Auth::user();
+
+            if (! $list->isOwnedBy($user->id)) {
+                throw new Exception('You are not allowed to delete this list');
+            }
+
+            $list->delete();
+
+            return redirect(route('lists', ['username' => $user->username]));
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors('Something went wrong when deleting the list!', 'deleteList');
+        }
     }
 }

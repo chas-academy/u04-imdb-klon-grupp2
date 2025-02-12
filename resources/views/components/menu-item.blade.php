@@ -1,11 +1,10 @@
 @props([
-    'label',
     'variant' => 'default',
-    'href',
+    'href' => null,
 ])
 
 @php
-    $baseClasses = 'block rounded-lg px-4 py-2 text-center transition-all duration-200 ease-out';
+    $baseClasses = 'block w-full cursor-pointer rounded-lg px-4 py-2 text-center transition-all duration-200 ease-out';
     $hoverClasses = 'hover:bg-slate-600';
 
     $variantClasses = match ($variant) {
@@ -20,12 +19,12 @@
         href="{{ $href }}"
         {{ $attributes->twMerge(['class' => "$baseClasses $variantClasses $hoverClasses"]) }}
     >
-        {{ $label }}
+        {{ $slot }}
     </a>
 @else
     <button
         {{ $attributes->twMerge(['class' => "$baseClasses $variantClasses $hoverClasses"]) }}
     >
-        {{ $label }}
+        {{ $slot }}
     </button>
 @endif
