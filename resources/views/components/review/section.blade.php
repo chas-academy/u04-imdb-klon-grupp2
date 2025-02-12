@@ -11,7 +11,7 @@
 </div>
 
 @foreach ($reviews as $review)
-<x-review.index 
+  <x-review
         :title="$review->movie->title"
         :content="$review->content"
         :created_at="$review->created_at"
