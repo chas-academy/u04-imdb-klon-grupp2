@@ -1,4 +1,7 @@
-@props(['reviews','href',])
+@props([
+  'reviews',
+  'href'
+])
 
 <div class="flex flex-col gap-3">
 
