@@ -21,7 +21,7 @@
                     </x-button>
                 </div>
             @empty
-                
+                <x-empty-state content="No users found." />
             @endforelse
         </div>
     </div>
