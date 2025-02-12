@@ -4,6 +4,7 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(MovieController::class)->group(function () {
@@ -26,7 +27,7 @@ Route::controller(ReviewController::class)->group(function () {
     Route::get('/review/{id}', 'show')->name('review');
 });
 
-Route::middleware(['auth'])->prefix('/admin')->group(function () {
+Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(function () {
     Route::get('/', fn () => view('admin.dashboard'))->name('admin.dashboard');
     Route::get('/create-movie', [MovieController::class, 'create'])->name('admin.create.movie');
     Route::get('/create-user', fn () => view('admin.create-user'))->name('admin.create.user');
