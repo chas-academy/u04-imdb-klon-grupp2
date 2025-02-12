@@ -9,8 +9,8 @@
 
 @foreach ($reviews as $review)
 <x-review.index 
-        title="{{ $review->movie->title }}"
-        content="{{ $review->content }}"
+        :title="$review->movie->title"
+        :content="$review->content"
         :created_at="$review->created_at"
         :rating="$review->rating"
         link="{{ route('review', $review->id) }}"
