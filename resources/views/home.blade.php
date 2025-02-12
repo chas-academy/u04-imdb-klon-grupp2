@@ -21,4 +21,5 @@
             @endforeach
         </x-section>
     </div>
+    <x-input.file class="w-80" name="test" label="picture" informationLabel="Recommended size 800 x 800 px" error=""></x-input>
 </x-layout>
