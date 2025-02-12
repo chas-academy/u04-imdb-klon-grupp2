@@ -12,6 +12,11 @@ class MovieList extends Model
 
     protected $table = 'lists';
 
+    protected $fillable = [
+        'title',
+        'description',
+    ];
+
     public function movies(): BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'list_movie', 'list_id', 'movie_id');
