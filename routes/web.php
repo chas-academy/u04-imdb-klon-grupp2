@@ -4,8 +4,8 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
+use Illuminate\Support\Facades\Route;
 
 Route::controller(MovieController::class)->group(function () {
     Route::get('/', 'index')->name('home');
