@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\MovieList;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListController extends Controller
 {
@@ -20,17 +22,30 @@ class ListController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(Request $request)
+    {
+        $request->validateWithBag('createListValidation', [
+            'title' => ['required', 'string', 'max:80'],
+            'description' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        try {
+            $list = MovieList::create([
+                'title' => $request->title,
+                'description' => $request->description,
+            ]);
+
+            Auth::user()->lists()->attach($list->id);
+
+            return redirect(route('list', ['id' => $list->id]));
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withErrors('Oops, something went wrong!', 'createListForm');
+        }
+    }
 
     /**
      * Display the specified resource.

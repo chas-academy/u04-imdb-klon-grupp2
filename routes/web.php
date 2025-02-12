@@ -19,7 +19,7 @@ Route::controller(ProfileController::class)->group(function () {
 Route::controller(ListController::class)->group(function () {
     Route::get('/u/{username}/lists', 'index')->name('lists');
     Route::get('/list/{id}', 'show')->name('list');
-    Route::post('/list', 'store')->name('list.store');
+    Route::post('/list', 'store')->middleware(['auth'])->name('list.store');
 });
 
 Route::controller(ReviewController::class)->group(function () {

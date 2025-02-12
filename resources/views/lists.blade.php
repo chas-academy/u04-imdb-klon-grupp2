@@ -3,7 +3,10 @@
         Create list
     </x-button>
 
-    <x-modal.base name="create-list">
+    <x-modal.base
+        name="create-list"
+        :show="$errors->createListValidation->isNotEmpty()"
+    >
         <x-modal.input>
             <x-slot:title>Create a new list</x-slot>
             <form
@@ -14,10 +17,10 @@
                 @csrf
                 <div class="flex flex-col gap-4">
                     <x-input.text
-                        name="name"
-                        :value="old('name')"
+                        name="title"
+                        :value="old('title')"
                         required
-                        :error="$errors->first('name')"
+                        :error="$errors->createListValidation->first('title')"
                         label="Name"
                         placeholder="List name"
                         color="light"
@@ -26,7 +29,7 @@
                         name="description"
                         :value="old('description')"
                         required
-                        :error="$errors->first('description')"
+                        :error="$errors->createListValidation->first('description')"
                         label="Description"
                         placeholder="List description"
                         color="light"
