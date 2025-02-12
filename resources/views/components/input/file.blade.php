@@ -3,7 +3,7 @@
     'label',
     'value' => null,
     'error',
-    'informationLabel' => 'Information',
+    'informationLabel' => null,
 ])
 
 <div
@@ -14,9 +14,11 @@
         {{ $label }}
     </x-input.label>
 
-    <label class="ml-2 text-xs text-slate-400">
-        {{ $informationLabel }}
-    </label>
+    @isset($informationLabel)
+        <label class="ml-2 text-xs text-slate-400">
+            {{ $informationLabel }}
+        </label>
+    @endisset
 
     <x-button
         x-show="!fileSelected"
