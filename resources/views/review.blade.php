@@ -17,9 +17,7 @@
             srLabel="Open review menu"
             class="hidden sm:block"
         >
-            <x-lucide-ellipsis-vertical
-                class="size-6 cursor-pointer text-slate-50"
-            />
+            <x-lucide-ellipsis-vertical class="size-6 text-slate-50" />
         </x-button>
     </div>
     <div class="relative mt-3 flex items-center gap-4">
@@ -33,7 +31,7 @@
             class="absolute top-0 right-0 block sm:hidden"
         >
             <x-lucide-ellipsis-vertical
-                class="size-6 cursor-pointer text-slate-50 sm:hidden"
+                class="size-6 text-slate-50 sm:hidden"
             />
         </x-button>
 
@@ -41,7 +39,7 @@
             <x-rating size="lg" :rating="$review->rating" />
 
             <div
-                class="flex items-center justify-between sm:flex-col sm:items-start sm:gap-2"
+                class="flex flex-wrap items-center justify-between gap-2 sm:flex-col sm:items-start"
             >
                 <x-profile-simplified
                     :username="$review->user->username"
