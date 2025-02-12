@@ -38,8 +38,8 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        $movie = Movie::findOrFail($id);
-
+        $movie = Movie::with(['reviews', 'genres'])->findOrFail($id);
+       
         return view('movie', ['movie' => $movie]);
     }
 

@@ -27,8 +27,8 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'movie_id' => Movie::factory(),
+            'movie_id' => Movie::all()->random()->id,
+            'user_id' => User::all()->random()->id,
             'rating' => $this->faker->numberBetween(1, 10),
             'content' => $this->faker->realText(rand(50, 800)),
         ];
