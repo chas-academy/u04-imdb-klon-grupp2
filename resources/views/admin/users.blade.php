@@ -7,7 +7,7 @@
         />
     </div>
 
-    <div class="m-auto max-w-xl space-y-4">
+    <div class="m-auto flex max-w-xl flex-col gap-4">
         @forelse ($users as $user)
             <div class="flex items-center justify-between">
                 <x-profile-simplified
