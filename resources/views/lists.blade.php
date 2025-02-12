@@ -5,7 +5,7 @@
 
     <x-modal.base
         name="create-list"
-        :show="$errors->createListValidation->isNotEmpty()"
+        :show="$errors->createList->isNotEmpty() || $errors->createListValidation->isNotEmpty()"
     >
         <x-modal.input>
             <x-slot:title>Create a new list</x-slot>
@@ -35,6 +35,8 @@
                         color="light"
                     />
                 </div>
+
+                <x-input.error :message="$errors->createList->first()" />
 
                 <div class="flex gap-2">
                     <x-button

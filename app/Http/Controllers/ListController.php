@@ -43,7 +43,7 @@ class ListController extends Controller
         } catch (Exception) {
             return redirect()
                 ->back()
-                ->withErrors('Oops, something went wrong!', 'createListForm');
+                ->withErrors('Something went wrong when creating the list!', 'createList');
         }
     }
 
