@@ -9,20 +9,16 @@
 
             <div class="relative flex h-screen items-center justify-center">
                 <div
-                    class="top-1/2 flex -translate-y-1/2 transform flex-col gap-4 text-center"
+                    class="flex -translate-y-1/2 transform flex-col gap-4 text-center"
                 >
-                    <<<<<<< HEAD
                     {{-- <x-empty-state content="You don’t have any lists yet!" /> --}}
                     <x-button
                         x-data
+                        class="sm:px-2 sm:py-1 md:px-6 md:py-2"
                         @click="$dispatch('open-modal', 'create-list')"
                     >
                         Create list
                     </x-button>
-                    =======
-                    <x-empty-state content="You don’t have any lists yet!" />
-                    <x-button size="md" href="# ">Create list</x-button>
-                    >>>>>>> 736351e (fix: linting issue)
                 </div>
             </div>
         </div>
@@ -37,6 +33,7 @@
             <div class="ml-auto flex items-center">
                 <x-button
                     x-data
+                    class="sm:px-2 sm:py-1 md:px-6 md:py-2"
                     @click="$dispatch('open-modal', 'create-list')"
                 >
                     Create list
