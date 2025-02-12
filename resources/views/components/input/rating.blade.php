@@ -3,11 +3,7 @@
         {{ $label }}
     </x-input.label>
 
-    <div
-        class="flex space-x-1"
-        role="radiogroup"
-        aria-labelledby="rating-label"
-    >
+    <div class="flex gap-1" role="radiogroup" :aria-labelledby="$name">
         @for ($i = 1; $i <= 10; $i++)
             <button
                 type="button"
@@ -18,12 +14,15 @@
                 @click="rating = {{ $i }}"
                 @keydown.enter="rating = {{ $i }}"
                 @keydown.space.prevent="rating = {{ $i }}"
+                class="cursor-pointer rounded-sm"
             >
                 <x-lucide-star
-                    class="h-6 w-6"
-                    x-bind:class="rating >= {{ $i }} ? 'fill-indigo-400 text-indigo-400' : 'fill-transparent text-slate-400'"
+                    class="size-6"
+                    x-bind:class="rating >= {{ $i }} ? 'fill-indigo-400 text-indigo-400' : 'fill-transparent text-slate-400 hover:text-indigo-400 transition'"
                 />
             </button>
         @endfor
     </div>
+
+    <input type="hidden" name="{{ $name }}" x-model="rating" />
 </div>
