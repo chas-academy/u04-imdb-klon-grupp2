@@ -55,7 +55,6 @@
     x-cloak
     @class([
         'flex' => $show,
-        'hidden' => "$show",
         'fixed inset-0 z-50 flex justify-center overflow-y-scroll',
     ])
 >
