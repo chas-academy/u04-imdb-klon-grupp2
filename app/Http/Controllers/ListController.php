@@ -40,7 +40,7 @@ class ListController extends Controller
      */
     public function show(MovieList $list)
     {
-        return view('movie-list');
+        return view('list');
     }
 
     /**
