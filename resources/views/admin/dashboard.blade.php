@@ -31,11 +31,12 @@
     </div>
 
     <div class="mt-12">
-        <x-section-header.no-link
-            title="Latest uploaded movies"
-            extraLabel="movies"
-            class="mb-4"
-        />
+        <div class="mb-4">
+            <x-section-header.no-link
+                title="Latest uploaded movies"
+                extraLabel="movies"
+            />
+        </div>
         <x-section :columns="[3, 'sm' => 4, 'lg' => 6]" scrollableOnMobile>
             @foreach ($latestUploadedMovies as $movie)
                 <x-movie
