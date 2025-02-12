@@ -14,7 +14,7 @@
         :created_at="$review->created_at"
         :rating="$review->rating"
         link="{{ route('review', $review->id) }}"
-        username="{{ $review->user->username }}" 
+        :username="$review->user->username" 
     />
 @endforeach
 <a class="flex self-end text-indigo-400" href="{{ $href }}">Show more</a>
