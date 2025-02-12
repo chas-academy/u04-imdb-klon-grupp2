@@ -16,8 +16,9 @@
     {{ $attributes->class('flex gap-3 rounded-sm bg-slate-700 p-2 transition hover:scale-101') }}
     href="{{ $link }}"
 >
-    <x-poster :src="$image" class="w-28" alt="Poster for {{ $title }}" />
-
+    @isset($image)
+        <x-poster :src="$image" class="w-28" alt="Poster for {{ $title }}" />
+    @endif
     <div class="flex flex-1 flex-col gap-1">
         <div class="flex-1 space-y-1">
             <div class="flex justify-between gap-2">
