@@ -20,44 +20,56 @@
         @endif
     </x-profile>
 
-    <div class="flex flex-col gap-12">
-        @if ($lists->isNotEmpty())
-            <div class="flex flex-col items-start gap-4">
-                <x-section-header.link
-                    :title="$listsTitle"
-                    href="{{ route('lists', ['username' => $user->username]) }}"
-                />
-                <x-section :columns="[2, 'md' => 4]">
-                    @foreach ($lists as $list)
-                        <x-list
-                            :title="$list['title']"
-                            :posters="$list['posters']->toArray()"
-                            link="{{ route('list', ['id' => $list['id']]) }}"
-                        />
-                    @endforeach
-                </x-section>
-            </div>
-        @endif
+    @if ($lists->isEmpty() && $reviews->isEmpty())
+        <div class="grid flex-1 place-items-center">
+            <p class="text-slate-200">
+                @if ($isCurrentUserProfile)
+                    You don't have any content yet!
+                @else
+                    {{ $user->username }} doesn't have any content yet!
+                @endif
+            </p>
+        </div>
+    @else
+        <div class="flex flex-col gap-12">
+            @if ($lists->isNotEmpty())
+                <div class="flex flex-col items-start gap-4">
+                    <x-section-header.link
+                        :title="$listsTitle"
+                        href="{{ route('lists', ['username' => $user->username]) }}"
+                    />
+                    <x-section :columns="[2, 'md' => 4]">
+                        @foreach ($lists as $list)
+                            <x-list
+                                :title="$list['title']"
+                                :posters="$list['posters']->toArray()"
+                                link="{{ route('list', ['id' => $list['id']]) }}"
+                            />
+                        @endforeach
+                    </x-section>
+                </div>
+            @endif
 
-        @if ($reviews->isNotEmpty())
-            <div class="flex flex-col items-start gap-4">
-                <x-section-header.link
-                    :title="$reviewsTitle"
-                    href="{{ route('reviews.user', ['username' => $user->username]) }}"
-                />
-                <x-section :columns="[1, 'md' => 2]">
-                    @foreach ($reviews as $review)
-                        <x-review
-                            :title="$review->movie->title "
-                            :content="$review->content"
-                            :created_at="$review->created_at"
-                            :rating="$review->rating"
-                            :image="$review->movie->cover_image"
-                            link="{{ route('review', ['id' => $review->id]) }}"
-                        />
-                    @endforeach
-                </x-section>
-            </div>
-        @endif
-    </div>
+            @if ($reviews->isNotEmpty())
+                <div class="flex flex-col items-start gap-4">
+                    <x-section-header.link
+                        :title="$reviewsTitle"
+                        href="{{ route('reviews.user', ['username' => $user->username]) }}"
+                    />
+                    <x-section :columns="[1, 'md' => 2]">
+                        @foreach ($reviews as $review)
+                            <x-review
+                                :title="$review->movie->title "
+                                :content="$review->content"
+                                :created_at="$review->created_at"
+                                :rating="$review->rating"
+                                :image="$review->movie->cover_image"
+                                link="{{ route('review', ['id' => $review->id]) }}"
+                            />
+                        @endforeach
+                    </x-section>
+                </div>
+            @endif
+        </div>
+    @endif
 </x-layout>
