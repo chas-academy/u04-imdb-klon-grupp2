@@ -92,7 +92,7 @@
                 <x-menu-item
                     x-data
                     @click="
-                    $dispatch('open-modal', 'edit-review')
+                    $dispatch('open-modal', 'update-review')
                     $dispatch('close-modal', 'review-menu')
                     "
                 >
@@ -124,8 +124,8 @@
     </x-modal.base>
 
     <x-modal.base
-        name="edit-review"
-        :show="$errors->editReview->isNotEmpty() || $errors->editReviewValidation->isNotEmpty()"
+        name="update-review"
+        :show="$errors->updateReview->isNotEmpty() || $errors->updateReviewValidation->isNotEmpty()"
     >
         <x-modal.input>
             <x-slot:title>
@@ -144,25 +144,25 @@
                         name="rating"
                         :value="old('rating') ? old('rating') : $review->rating"
                         required
-                        :error="$errors->editReviewValidation->first('rating')"
+                        :error="$errors->updateReviewValidation->first('rating')"
                         label="Your rating"
                     />
                     <x-input.textarea
                         name="content"
                         :value="old('content') ? old('content') : $review->content"
-                        :error="$errors->editReviewValidation->first('content')"
+                        :error="$errors->updateReviewValidation->first('content')"
                         label="Review"
                         placeholder="Let others know why they should (or shouldn't) watch this film."
                         color="light"
                     />
                 </div>
 
-                <x-input.error :message="$errors->editReview->first()" />
+                <x-input.error :message="$errors->updateReview->first()" />
 
                 <div class="flex gap-2">
                     <x-button
                         x-data
-                        @click="$dispatch('close-modal', 'edit-review')"
+                        @click="$dispatch('close-modal', 'update-review')"
                         type="button"
                         variant="secondary"
                     >
