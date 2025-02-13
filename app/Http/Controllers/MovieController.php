@@ -110,23 +110,21 @@ class MovieController extends Controller
     public function destroy($id)
     {
         try {
-         
-        $movie = MovieList::findOrFail($id);
-        $user = Auth::user();
 
-        
-        if (! $movie->isOwnBy($user->id)) {
-            throw new Exception
-            ('You are not allowed to delete this movie!');
-        }
+            $movie = MovieList::findOrFail($id);
+            $user = Auth::user();
 
-    $movie->delete();
+            if (! $movie->isOwnBy($user->id)) {
+                throw new Exception('You are not allowed to delete this movie!');
+            }
 
-    return redirect('/');
-    } catch (Exception) {
-        return redirect()
-            ->back()
-            ->withErrors('Something went wrong with deleting the movie!', 'deleteMovie');
+            $movie->delete();
+
+            return redirect('/');
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withErrors('Something went wrong with deleting the movie!', 'deleteMovie');
         }
     }
-    }
+}
