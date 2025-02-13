@@ -89,8 +89,15 @@
             @endif
 
             @if ($isAuthor)
-                {{-- TODO: open edit review modal --}}
-                <x-menu-item>Edit</x-menu-item>
+                <x-menu-item
+                    x-data
+                    @click="
+                    $dispatch('open-modal', 'edit-review')
+                    $dispatch('close-modal', 'review-menu')
+                    "
+                >
+                    Edit
+                </x-menu-item>
                 <x-modal.divider />
             @endif
 
@@ -114,5 +121,56 @@
                 Cancel
             </x-menu-item>
         </x-modal.menu>
+    </x-modal.base>
+
+    <x-modal.base
+        name="edit-review"
+        :show="$errors->editReview->isNotEmpty() || $errors->editReviewValidation->isNotEmpty()"
+    >
+        <x-modal.input>
+            <x-slot:title>
+                {{ $review->movie->title }}
+            </x-slot>
+            <form
+                method="post"
+                action="{{ route('review.update', ['id' => $review->id]) }}"
+                class="flex flex-col gap-6"
+            >
+                @csrf
+                @method('put')
+
+                <div class="flex flex-col gap-4">
+                    <x-input.rating
+                        name="rating"
+                        :value="old('rating') ? old('rating') : $review->rating"
+                        required
+                        :error="$errors->editReviewValidation->first('rating')"
+                        label="Your rating"
+                    />
+                    <x-input.textarea
+                        name="content"
+                        :value="old('content') ? old('content') : $review->content"
+                        :error="$errors->editReviewValidation->first('content')"
+                        label="Review"
+                        placeholder="Let others know why they should (or shouldn't) watch this film."
+                        color="light"
+                    />
+                </div>
+
+                <x-input.error :message="$errors->editReview->first()" />
+
+                <div class="flex gap-2">
+                    <x-button
+                        x-data
+                        @click="$dispatch('close-modal', 'edit-review')"
+                        type="button"
+                        variant="secondary"
+                    >
+                        Cancel
+                    </x-button>
+                    <x-button class="flex-1">Update review</x-button>
+                </div>
+            </form>
+        </x-modal.input>
     </x-modal.base>
 </x-layout>
