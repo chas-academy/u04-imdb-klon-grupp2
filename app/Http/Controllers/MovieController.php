@@ -18,7 +18,7 @@ class MovieController extends Controller
         $latestMovies = Movie::latest()->limit(30)->get();
 
         if (Auth::check()) {
-            $user = User::findOrFail(Auth::user()->id);
+            $user = Auth::user();
             $lists = $user->lists()->with('movies')->latest()->limit(10)->get();
             $latestList = $lists->first();
             $latestEdited = $user->lists()->with('movies')->latest('updated_at')->first();
@@ -26,7 +26,7 @@ class MovieController extends Controller
                 return [
                     'id' => $list->id,
                     'title' => $list->title,
-                    'posters' => $list->movies->map(fn ($movie) => [
+                    'posters' => $list->movies->map(fn($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
                     ]),
