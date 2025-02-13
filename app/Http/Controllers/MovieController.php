@@ -19,35 +19,40 @@ class MovieController extends Controller
 
         if (Auth::check()) {
             $user = Auth::user();
-            $lists = $user->lists()->with('movies')->latest()->limit(10)->get();
-            $latestList = $lists->first();
-            $latestEdited = $user->lists()->with('movies')->latest('updated_at')->first();
-            $lists = $lists->map(function ($list) {
-                return [
-                    'id' => $list->id,
-                    'title' => $list->title,
-                    'posters' => $list->movies->map(fn($movie) => [
-                        'src' => $movie->poster,
-                        'title' => $movie->title,
-                    ]),
-                ];
-            });
+            $userLists = $user->lists()->with('movies');
+            $lists = $userLists->latest('updated_at')->limit(10)->get();
+            $latestUpdatedList = $lists->first();
+            $latestCreatedList = $userLists->latest()->first();
 
-            if ($latestList && $latestEdited && $latestList->id === $latestEdited->id) {
-                $latestEdited = $user->lists()->with('movies')->where('lists.id', '!=', $latestList->id)->latest('updated_at')->first();
+            if ($lists->count() > 0) {
+                $lists = $lists->map(function ($list) {
+                    return [
+                        'id' => $list->id,
+                        'title' => $list->title,
+                        'posters' => $list->movies->map(fn($movie) => [
+                            'src' => $movie->poster,
+                            'title' => $movie->title,
+                            'id' => $movie->id,
+                        ]),
+                    ];
+                });
+
+                if ($latestUpdatedList->id == $latestCreatedList->id) {
+                    $latestUpdatedList = $userLists->where('lists.id', '!=', $latestCreatedList->id)->latest()->first();
+                }
             }
 
             return view('home', [
                 'topRatedMovies' => $topRatedMovies,
                 'myLists' => $lists,
-                'latestList' => $latestList,
-                'latestEdited' => $latestEdited,
+                'latestCreatedList' => $latestCreatedList,
+                'latestUpdatedList' => $latestUpdatedList,
                 'latestMovies' => $latestMovies,
                 'user' => $user,
             ]);
         }
 
-        return view('home', ['latestMovies' => $latestMovies, 'topRatedMovies' => $topRatedMovies]);
+        return view('home', compact('latestMovies', 'TopRatedMovies',));
     }
 
     /**
