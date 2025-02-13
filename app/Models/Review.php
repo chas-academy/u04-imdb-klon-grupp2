@@ -45,4 +45,9 @@ class Review extends Model
     {
         return $this->belongsTo(Movie::class);
     }
+
+    public function isWrittenBy(User $user): bool
+    {
+        return $this->user()->is($user);
+    }
 }

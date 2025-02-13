@@ -63,8 +63,9 @@ class ReviewController extends Controller
     public function show($id)
     {
         $review = Review::with(['user', 'movie'])->findOrFail($id);
+        $isAuthor = Auth::check() && $review->isWrittenBy(Auth::user());
 
-        return view('review', ['review' => $review]);
+        return view('review', ['review' => $review, 'isAuthor' => $isAuthor]);
     }
 
     /**
