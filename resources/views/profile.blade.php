@@ -72,4 +72,67 @@
             @endif
         </div>
     @endif
+
+    <x-modal.base
+        name="profile-menu"
+        :show="$errors->edit->isNotEmpty() || $errors->editListValidation->isNotEmpty()"
+    >
+        <x-modal.menu>
+            <x-slot:title>
+                {{ $user->username }}
+            </x-slot>
+
+            @if ($isCurrentUserProfile)
+                {{-- TODO: add edit profile modal --}}
+                <x-menu-item>Edit profile</x-menu-item>
+                <x-modal.divider />
+
+                {{-- TODO: add log out functionality --}}
+                <x-menu-item>Log out</x-menu-item>
+                <x-modal.divider />
+
+                {{-- TODO: add change password functionality --}}
+                <x-menu-item>Change password</x-menu-item>
+                <x-modal.divider />
+
+                {{-- TODO: add delete account functionality --}}
+                <x-menu-item variant="destructive">Delete account</x-menu-item>
+                <x-modal.divider />
+            @else
+                {{-- TODO: open report user modal --}}
+                <x-menu-item>Report user</x-menu-item>
+                <x-modal.divider />
+
+                @if (auth()->check() && auth()->user()->role === 'admin' && $user->role !== 'admin')
+                    {{-- TODO: open ban user modal --}}
+                    <x-menu-item>Ban user</x-menu-item>
+                    <x-modal.divider />
+
+                    {{-- TODO: make admin functionality --}}
+                    <x-menu-item>Make admin</x-menu-item>
+                    <x-modal.divider />
+                @endif
+            @endif
+
+            {{--
+                <form
+                method="post"
+                action="{{ route('list.destroy', ['id' => $list->id]) }}"
+                >
+                @csrf
+                @method('delete')
+                <x-menu-item variant="destructive">Delete list</x-menu-item>
+                </form>
+                <x-modal.divider />
+            --}}
+
+            <x-menu-item
+                x-data
+                @click="$dispatch('close-modal', 'profile-menu')"
+                variant="highlights"
+            >
+                Cancel
+            </x-menu-item>
+        </x-modal.menu>
+    </x-modal.base>
 </x-layout>
