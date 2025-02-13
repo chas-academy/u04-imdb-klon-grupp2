@@ -18,9 +18,16 @@ class ProfileController extends Controller
     public function show($username): View
     {
         $profile = User::where('username', $username)
-            ->with(['reviews' => function ($query) {
-                $query->take(4)->with('movie');
-            }])
+            ->with([
+                'lists' => function ($query) {
+                    $query->orderByDesc('created_at')->orderByDesc('id')->take(4)->with(['movies' => function ($query) {
+                        $query->orderByDesc('list_movie.created_at')->orderByDesc('id')->take(4);
+                    }]);
+                },
+                'reviews' => function ($query) {
+                    $query->take(4)->with('movie');
+                },
+            ])
             ->firstOrFail();
 
         $isCurrentUserProfile = Auth::check() && $username === Auth::user()->username;
@@ -28,6 +35,15 @@ class ProfileController extends Controller
         return view('profile', [
             'username' => $username,
             'isCurrentUserProfile' => $isCurrentUserProfile,
+            'lists' => $profile->lists->map(fn ($list) => [
+                'id' => $list->id,
+                'title' => $list->title,
+                'posters' => $list->movies->map(fn ($movie) => [
+                    'src' => $movie->poster,
+                    'title' => $movie->title,
+                ]),
+            ]
+            ),
             'reviews' => $profile->reviews,
         ]);
     }
