@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
-use App\Models\User;
 use App\Models\Report;
+use App\Models\User;
 
 class AdminController extends Controller
 {
