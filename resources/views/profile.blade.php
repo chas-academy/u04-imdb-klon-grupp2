@@ -73,11 +73,8 @@
         </div>
     @endif
 
-    <x-modal.base
-        name="profile-menu"
-        :show="$errors->edit->isNotEmpty() || $errors->editListValidation->isNotEmpty()"
-    >
-        <x-modal.menu>
+    <x-modal.base name="profile-menu" :show="$errors->makeAdmin->isNotEmpty()">
+        <x-modal.menu :error="$errors->makeAdmin->first()">
             <x-slot:title>
                 {{ $user->username }}
             </x-slot>
@@ -97,7 +94,7 @@
                 </form>
                 <x-modal.divider />
 
-                {{-- TODO: add delete account functionality --}}
+                {{-- TODO: open delete account confirm with password modal --}}
                 <x-menu-item variant="destructive">Delete account</x-menu-item>
                 <x-modal.divider />
             @else
@@ -110,23 +107,17 @@
                     <x-menu-item>Ban user</x-menu-item>
                     <x-modal.divider />
 
-                    {{-- TODO: make admin functionality --}}
-                    <x-menu-item>Make admin</x-menu-item>
+                    <form
+                        method="post"
+                        action="{{ route('admin.profile.make-admin', ['id' => $user->id]) }}"
+                    >
+                        @csrf
+                        @method('put')
+                        <x-menu-item>Make admin</x-menu-item>
+                    </form>
                     <x-modal.divider />
                 @endif
             @endif
-
-            {{--
-                <form
-                method="post"
-                action="{{ route('list.destroy', ['id' => $list->id]) }}"
-                >
-                @csrf
-                @method('delete')
-                <x-menu-item variant="destructive">Delete list</x-menu-item>
-                </form>
-                <x-modal.divider />
-            --}}
 
             <x-menu-item
                 x-data
