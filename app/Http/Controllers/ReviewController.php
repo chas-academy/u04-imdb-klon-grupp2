@@ -47,9 +47,7 @@ class ReviewController extends Controller
             ]);
 
             return redirect(route('review', ['id' => $review->id]));
-        } catch (Exception $error) {
-            dd($error);
-
+        } catch (Exception) {
             return redirect()
                 ->back()
                 ->withInput()
