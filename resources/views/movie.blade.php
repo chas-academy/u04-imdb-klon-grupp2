@@ -131,6 +131,7 @@
             {!! $movie->description !!}
         </p>
     </div>
+
     <x-button
         x-data
         @click="$dispatch('open-modal', 'create-review')"
@@ -176,7 +177,7 @@
                 <div class="flex gap-2">
                     <x-button
                         x-data
-                        @click="$dispatch('close-modal', 'create-list')"
+                        @click="$dispatch('close-modal', 'create-review')"
                         type="button"
                         variant="secondary"
                     >
