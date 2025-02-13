@@ -94,7 +94,7 @@
                 <x-modal.divider />
             @endif
 
-            @if ($isAuthor || auth()->user()->role === 'admin')
+            @if ($isAuthor || (auth()->check() && auth()->user()->role === 'admin'))
                 <form
                     method="post"
                     action="{{ route('review.destroy', ['id' => $review->id]) }}"
