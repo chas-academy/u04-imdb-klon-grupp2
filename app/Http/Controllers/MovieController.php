@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovieController extends Controller
 {
@@ -39,8 +40,13 @@ class MovieController extends Controller
     public function show($id)
     {
         $movie = Movie::with(['reviews', 'genres'])->findOrFail($id);
+        $user = Auth::user();
+        $isAdmin = $user && $user->role === 'admin';
 
-        return view('movie', ['movie' => $movie]);
+        return view('movie', [
+            'movie' => $movie,
+            'isAdmin' => $isAdmin,
+        ]);
     }
 
     /**

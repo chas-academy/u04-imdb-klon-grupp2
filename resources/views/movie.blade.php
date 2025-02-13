@@ -50,24 +50,26 @@
         >
             Add to list
         </x-button>
-        <div class="mt-2 flex gap-2 sm:hidden">
-            <x-button
-                class="w-full bg-red-400 sm:hidden"
-                variant="primary"
-                size="md"
-                href=""
-            >
-                Delete
-            </x-button>
-            <x-button
-                class="w-full sm:hidden"
-                variant="secondary"
-                size="md"
-                href=""
-            >
-                Edit
-            </x-button>
-        </div>
+        @if ($isAdmin)
+            <div class="mt-2 flex gap-2 sm:hidden">
+                <x-button
+                    class="w-full bg-red-400 sm:hidden"
+                    variant="primary"
+                    size="md"
+                    href=""
+                >
+                    Delete
+                </x-button>
+                <x-button
+                    class="w-full sm:hidden"
+                    variant="secondary"
+                    size="md"
+                    href=""
+                >
+                    Edit
+                </x-button>
+            </div>
+        @endif
     </div>
 
     <!-- Desktop View -->
@@ -76,22 +78,24 @@
             <h1 class="w-150 text-2xl font-bold text-slate-50">
                 {!! $movie->title !!}
             </h1>
-            <div class="flex gap-2">
-                <x-button
-                    class="bg-red-400 hover:bg-red-500"
-                    variant="primary"
-                    size="md"
-                    href=""
-                >
-                    Delete
-                </x-button>
-                <x-button class="" variant="secondary" size="md" href="">
-                    Edit
-                </x-button>
-            </div>
+            @if ($isAdmin)
+                <div class="flex gap-2">
+                    <x-button
+                        class="bg-red-400 hover:bg-red-500"
+                        variant="primary"
+                        size="md"
+                        href=""
+                    >
+                        Delete
+                    </x-button>
+                    <x-button class="" variant="secondary" size="md" href="">
+                        Edit
+                    </x-button>
+                </div>
+            @endif
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 pt-3">
             <x-rating size="sm" :rating="$movie->rating_average" />
             <div class="text-indigo-200">|</div>
             <p>{!! $movie->year !!}</p>
