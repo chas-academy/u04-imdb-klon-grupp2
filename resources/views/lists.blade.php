@@ -3,7 +3,7 @@
 @endphp
 
 <x-layout>
-    <div>
+    <div class="mt-1 space-y-6 md:mt-12">
         <div class="flex items-start justify-between">
             <x-section-header.back-link
                 :title="$title"
@@ -29,6 +29,18 @@
                 </x-button>
             @endif
         </div>
+
+        @if ($lists)
+            <x-section :columns="[2, 'md' => 4, 'lg' => 6]">
+                @foreach ($lists as $list)
+                    <x-list
+                        :title="$list['title']"
+                        :posters="$list['posters']->toArray()"
+                        link="{{ route('list', ['id' => $list['id']]) }}"
+                    />
+                @endforeach
+            </x-section>
+        @endif
     </div>
 
     <x-modal.base

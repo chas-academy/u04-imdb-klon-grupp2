@@ -16,10 +16,30 @@ class ListController extends Controller
     public function index($username)
     {
         $user = User::where('username', $username)->firstOrFail();
-        $lists = $user->lists()->with('movies')->get();
         $isCurrentUserProfile = Auth::check() && $username === Auth::user()->username;
 
-        return view('lists', ['lists' => $lists, 'username' => $user->username, 'isCurrentUserProfile' => $isCurrentUserProfile]);
+        $lists = $user
+            ->lists()
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
+            ->with(['movies' => function ($query) {
+                $query
+                    ->orderByDesc('list_movie.created_at')
+                    ->orderByDesc('id')
+                    ->take(4);
+            }])->get();
+
+        return view('lists', [
+            'lists' => $lists->map(fn ($list) => [
+                'id' => $list->id,
+                'title' => $list->title,
+                'posters' => $list->movies->map(fn ($movie) => [
+                    'src' => $movie->poster,
+                    'title' => $movie->title,
+                ]),
+            ]),
+            'username' => $user->username,
+            'isCurrentUserProfile' => $isCurrentUserProfile]);
     }
 
     /**
