@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\MovieList;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +22,7 @@ class ListController extends Controller
                 return [
                     'id' => $list->id,
                     'title' => $list->title,
-                    'posters' => $list->movies->map(fn($movie) => [
+                    'posters' => $list->movies->map(fn ($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
                     ]),
