@@ -87,12 +87,14 @@
                 <x-menu-item>Edit profile</x-menu-item>
                 <x-modal.divider />
 
-                {{-- TODO: add log out functionality --}}
-                <x-menu-item>Log out</x-menu-item>
-                <x-modal.divider />
-
                 {{-- TODO: add change password functionality --}}
                 <x-menu-item>Change password</x-menu-item>
+                <x-modal.divider />
+
+                <form method="post" action="{{ route('logout') }}">
+                    @csrf
+                    <x-menu-item>Log out</x-menu-item>
+                </form>
                 <x-modal.divider />
 
                 {{-- TODO: add delete account functionality --}}
