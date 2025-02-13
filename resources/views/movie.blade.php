@@ -111,7 +111,7 @@
                     alt="Poster of {{ $movie->title }}"
                 />
                 <x-button variant="primary" size="md" href="">
-                    Add movie
+                    Add to list
                 </x-button>
             </div>
             <div class="flex flex-col gap-3">
