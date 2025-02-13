@@ -1,41 +1,42 @@
 @props([
     'user',
-    'stats' => [
-        'lists' => 0,
-        'reviews' => 0,
-        'friends' => 0,
-    ],
-    
+    'statistics',
 ])
 
 <div class="relative flex w-full">
-    <div class="absolute top-0 right-0">
-        <x-lucide-ellipsis-vertical class="size-6 text-slate-50" />
+    <div
+        class="mr-8 flex w-full flex-col gap-4 md:flex-row md:items-center md:justify-between"
+    >
+        <div class="flex gap-4">
+            <x-avatar :image="$user->image" size="lg" />
+
+            <div class="flex grow flex-col gap-3 text-slate-50">
+                <div class="text-lg font-bold">
+                    {{ $user->username }}
+                </div>
+                <div class="flex gap-6 text-slate-50">
+                    @foreach ($statistics as $name => $number)
+                        <div class="flex flex-col text-sm">
+                            <p class="font-bold">
+                                {{ $number }}
+                            </p>
+                            <span class="text-slate-200">
+                                {{ $name }}
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        @isset($buttons)
+            <div class="flex flex-none gap-2 self-start">
+                {{ $buttons }}
+            </div>
+        @endisset
     </div>
 
-    <div class="mr-8 flex w-full flex-row flex-wrap items-center gap-4">
-        <x-avatar :image="$user->image ?? null" size="lg" />
-
-        <div class="flex grow flex-col gap-3 text-slate-50">
-            <div class="text-lg font-bold">
-                {{ $user->username }}
-            </div>
-            <div class="flex gap-6 text-slate-50">
-                @foreach ($stats as $stat => $sum)
-                    <div class="flex flex-col">
-                        <p class="text-sm font-bold">
-                            {{ $sum }}
-                        </p>
-                        <span class="text-sm font-normal text-slate-200">
-                            {{ $stat }}
-                        </span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-
-        <div class="flex flex-none flex-row gap-2 self-start">
-            {{ $slot }}
-        </div>
+    <div class="absolute top-0 right-0">
+        <x-lucide-ellipsis-vertical class="size-6 text-slate-50" />
     </div>
 </div>
