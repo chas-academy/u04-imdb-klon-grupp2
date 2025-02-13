@@ -26,6 +26,7 @@ Route::controller(ReviewController::class)->group(function () {
     Route::get('/u/{username}/reviews', 'index')->name('reviews.user');
     Route::get('/m/{id}/{title}/reviews', 'index')->name('reviews.movie');
     Route::get('/review/{id}', 'show')->name('review');
+    Route::post('/m/{id}/{title}', 'store')->middleware(['auth'])->name('review.store');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(function () {

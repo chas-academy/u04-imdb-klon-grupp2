@@ -1,4 +1,11 @@
-<div x-data="{ rating: 0 }" class="flex flex-col gap-1">
+@props([
+    'name',
+    'label',
+    'value' => 0,
+    'error',
+])
+
+<div x-data="{ rating: @js($value) }" class="flex flex-col gap-1">
     <x-input.label for="{{ $name }}">
         {{ $label }}
     </x-input.label>

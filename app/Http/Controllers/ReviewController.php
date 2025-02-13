@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,19 +27,34 @@ class ReviewController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $request->validateWithBag('createReviewValidation', [
+            'rating' => ['required', 'integer', 'min:1', 'max:10'],
+            'content' => ['nullable', 'string', 'max:800'],
+        ]);
+
+        try {
+            $user = Auth::user();
+
+            $review = Review::create([
+                'rating' => $request->rating,
+                'content' => $request->content,
+                'user_id' => $user->id,
+                'movie_id' => $id,
+            ]);
+
+            return redirect(route('review', ['id' => $review->id]));
+        } catch (Exception $error) {
+            dd($error);
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors('Something went wrong when publishing the review!', 'createReview');
+        }
     }
 
     /**
