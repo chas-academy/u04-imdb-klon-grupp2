@@ -136,6 +136,21 @@
         </p>
     </div>
 
+    {{-- Reviews --}}
+    <x-section :columns="[1, 'sm' => 2]">
+        @foreach ($reviews as $review)
+            <x-review.index
+                title="{{ $review->movie->title }}"
+                content="{{ $review->content }}"
+                :created_at="$review->created_at"
+                :rating="$review->rating"
+                link="{{ route('review', $review->id) }}"
+                username="{{ $review->user->username }}"
+            />
+        @endforeach
+    </x-section>
+    <a class="flex self-end text-indigo-400" href="">Show more</a>
+
     <x-button
         x-data
         @click="$dispatch('open-modal', 'create-review')"
