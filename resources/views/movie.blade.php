@@ -9,7 +9,7 @@
         <div class="flex justify-between pt-4 sm:hidden">
             <div class="flex flex-col gap-4 sm:hidden">
                 <h1 class="text-2xl font-bold text-slate-50 sm:hidden">
-                    {{ $movie->title }}
+                    {!! $movie->title !!}
                 </h1>
                 <div class="flex flex-col gap-1 sm:hidden">
                     <div class="flex items-center gap-2 sm:hidden">
@@ -19,12 +19,14 @@
                             :rating="$movie->rating_average"
                         />
                         <div class="text-indigo-200 sm:hidden">|</div>
-                        <p>{{ $movie->year }}</p>
+                        <p>{!! $movie->year !!}</p>
                         <div class="text-indigo-200 sm:hidden">|</div>
-                        <p class="sm:hidden">{{ $movie->duration }}</p>
+                        <p class="sm:hidden">
+                            {!! formatDuration($movie->duration) !!}
+                        </p>
                     </div>
                     <p class="text-xs font-bold text-slate-100 sm:hidden">
-                        {{ $movie->director }}
+                        {!! $movie->director !!}
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-2 sm:hidden">
@@ -39,30 +41,7 @@
                 alt="Poster of {{ $movie->title }}"
             />
         </div>
-        <x-poster class="w-32 sm:hidden" src="{{ $movie->poster }}" />
-    </div>
-    <div
-        class="flex flex-col gap-3 sm:hidden"
-        x-data="{ showFullText: false }"
-    >
-        <p :class="{ 'line-clamp-3': !showFullText }" class="pt-3 sm:hidden">
-            {{ $movie->description }}
-        </p>
-        <button
-            @click="showFullText = !showFullText"
-            class="cursor-pointer text-end text-sm font-bold text-indigo-400 hover:underline focus:outline-none sm:hidden"
-        >
-            <span x-show="!showFullText">Show more</span>
-            <span x-show="showFullText">Show less</span>
-        </button>
-    </div>
-
-    <x-button class="mt-6 w-full sm:hidden" variant="primary" size="md" href="">
-        Add to list
-    </x-button>
-
-    <div class="mt-2 flex gap-2 sm:hidden">
-        <p class="pt-3 sm:hidden">{{ $movie->description }}</p>
+        <p class="pt-3 sm:hidden">{!! $movie->description !!}</p>
         <x-button
             class="mt-6 w-full sm:hidden"
             variant="primary"
@@ -93,9 +72,9 @@
 
     <!-- Desktop View -->
     <div class="hidden px-4 sm:block">
-        <div class="flex items-center justify-between">
-            <h1 class="text-2xl font-bold text-slate-50">
-                {{ $movie->title }}
+        <div class="flex items-center justify-between gap-4">
+            <h1 class="w-150 text-2xl font-bold text-slate-50">
+                {!! $movie->title !!}
             </h1>
             <div class="flex gap-2">
                 <x-button
@@ -111,15 +90,16 @@
                 </x-button>
             </div>
         </div>
+
         <div class="flex items-center gap-2">
             <x-rating size="sm" :rating="$movie->rating_average" />
             <div class="text-indigo-200">|</div>
-            <p>{{ $movie->year }}</p>
+            <p>{!! $movie->year !!}</p>
             <div class="text-indigo-200">|</div>
-            <p class="">{{ $movie->duration }}</p>
+            <p class="">{!! formatDuration($movie->duration) !!}</p>
             <div class="text-indigo-200">|</div>
             <p class="text-xs font-bold text-slate-100">
-                {{ $movie->director }}
+                {!! $movie->director !!}
             </p>
         </div>
 
@@ -148,7 +128,7 @@
             </div>
         </div>
         <p class="max-w-144 pt-3">
-            {{ $movie->description }}
+            {!! $movie->description !!}
         </p>
     </div>
     <x-button
