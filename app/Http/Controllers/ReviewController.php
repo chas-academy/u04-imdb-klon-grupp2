@@ -80,6 +80,11 @@ class ReviewController extends Controller
 
         try {
             $review = Review::findOrFail($id);
+            $user = Auth::user();
+
+            if (! $review->isWrittenBy($user)) {
+                throw new Exception('You are not allowed to edit this review');
+            }
 
             $review->update([
                 'rating' => $request->rating,
