@@ -94,7 +94,6 @@ class ListController extends Controller
         } catch (Exception) {
             return redirect()
                 ->back()
-                ->withInput()
                 ->withErrors('Something went wrong when deleting the list!', 'deleteList');
         }
     }

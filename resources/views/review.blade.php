@@ -58,9 +58,9 @@
 
     <x-modal.base
         name="review-menu"
-        {{-- :show="$errors->edit->isNotEmpty() || $errors->editListValidation->isNotEmpty()" --}}
+        :show="$errors->deleteReview->isNotEmpty()"
     >
-        <x-modal.menu>
+        <x-modal.menu :error="$errors->deleteReview->first()">
             <x-slot:title>
                 @if ($isAuthor)
                     <p class="font-normal">
@@ -95,8 +95,14 @@
             @endif
 
             @if ($isAuthor || auth()->user()->role === 'admin')
-                {{-- TODO: delete reivew --}}
-                <x-menu-item variant="destructive">Delete</x-menu-item>
+                <form
+                    method="post"
+                    action="{{ route('review.destroy', ['id' => $review->id]) }}"
+                >
+                    @csrf
+                    @method('delete')
+                    <x-menu-item variant="destructive">Delete</x-menu-item>
+                </form>
                 <x-modal.divider />
             @endif
 

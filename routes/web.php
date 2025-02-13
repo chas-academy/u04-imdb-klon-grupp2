@@ -28,6 +28,7 @@ Route::controller(ReviewController::class)->group(function () {
     Route::get('/m/{id}/{title}/reviews', 'index')->name('reviews.movie');
     Route::get('/review/{id}', 'show')->name('review');
     Route::post('/m/{id}/{title}', 'store')->middleware(['auth'])->name('review.store');
+    Route::delete('/review/{id}', 'destroy')->middleware(['auth'])->name('review.destroy');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(function () {
