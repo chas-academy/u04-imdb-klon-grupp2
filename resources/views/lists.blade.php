@@ -1,7 +1,35 @@
+@php
+    $title = $isCurrentUserProfile ? 'My lists' : "$username's lists";
+@endphp
+
 <x-layout>
-    <x-button x-data @click="$dispatch('open-modal', 'create-list')">
-        Create list
-    </x-button>
+    <div>
+        <div class="flex items-start justify-between">
+            <x-section-header.back-link
+                :title="$title"
+                href="{{ route('profile', ['username' => $username]) }}"
+                backLabel="Back to profile"
+            />
+            @if ($isCurrentUserProfile)
+                <x-button
+                    x-data
+                    @click="$dispatch('open-modal', 'create-list')"
+                    size="sm"
+                    class="sm:hidden"
+                >
+                    Create list
+                </x-button>
+                <x-button
+                    x-data
+                    @click="$dispatch('open-modal', 'create-list')"
+                    size="md"
+                    class="hidden sm:inline-flex"
+                >
+                    Create list
+                </x-button>
+            @endif
+        </div>
+    </div>
 
     <x-modal.base
         name="create-list"

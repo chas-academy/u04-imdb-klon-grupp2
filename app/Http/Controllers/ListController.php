@@ -17,8 +17,9 @@ class ListController extends Controller
     {
         $user = User::where('username', $username)->firstOrFail();
         $lists = $user->lists()->with('movies')->get();
+        $isCurrentUserProfile = Auth::check() && $username === Auth::user()->username;
 
-        return view('lists', ['user' => $user, 'lists' => $lists]);
+        return view('lists', ['lists' => $lists, 'username' => $user->username, 'isCurrentUserProfile' => $isCurrentUserProfile]);
     }
 
     /**
