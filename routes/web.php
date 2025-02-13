@@ -36,12 +36,13 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::get('/create-user', [AdminController::class, 'createUserForm'])->name('admin.create.user');
     Route::post('/create-user', [AdminController::class, 'createUser'])->name('admin.store.user');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/featured', fn () => view('admin.featured-lists'))->name('admin.featured');
+    Route::get('/featured', fn() => view('admin.featured-lists'))->name('admin.featured');
 
     Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'index')->name('reports.user');
         Route::get('/reviews', 'index')->name('reports.review');
+        Route::get('/review/{id}', 'showReport')->name('reports.show');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
