@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\MovieList;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -105,8 +107,26 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movie $movie)
+    public function destroy($id)
     {
-        //
+        try {
+         
+        $movie = MovieList::findOrFail($id);
+        $user = Auth::user();
+
+        
+        if (! $movie->isOwnBy($user->id)) {
+            throw new Exception
+            ('You are not allowed to delete this movie!');
+        }
+
+    $movie->delete();
+
+    return redirect('/');
+    } catch (Exception) {
+        return redirect()
+            ->back()
+            ->withErrors('Something went wrong with deleting the movie!', 'deleteMovie');
+        }
     }
-}
+    }
