@@ -18,7 +18,7 @@
 
         <div class="flex grow flex-col gap-3 text-slate-50">
             <div class="text-lg font-bold">
-                {{ $user->username ?? 'username' }}
+                {{ $user->username }}
             </div>
             <div class="flex gap-6 text-slate-50">
                 @foreach ($stats as $stat => $sum)
