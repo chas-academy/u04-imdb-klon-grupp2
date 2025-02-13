@@ -22,11 +22,18 @@ class MovieList extends Model
         return $this->belongsToMany(Movie::class, 'list_movie', 'list_id', 'movie_id');
     }
 
-    // Define the many-to-many relationship with User
     public function users()
     {
         return $this->belongsToMany(User::class, 'list_user', 'list_id', 'user_id')
             ->withPivot('status', 'role')
             ->withTimestamps();
+    }
+
+    public function isOwnedBy(int $id)
+    {
+        return $this->users()
+            ->where('user_id', $id)
+            ->wherePivot('role', 'owner')
+            ->exists();
     }
 }
