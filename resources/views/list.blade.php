@@ -53,15 +53,15 @@
         <div
             class="mt-header-mobile sm:mt-header-desktop mb-16 flex w-full max-w-5xl flex-1 flex-col items-center justify-center gap-4 px-4 md:mb-20"
         >
-            <div>
+            <div class="overflow-auto">
                 <x-section :columns="[2, 'md' => 6]">
                     @php
                         $topTwelveMovies = app('App\Http\Controllers\ListController')->getTopTwelveMovies($list->id);
                     @endphp
 
                     @foreach ($topTwelveMovies as $movie)
-                        <div class="flex h-89 flex-col gap-2">
-                            <div>
+                        <div class="flex flex-col gap-2">
+                            <div class="h-80">
                                 <x-movie
                                     :title="$movie->title"
                                     :rating="number_format($movie->rating, 1)"
