@@ -87,15 +87,15 @@ class ListController extends Controller
         ]);
     }
 
+        /**
+     * Get the top twelve movies excluding the ones already in the list
+     */
     public function getTopTwelveMovies($listId)
-{
-    // Get the list
+    {
     $list = MovieList::find($listId);
 
-    // Get the IDs of the movies already in the list
     $existingMovieIds = $list->movies->pluck('id')->toArray();
 
-    // Get the top twelve movies excluding the ones already in the list
     $topTwelveMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
                             ->leftJoin('reviews', 'movies.id', '=', 'reviews.movie_id')
                             ->select('movies.id', 'movies.title', 'movies.poster', DB::raw('AVG(reviews.rating) as rating'))
@@ -105,18 +105,20 @@ class ListController extends Controller
                             ->get();
 
     return $topTwelveMovies;
-}
+    }
 
-public function addMovie(Request $request, $listId)
-{
+    /**
+     * Add a movie to the list
+     */
+    public function addMovie(Request $request, $listId)
+    {
     $list = MovieList::findOrFail($listId);
     $movieId = $request->input('movie_id');
 
-    // Add the movie to the list
     $list->movies()->attach($movieId);
 
     return redirect()->back()->with('success', 'Movie added to the list successfully!');
-}
+    }
     /**
      * Show the form for editing the specified resource.
      */
