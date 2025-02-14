@@ -138,7 +138,7 @@
 
     <div class="px-4 pt-12">
         <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold">Review</h2>
+            <h2 class="text-2xl font-bold">Reviews</h2>
             <x-button
                 x-data
                 @click="$dispatch('open-modal', 'create-review')"
@@ -151,7 +151,6 @@
         <div class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
             @foreach ($reviews as $review)
                 <x-review
-                    class="min-h-28"
                     :title="$review->movie->title"
                     :content="$review->content"
                     :rating="$review->rating"
