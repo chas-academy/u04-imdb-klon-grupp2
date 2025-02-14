@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->friendsOfMine->merge($this->friendsOf);
     }
+
+    public function isBanned(): bool
+    {
+        return $this->banned_until && now()->lt($this->banned_until);
+    }
 }
