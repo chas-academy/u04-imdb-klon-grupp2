@@ -67,19 +67,35 @@ class ReviewController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Review $review)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Review $review)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validateWithBag('updateReviewValidation', [
+            'rating' => ['required', 'integer', 'min:1', 'max:10'],
+            'content' => ['nullable', 'string', 'max:800'],
+        ]);
+
+        try {
+            $review = Review::findOrFail($id);
+            $user = Auth::user();
+
+            if (! $review->isWrittenBy($user)) {
+                throw new Exception('You are not allowed to edit this review');
+            }
+
+            $review->update([
+                'rating' => $request->rating,
+                'content' => $request->content,
+            ]);
+
+            return redirect(route('review', ['id' => $review->id]));
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors('Something went wrong when updating the review!', 'updateReview');
+        }
     }
 
     /**
