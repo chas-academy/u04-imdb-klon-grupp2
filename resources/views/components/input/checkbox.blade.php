@@ -15,12 +15,11 @@
         name="{{ $name }}"
         class="peer hidden"
     />
-
     <span
         tabindex="0"
         role="checkbox"
         aria-checked="{{ $checked ? 'true' : 'false' }}"
-        class="flex size-4 cursor-pointer items-center justify-center rounded border-1 border-indigo-400 bg-slate-50 peer-checked:border-indigo-400 peer-checked:bg-indigo-400"
+        class="ml-2 flex size-4 cursor-pointer items-center justify-center rounded border-1 border-indigo-400 bg-slate-50 peer-checked:border-indigo-400 peer-checked:bg-indigo-400"
         onclick="toggleCheckbox('{{ $name }}')"
         onkeydown="handleKeyPress(event, '{{ $name }}')"
     >
