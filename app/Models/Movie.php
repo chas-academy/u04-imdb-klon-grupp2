@@ -42,7 +42,7 @@ class Movie extends Model
 
     public function updateRating()
     {
-        $average = $this->reviews()->avg('rating') ?? 0;
+        $average = round($this->reviews()->avg('rating'), 1) ?? 0;
         $amount = $this->rating_amount + 1;
 
         $this->update(['rating_average' => $average, 'rating_amount' => $amount]);
