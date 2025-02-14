@@ -4,11 +4,19 @@
     'value' => null,
     'error',
     'informationLabel' => null,
+    'existingFileUrl' => null,
 ])
 
 <div
     {{ $attributes->class('flex flex-col items-start gap-1') }}
-    x-data="{ fileName: '', fileSelected: false }"
+    x-data="{
+        fileName:
+            '{{ $existingFileUrl ? basename($existingFileUrl) : '' }}'.replace(
+                /^(poster_|cover_)/,
+                '',
+            ),
+        fileSelected: {{ $existingFileUrl ? 'true' : 'false' }},
+    }"
 >
     <x-input.label for="{{ $name }}">
         {{ $label }}
@@ -31,7 +39,22 @@
 
     <div class="ml-2 flex flex-col items-start" x-show="fileSelected">
         <div class="flex items-center gap-2">
-            <span x-text="fileName" class="text-sm text-slate-200"></span>
+            @if ($existingFileUrl)
+                <span class="text-sm text-slate-200">
+                    <a
+                        x-text="fileName"
+                        href="{{ $existingFileUrl }}"
+                        target="_blank"
+                        class="text-sm text-blue-500 underline"
+                    ></a>
+                </span>
+            @else
+                <span
+                    x-text="fileName"
+                    class="text-sm text-slate-200"
+                ></span>
+            @endif
+
             <x-button
                 variant="secondary"
                 type="button"
