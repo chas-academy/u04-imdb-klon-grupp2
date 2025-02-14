@@ -40,16 +40,11 @@ class ProfileController extends Controller
         return view('profile', [
             'user' => $user,
             'isCurrentUserProfile' => $isCurrentUserProfile,
-<<<<<<< HEAD
             'lists' => $lists->map(
                 fn($list) => [
-=======
-            'lists' => $profile->lists->map(
-                fn ($list) => [
->>>>>>> dcd11ad (fix: linting errors)
                     'id' => $list->id,
                     'title' => $list->title,
-                    'posters' => $list->movies->map(fn ($movie) => [
+                    'posters' => $list->movies->map(fn($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
                     ]),
