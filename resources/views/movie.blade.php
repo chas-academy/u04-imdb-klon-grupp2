@@ -50,9 +50,6 @@
         >
             Add to list
         </x-button>
-
-<div class="flex flex-col gap-3">
-    <div class="flex justify-between">
         @if ($isAdmin)
             <div class="mt-2 flex gap-2 sm:hidden">
                 <x-button
@@ -139,29 +136,32 @@
         </p>
     </div>
 
-    {{-- Reviews --}}
-    <x-section :columns="[1, 'sm' => 2]">
-        @foreach ($reviews as $review)
-            <x-review.index
-                title="{{ $review->movie->title }}"
-                content="{{ $review->content }}"
-                :created_at="$review->created_at"
-                :rating="$review->rating"
-                link="{{ route('review', $review->id) }}"
-                username="{{ $review->user->username }}"
-            />
-        @endforeach
-    </x-section>
-    <a class="flex self-end text-indigo-400" href="">Show more</a>
-
-    <x-button
-        x-data
-        @click="$dispatch('open-modal', 'create-review')"
-        variant="secondary"
-        size="sm"
-    >
-        Write a review
-    </x-button>
+    <div class="px-4 pt-12">
+        <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold">Review</h2>
+            <x-button
+                x-data
+                @click="$dispatch('open-modal', 'create-review')"
+                variant="secondary"
+                size="sm"
+            >
+                Write a review
+            </x-button>
+        </div>
+        <div class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
+            @foreach ($reviews as $review)
+                <x-review
+                    class="min-h-28"
+                    :title="$review->movie->title"
+                    :content="$review->content"
+                    :rating="$review->rating"
+                    :created_at="$review->created_at"
+                    :username="$review->user->username"
+                    link="{{ route('review', ['id' => $review->id]) }}"
+                />
+            @endforeach
+        </div>
+    </div>
     <x-modal.base
         name="create-review"
         :show="$errors->createReview->isNotEmpty() || $errors->createReviewValidation->isNotEmpty()"
