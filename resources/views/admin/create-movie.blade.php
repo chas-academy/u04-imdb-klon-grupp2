@@ -4,8 +4,8 @@
         title="Create movie"
         href="{{ route('admin.dashboard') }}"
     />
-    <div class="max-w-xl items-center">
-        <div class="flex flex-col gap-12 pt-4 md:pt-20">
+    <div class="m-auto max-w-xl">
+        <div class="flex flex-col gap-12 pt-4 md:pt-8">
             <form
                 method="POST"
                 action="{{ route('admin.store.movie') }}"
