@@ -37,7 +37,7 @@ class MovieController extends Controller
                 });
 
                 if ($latestUpdatedList->id == $latestCreatedList->id) {
-                    $latestUpdatedList = $userLists->where('lists.id', '!=', $latestCreatedList->id)->latest()->first();
+                    $latestUpdatedList = $userLists->where('lists.id', '!=', $latestCreatedList->id)->latest('updated_at')->first();
                 }
             }
 

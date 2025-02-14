@@ -49,36 +49,46 @@
                 <div class="mt-16 mb-4">
                     <x-section-header.link
                         :title="$latestCreatedList->title"
-                        extraLabel="From my collection"
+                        extraLabel="From your collection"
                         href=" {{route('list', ['id' => $latestCreatedList->id])}}"
                     />
                 </div>
-
-                <x-section
-                    :columns="[3, 'sm' => 4, 'lg' => 6]"
-                    scrollableOnMobile
-                >
-                    @foreach ($latestCreatedList->movies->take(10) as $movie)
-                        <x-movie
-                            :title="$movie->title"
-                            :image="$movie->poster"
-                            :rating="$movie->rating_average"
-                            class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
-                            :link="route('movie', ['id' => $movie->id, 'title' => $movie->title])"
-                        />
-                    @endforeach
-                </x-section>
-            @endif
-
-            @if ($latestUpdatedList)
-                <div class="mt-16 mb-4">
-                    <x-section-header.link
-                        :title="$latestUpdatedList->title"
-                        extraLabel="From my collection"
-                        href="{{route('list', ['id' => $latestUpdatedList->id])}}"
+                @if ($latestCreatedList->movies->isEmpty())
+                    <x-empty-state
+                        content="Nothing here yet! Pick a movie and start building your collection."
                     />
-                </div>
+                @else
+                    <x-section
+                        :columns="[3, 'sm' => 4, 'lg' => 6]"
+                        scrollableOnMobile
+                    >
+                        @foreach ($latestCreatedList->movies->take(10) as $movie)
+                            <x-movie
+                                :title="$movie->title"
+                                :image="$movie->poster"
+                                :rating="$movie->rating_average"
+                                class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                                :link="route('movie', ['id' => $movie->id, 'title' => $movie->title])"
+                            />
+                        @endforeach
+                    </x-section>
+                @endif
+            @endif
+        @endif
+        @if ($latestUpdatedList)
+            <div class="mt-16 mb-4">
+                <x-section-header.link
+                    :title="$latestUpdatedList->title"
+                    extraLabel="Recently updated"
+                    href="{{ route('list', ['id' => $latestUpdatedList->id]) }}"
+                />
+            </div>
 
+            @if ($latestUpdatedList->movies->isEmpty())
+                <x-empty-state
+                    content="Nothing here yet! Pick a movie and start building your collection."
+                />
+            @else
                 <x-section
                     :columns="[3, 'sm' => 4, 'lg' => 6]"
                     scrollableOnMobile
