@@ -21,15 +21,23 @@
     </x-profile>
 
     @if ($lists->isEmpty() && $reviews->isEmpty())
-        <div class="grid flex-1 place-items-center">
-            <p class="text-slate-200">
-                @if ($isCurrentUserProfile)
-                    You don't have any content yet!
-                @else
+        @if ($isCurrentUserProfile)
+            <div class="flex flex-1 flex-col items-center justify-center gap-4">
+                <p class="text-slate-200">You don't have any content yet!</p>
+                <x-button
+                    x-data
+                    @click="$dispatch('open-modal', 'create-list')"
+                >
+                    Create list
+                </x-button>
+            </div>
+        @else
+            <div class="grid flex-1 place-items-center">
+                <p class="text-slate-200">
                     {{ $user->username }} doesn't have any content yet!
-                @endif
-            </p>
-        </div>
+                </p>
+            </div>
+        @endif
     @else
         <div class="flex flex-col gap-12">
             @if ($lists->isNotEmpty())
@@ -180,4 +188,6 @@
             </form>
         </x-modal.input>
     </x-modal.base>
+
+    <x-create-list-modal />
 </x-layout>
