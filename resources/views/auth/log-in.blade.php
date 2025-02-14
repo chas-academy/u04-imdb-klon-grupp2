@@ -35,7 +35,7 @@
             />
 
             @if (! $errors->isEmpty())
-                <x-input.error message="{{ $errors->first('credentials') }}" />
+                <x-input.error message="{{ $errors->first() }}" />
             @endif
         </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -46,6 +47,16 @@ class LoginRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'credentials' => 'The provided credentials are not valid.',
+            ]);
+        }
+
+        $user = Auth::user();
+
+        if ($user->isBanned()) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'banned' => 'Your account is banned until '.Carbon::parse($user->banned_until)->format('F jS').'.',
             ]);
         }
 
