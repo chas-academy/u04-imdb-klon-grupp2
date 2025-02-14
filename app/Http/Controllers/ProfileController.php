@@ -17,25 +17,29 @@ class ProfileController extends Controller
      */
     public function show($username): View
     {
-        $profile = User::where('username', $username)
-            ->with([
-                'lists' => function ($query) {
-                    $query->orderByDesc('created_at')->orderByDesc('id')->take(4)->with(['movies' => function ($query) {
-                        $query->orderByDesc('list_movie.created_at')->orderByDesc('id')->take(4);
-                    }]);
-                },
-                'reviews' => function ($query) {
-                    $query->take(4)->with('movie');
-                },
-            ])
-            ->firstOrFail();
-
+        $user = User::where('username', $username)->firstOrFail();
         $isCurrentUserProfile = Auth::check() && $username === Auth::user()->username;
 
+        $lists = $user->lists()
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
+            ->take(4)
+            ->with(['movies' => function ($query) {
+                $query
+                    ->orderByDesc('list_movie.created_at')
+                    ->orderByDesc('id')
+                    ->take(4);
+            }])
+            ->get();
+        $listCount = $user->lists()->count();
+
+        $reviews = $user->reviews()->take(4)->with('movie')->get();
+        $reviewCount = $user->reviews()->count();
+
         return view('profile', [
-            'username' => $username,
+            'user' => $user,
             'isCurrentUserProfile' => $isCurrentUserProfile,
-            'lists' => $profile->lists->map(fn ($list) => [
+            'lists' => $lists->map(fn ($list) => [
                 'id' => $list->id,
                 'title' => $list->title,
                 'posters' => $list->movies->map(fn ($movie) => [
@@ -44,7 +48,11 @@ class ProfileController extends Controller
                 ]),
             ]
             ),
-            'reviews' => $profile->reviews,
+            'reviews' => $reviews,
+            'statistics' => [
+                'lists' => $listCount,
+                'reviews' => $reviewCount,
+            ],
         ]);
     }
 
