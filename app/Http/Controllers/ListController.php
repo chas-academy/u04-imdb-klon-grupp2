@@ -90,21 +90,21 @@ class ListController extends Controller
         /**
      * Get the top twelve movies excluding the ones already in the list
      */
-    public function getTopTwelveMovies($listId)
+    public function getTopThirtyMovies($listId)
     {
     $list = MovieList::find($listId);
 
     $existingMovieIds = $list->movies->pluck('id')->toArray();
 
-    $topTwelveMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
+    $topThirtyfourMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
                             ->leftJoin('reviews', 'movies.id', '=', 'reviews.movie_id')
                             ->select('movies.id', 'movies.title', 'movies.poster', DB::raw('AVG(reviews.rating) as rating'))
                             ->groupBy('movies.id', 'movies.title', 'movies.poster')
                             ->orderBy('rating', 'desc')
-                            ->take(12)
+                            ->take(30)
                             ->get();
 
-    return $topTwelveMovies;
+    return $topThirtyfourMovies;
     }
 
     /**

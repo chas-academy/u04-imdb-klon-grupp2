@@ -56,10 +56,10 @@
             <div class="overflow-auto">
                 <x-section :columns="[2, 'md' => 6]">
                     @php
-                        $topTwelveMovies = app('App\Http\Controllers\ListController')->getTopTwelveMovies($list->id);
+                        $topThirtyMovies = app('App\Http\Controllers\ListController')->getTopThirtyMovies($list->id);
                     @endphp
 
-                    @foreach ($topTwelveMovies as $movie)
+                    @foreach ($topThirtyMovies as $movie)
                         <div class="flex flex-col gap-2">
                             <div class="h-80">
                                 <x-movie
