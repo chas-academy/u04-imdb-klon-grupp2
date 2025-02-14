@@ -107,7 +107,7 @@
                         x-data
                         @click="
                             $dispatch('close-modal', 'profile-menu')
-                            $dispatch('open-modal', 'report-user')
+                            $dispatch('open-modal', 'ban-user')
                         "
                     >
                         Ban user
@@ -137,7 +137,7 @@
     </x-modal.base>
 
     <x-modal.base
-        name="report-user"
+        name="ban-user"
         :show="$errors->banUser->isNotEmpty() || $errors->banUserValidation->isNotEmpty()"
     >
         <x-modal.input>
@@ -169,7 +169,7 @@
                 <div class="flex gap-2">
                     <x-button
                         x-data
-                        @click="$dispatch('close-modal', 'report-user')"
+                        @click="$dispatch('close-modal', 'ban-user')"
                         type="button"
                         variant="secondary"
                     >
