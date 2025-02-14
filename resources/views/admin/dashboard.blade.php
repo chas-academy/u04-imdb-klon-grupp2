@@ -4,7 +4,7 @@
     >
         <div class="sm:flex-1 sm:self-start">
             <x-profile-simplified
-                :username="'@'. auth()->user()->username"
+                :username="auth()->user()->username"
                 :image="auth()->user()->image"
                 size="md"
             />
@@ -49,6 +49,7 @@
         <x-section :columns="[3, 'sm' => 4, 'lg' => 6]" scrollableOnMobile>
             @foreach ($latestUploadedMovies as $movie)
                 <x-movie
+                    :id="$movie->id"
                     :title="$movie->title"
                     :image="$movie->poster"
                     :rating="$movie->rating_average"
@@ -63,11 +64,11 @@
         <div>
             <x-section-header.link
                 title="Reported users"
-                :extraLabel="'Pending: (' . $pendingReportedUsers . ')'"
-                href="{{ route('reports.user') }}"
+                :extraLabel="'Pending: (' . $reportedUsers->count() . ')'"
+                href="{{ route('reported.users') }}"
             />
             <div class="mt-4 space-y-4">
-                @foreach ($reportedUsers as $reportedUser)
+                @foreach ($reportedUsers->take(7) as $reportedUser)
                     <div class="flex items-center justify-between">
                         <x-profile-simplified
                             :username="$reportedUser->user->username"
@@ -77,7 +78,7 @@
                         <x-button
                             variant="secondary"
                             size="sm"
-                            :link="route('reports.show', ['id' => $reportedUser->user->id])"
+                            href="{{ route('reported.user', ['username' => $reportedUser->user->username]) }}"
                         >
                             Check report
                         </x-button>
@@ -89,17 +90,17 @@
         <div>
             <x-section-header.link
                 title="Reported reviews"
-                :extraLabel="'Pending: (' . $pendingReportedReviews . ')'"
-                href="{{ route('reports.review') }}"
+                :extraLabel="'Pending: (' . $reportedReviews->count() . ')'"
+                href="{{ route('reported.reviews') }}"
             />
             <div class="mt-4 space-y-4">
-                @foreach ($reportedReviews as $userReview)
+                @foreach ($reportedReviews->take(3) as $userReview)
                     <x-review.reported
                         :title="$userReview->review->movie->title"
                         :content="$userReview->review->content"
                         :image="$userReview->review->movie->poster"
                         :username="$userReview->user->username"
-                        :link="route('reports.show', ['id' => $userReview->id])"
+                        :link="route('reported.review', ['id' => $userReview->id])"
                     />
                 @endforeach
             </div>
