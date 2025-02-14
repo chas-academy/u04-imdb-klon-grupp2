@@ -1,6 +1,6 @@
 @props([
     'rounded' => true,
-    'id',
+    'id' => null,
 ])
 
 @if (! $attributes->get('src'))
