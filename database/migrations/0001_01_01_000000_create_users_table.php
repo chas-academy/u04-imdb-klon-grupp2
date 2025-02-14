@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->enum('role', ['user', 'admin']);
-            $table->dateTime('banned_until')->nullable();
+            $table->date('banned_until')->nullable();
             $table->integer('banned_total')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
