@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ListController extends Controller
 {
@@ -53,10 +54,21 @@ class ListController extends Controller
      */
     public function show($id)
     {
-        $list = MovieList::findOrFail($id);
+        $list = MovieList::with(['users', 'movies'])->findOrFail($id);
+
+        $listOwner = $list->users->firstWhere('pivot.role', 'owner');
         $isListOwner = Auth::check() && $list->isOwnedBy(Auth::user()->id);
 
-        return view('list', ['list' => $list, 'isListOwner' => $isListOwner]);
+        $previousUrl = url()->previous();
+        $backLink = Str::contains($previousUrl, ['/u/'])
+            ? $previousUrl
+            : route('profile', ['username' => $listOwner->username]);
+
+        return view('list', [
+            'list' => $list,
+            'backLink' => $backLink,
+            'isListOwner' => $isListOwner,
+        ]);
     }
 
     /**
