@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <x-layout class="px-0 sm:pt-18">
     <!-- Mobile View -->
     <img
@@ -49,6 +50,16 @@
             href=""
         >
             Add to list
+=======
+<x-layout>
+    <h1>movie</h1>
+
+<div class="flex flex-col gap-3">
+    <div class="flex justify-between">
+        <h1 class="text-2xl font-bold">Reviews</h1>
+        <x-button variant="secondary" size="sm" href="">
+            Write a review
+>>>>>>> ca0d0a7 (changed ReviewController, moved review to movie.blade.php)
         </x-button>
         @if ($isAdmin)
             <div class="mt-2 flex gap-2 sm:hidden">
