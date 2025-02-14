@@ -72,4 +72,60 @@
             @endif
         </div>
     @endif
+
+    <x-modal.base name="profile-menu" :show="$errors->makeAdmin->isNotEmpty()">
+        <x-modal.menu :error="$errors->makeAdmin->first()">
+            <x-slot:title>
+                {{ $user->username }}
+            </x-slot>
+
+            @if ($isCurrentUserProfile)
+                {{-- TODO: add edit profile modal --}}
+                <x-menu-item>Edit profile</x-menu-item>
+                <x-modal.divider />
+
+                {{-- TODO: add change password functionality --}}
+                <x-menu-item>Change password</x-menu-item>
+                <x-modal.divider />
+
+                <form method="post" action="{{ route('logout') }}">
+                    @csrf
+                    <x-menu-item>Log out</x-menu-item>
+                </form>
+                <x-modal.divider />
+
+                {{-- TODO: open delete account confirm with password modal --}}
+                <x-menu-item variant="destructive">Delete account</x-menu-item>
+                <x-modal.divider />
+            @else
+                {{-- TODO: open report user modal --}}
+                <x-menu-item>Report user</x-menu-item>
+                <x-modal.divider />
+
+                @if (auth()->check() && auth()->user()->role === 'admin' && $user->role !== 'admin')
+                    {{-- TODO: open ban user modal --}}
+                    <x-menu-item>Ban user</x-menu-item>
+                    <x-modal.divider />
+
+                    <form
+                        method="post"
+                        action="{{ route('admin.profile.make-admin', ['id' => $user->id]) }}"
+                    >
+                        @csrf
+                        @method('put')
+                        <x-menu-item>Make admin</x-menu-item>
+                    </form>
+                    <x-modal.divider />
+                @endif
+            @endif
+
+            <x-menu-item
+                x-data
+                @click="$dispatch('close-modal', 'profile-menu')"
+                variant="highlights"
+            >
+                Cancel
+            </x-menu-item>
+        </x-modal.menu>
+    </x-modal.base>
 </x-layout>

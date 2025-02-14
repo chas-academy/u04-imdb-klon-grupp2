@@ -5,7 +5,7 @@
 
 <div class="relative flex w-full">
     <div
-        class="mr-8 flex w-full flex-col gap-4 md:flex-row md:items-center md:justify-between"
+        class="mr-10 flex w-full flex-col gap-4 md:flex-row md:items-center md:justify-between"
     >
         <div class="flex items-center gap-4">
             <x-avatar :image="$user->image" size="lg" />
@@ -36,7 +36,13 @@
         @endisset
     </div>
 
-    <div class="absolute top-0 right-0">
+    <x-button
+        x-data
+        @click="$dispatch('open-modal', 'profile-menu')"
+        variant="icon"
+        srLabel="Open profile menu"
+        class="absolute top-0 right-0"
+    >
         <x-lucide-ellipsis-vertical class="size-6 text-slate-50" />
-    </div>
+    </x-button>
 </div>

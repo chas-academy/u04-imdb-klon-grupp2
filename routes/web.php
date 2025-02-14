@@ -38,6 +38,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::get('/create-user', fn () => view('admin.create-user'))->name('admin.create.user');
     Route::get('/users', fn () => view('admin.users'))->name('admin.users');
     Route::get('/featured', fn () => view('admin.featured-lists'))->name('admin.featured');
+    Route::put('/make-admin/{id}', [ProfileController::class, 'makeAdmin'])->name('admin.profile.make-admin');
 
     Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'index')->name('reports.user');

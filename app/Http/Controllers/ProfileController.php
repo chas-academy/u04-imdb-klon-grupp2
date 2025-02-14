@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -101,5 +102,26 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function makeAdmin($id): RedirectResponse
+    {
+        try {
+            $user = User::findOrFail($id);
+            $currentUser = Auth::user();
+
+            if ($currentUser->role !== 'admin') {
+                throw new Exception('You are not allowed to make this user an admin');
+            }
+
+            $user->role = 'admin';
+            $user->save();
+
+            return redirect()->back();
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withErrors('Something went wrong when making this user an admin!', 'makeAdmin');
+        }
     }
 }
