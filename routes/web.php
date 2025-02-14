@@ -36,6 +36,7 @@ Route::controller(ReviewController::class)->group(function () {
 
 Route::controller(ReportController::class)->group(function () {
     Route::post('/review/{id}', 'store')->middleware(['auth'])->name('report.store.review');
+    Route::post('/profile/{id}', 'store')->middleware(['auth'])->name('report.store.profile');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(function () {

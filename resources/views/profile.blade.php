@@ -98,8 +98,15 @@
                 <x-menu-item variant="destructive">Delete account</x-menu-item>
                 <x-modal.divider />
             @else
-                {{-- TODO: open report user modal --}}
-                <x-menu-item>Report user</x-menu-item>
+                <x-menu-item
+                    x-data
+                    @click="
+                        $dispatch('close-modal', 'profile-menu')
+                        $dispatch('open-modal', 'report-user')
+                    "
+                >
+                    Report user
+                </x-menu-item>
                 <x-modal.divider />
 
                 @if (auth()->check() && auth()->user()->role === 'admin' && $user->role !== 'admin' && ! $user->isBanned())
@@ -134,6 +141,51 @@
                 Cancel
             </x-menu-item>
         </x-modal.menu>
+    </x-modal.base>
+
+    <x-modal.base
+        name="report-user"
+        :show="$errors->createReport->isNotEmpty() || $errors->createReportValidation->isNotEmpty()"
+    >
+        <x-modal.input>
+            <x-slot:title>
+                {{ $user->username }}
+            </x-slot>
+
+            <form
+                method="post"
+                action="{{ route('report.store.profile', ['id' => $user->id]) }}"
+                class="flex flex-col gap-6"
+            >
+                @csrf
+
+                <div class="flex flex-col gap-4">
+                    <x-input.textarea
+                        name="reason"
+                        :value="old('reason')"
+                        required
+                        :error="$errors->createReportValidation->first('reason')"
+                        label="Why do you want to report this user?"
+                        placeholder="Describe how this user breaks our rules"
+                        color="light"
+                    />
+                </div>
+
+                <x-input.error :message="$errors->createReport->first()" />
+
+                <div class="flex gap-2">
+                    <x-button
+                        x-data
+                        @click="$dispatch('close-modal', 'report-user')"
+                        type="button"
+                        variant="secondary"
+                    >
+                        Cancel
+                    </x-button>
+                    <x-button class="flex-1">Send</x-button>
+                </div>
+            </form>
+        </x-modal.input>
     </x-modal.base>
 
     <x-modal.base
