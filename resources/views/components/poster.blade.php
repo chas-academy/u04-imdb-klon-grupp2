@@ -1,4 +1,7 @@
-@props(['rounded' => true])
+@props([
+    'rounded' => true,
+    'id',
+])
 
 @if (! $attributes->get('src'))
     <div
@@ -8,6 +11,7 @@
     </div>
 @else
     <img
+        src="{{ getFileUrl('/storage/movies/' . $id, $attributes->get('src')) }}"
         {{ $attributes->class(['rounded-xs' => $rounded, 'aspect-2/3 object-cover']) }}
     />
 @endif
