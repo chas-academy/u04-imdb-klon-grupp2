@@ -10,11 +10,8 @@
         </x-button>
     @endif
 
-    <x-modal.base
-        name="edit-list"
-        :show="$errors->edit->isNotEmpty() || $errors->editListValidation->isNotEmpty()"
-    >
-        <x-modal.menu>
+    <x-modal.base name="edit-list" :show="$errors->deleteList->isNotEmpty()">
+        <x-modal.menu :error="$errors->deleteList->first()">
             <x-slot:title>
                 {{ $list->title }}
             </x-slot>

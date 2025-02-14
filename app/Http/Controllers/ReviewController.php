@@ -61,8 +61,9 @@ class ReviewController extends Controller
     public function show($id)
     {
         $review = Review::with(['user', 'movie'])->findOrFail($id);
+        $isAuthor = Auth::check() && $review->isWrittenBy(Auth::user());
 
-        return view('review', ['review' => $review]);
+        return view('review', ['review' => $review, 'isAuthor' => $isAuthor]);
     }
 
     /**
@@ -84,8 +85,23 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review)
+    public function destroy($id)
     {
-        //
+        try {
+            $review = Review::findOrFail($id);
+            $user = Auth::user();
+
+            if (! $review->isWrittenBy($user) && $user->role !== 'admin') {
+                throw new Exception('You are not allowed to delete this review');
+            }
+
+            $review->delete();
+
+            return redirect(route('home'));
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withErrors('Something went wrong when deleting the review!', 'deleteReview');
+        }
     }
 }

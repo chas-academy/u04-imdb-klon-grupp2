@@ -13,6 +13,8 @@
             backLabel="{{ $backLabel }}"
         />
         <x-button
+            x-data
+            @click="$dispatch('open-modal', 'review-menu')"
             variant="icon"
             srLabel="Open review menu"
             class="hidden sm:block"
@@ -53,4 +55,64 @@
     <p class="mt-6 max-w-xl text-slate-100">
         {!! $review->content !!}
     </p>
+
+    <x-modal.base
+        name="review-menu"
+        :show="$errors->deleteReview->isNotEmpty()"
+    >
+        <x-modal.menu :error="$errors->deleteReview->first()">
+            <x-slot:title>
+                @if ($isAuthor)
+                    <p class="font-normal">
+                        Review of
+                        <span class="font-bold">
+                            {{ $review->movie->title }}
+                        </span>
+                    </p>
+                @else
+                    <p class="font-normal">
+                        <span class="font-bold">
+                            {{ $review->user->username }}'s
+                        </span>
+                        review of
+                        <span class="font-bold">
+                            {{ $review->movie->title }}
+                        </span>
+                    </p>
+                @endif
+            </x-slot>
+
+            @if (! $isAuthor)
+                {{-- TODO: open report review modal --}}
+                <x-menu-item>Report</x-menu-item>
+                <x-modal.divider />
+            @endif
+
+            @if ($isAuthor)
+                {{-- TODO: open edit review modal --}}
+                <x-menu-item>Edit</x-menu-item>
+                <x-modal.divider />
+            @endif
+
+            @if ($isAuthor || (auth()->check() && auth()->user()->role === 'admin'))
+                <form
+                    method="post"
+                    action="{{ route('review.destroy', ['id' => $review->id]) }}"
+                >
+                    @csrf
+                    @method('delete')
+                    <x-menu-item variant="destructive">Delete</x-menu-item>
+                </form>
+                <x-modal.divider />
+            @endif
+
+            <x-menu-item
+                x-data
+                @click="$dispatch('close-modal', 'review-menu')"
+                variant="highlights"
+            >
+                Cancel
+            </x-menu-item>
+        </x-modal.menu>
+    </x-modal.base>
 </x-layout>
