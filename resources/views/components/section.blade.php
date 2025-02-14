@@ -21,12 +21,12 @@
     $styleAttributeValue = implode('; ', $twVariables);
 @endphp
 
-<section class="relative max-w-full">
+<section class="relative w-full">
     <div
         style="{{ $styleAttributeValue }}"
         @class([
             'grid *:size-full' => ! $scrollableOnMobile,
-            'hide-scrollbar -mr-4 flex snap-x overflow-x-scroll pr-4 *:snap-start *:not-[.gradient]:min-w-32 sm:mr-0 sm:grid sm:overflow-visible sm:pr-0 sm:*:size-full' => $scrollableOnMobile,
+            'hide-scrollbar -mr-4 flex snap-x overflow-x-scroll pr-4 *:shrink-0 *:snap-start *:not-[.gradient]:w-32 sm:mr-0 sm:grid sm:overflow-visible sm:pr-0 sm:*:not-[.gradient]:size-full sm:*:not-[.gradient]:min-w-32' => $scrollableOnMobile,
             'sm:grid-cols-(--section-grid-cols-sm)' => isset($columns['sm']),
             'md:grid-cols-(--section-grid-cols-md)' => isset($columns['md']),
             'lg:grid-cols-(--section-grid-cols-lg)' => isset($columns['lg']),
