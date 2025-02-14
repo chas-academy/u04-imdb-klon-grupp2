@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use Exception;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -26,9 +27,25 @@ class ReportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $request->validateWithBag('createReportValidation', [
+            'reason' => ['required', 'string', 'max:255'],
+        ]);
+
+        try {
+            Report::create([
+                'reason' => $request->reason,
+                'review_id' => $id,
+            ]);
+
+            return redirect(url()->previous());
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors('Something went wrong when creating the report!', 'createReport');
+        }
     }
 
     /**

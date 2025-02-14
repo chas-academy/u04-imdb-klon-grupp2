@@ -3,6 +3,7 @@
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,10 @@ Route::controller(ReviewController::class)->group(function () {
     Route::post('/m/{id}/{title}', 'store')->middleware(['auth'])->name('review.store');
     Route::delete('/review/{id}', 'destroy')->middleware(['auth'])->name('review.destroy');
     Route::put('/review/{id}', 'update')->middleware(['auth'])->name('review.update');
+});
+
+Route::controller(ReportController::class)->group(function () {
+    Route::post('/review/{id}', 'store')->middleware(['auth'])->name('report.store.review');
 });
 
 Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(function () {
