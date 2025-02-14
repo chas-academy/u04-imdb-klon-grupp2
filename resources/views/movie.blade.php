@@ -22,7 +22,7 @@
                         <p>{!! $movie->year !!}</p>
                         <div class="text-indigo-200 sm:hidden">|</div>
                         <p class="sm:hidden">
-                            {!! formatDuration($movie->duration) !!}
+                            {!! $movie->duration !!}
                         </p>
                     </div>
                     <p class="text-xs font-bold text-slate-100 sm:hidden">
@@ -100,7 +100,7 @@
             <div class="text-indigo-200">|</div>
             <p>{!! $movie->year !!}</p>
             <div class="text-indigo-200">|</div>
-            <p class="">{!! formatDuration($movie->duration) !!}</p>
+            <p class="">{!! $movie->duration !!}</p>
             <div class="text-indigo-200">|</div>
             <p class="text-xs font-bold text-slate-100">
                 {!! $movie->director !!}
@@ -122,7 +122,7 @@
                 <img
                     src="{{ $movie->cover_image }}"
                     alt="Cover image of {{ $movie->title }}"
-                    class="h-104 w-182 object-cover"
+                    class="h-104 w-182 rounded-xs object-cover"
                 />
                 <div class="flex flex-wrap gap-3">
                     @foreach ($movie->genres as $genre)

@@ -27,11 +27,3 @@ function generateSectionGridVariable(string $breakpoint, int $number)
 
     return '--section-grid-cols-'.$breakpoint.': repeat('.$number.', minmax(0, 1fr))';
 }
-
-function formatDuration($minutes)
-{
-    $hours = floor($minutes / 60);
-    $mins = $minutes % 60;
-
-    return sprintf('%dh %02dm', $hours, $mins);
-}
