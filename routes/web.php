@@ -51,6 +51,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'index')->name('reports.user');
         Route::get('/reviews', 'index')->name('reports.review');
+        Route::get('/review/{id}', 'showReport')->name('reports.show');
     });
 });
 
