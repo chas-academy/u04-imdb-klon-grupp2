@@ -23,10 +23,14 @@ class ReportFactory extends Factory
      */
     public function definition(): array
     {
+        $isReviewReport = $this->faker->boolean;
+        $reviewId = $isReviewReport ? Review::all()->random()->id : null;
+        $userId = ! $isReviewReport ? User::all()->random()->id : null;
+
         return [
-            'review_id' => Review::factory(),
             'reason' => $this->faker->realText(rand(50, 255)),
-            'user_id' => User::factory(),
+            'review_id' => $reviewId,
+            'user_id' => $userId,
         ];
     }
 }
