@@ -280,7 +280,7 @@
                 <div class="flex gap-2">
                     <x-button
                         x-data
-                        @click="$dispatch('close-modal', 'create-list')"
+                        @click="$dispatch('close-modal', 'report-review-modal')"
                         type="button"
                         variant="secondary"
                     >
