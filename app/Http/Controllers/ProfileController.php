@@ -124,4 +124,31 @@ class ProfileController extends Controller
                 ->withErrors('Something went wrong when making this user an admin!', 'makeAdmin');
         }
     }
+
+    public function ban(Request $request, $id): RedirectResponse
+    {
+        $request->validateWithBag('banUserValidation', [
+            'date' => ['required', 'date', 'after:today'],
+        ]);
+
+        try {
+            $user = User::findOrFail($id);
+            $currentUser = Auth::user();
+
+            if ($currentUser->role !== 'admin') {
+                throw new Exception('You are not allowed to ban this user');
+            }
+
+            $user->banned_until = $request->date;
+            $user->banned_total++;
+            $user->save();
+
+            return redirect()->back();
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors('Something went wrong when banning this user!', 'banUser');
+        }
+    }
 }

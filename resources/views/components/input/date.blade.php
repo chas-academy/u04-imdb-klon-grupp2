@@ -1,7 +1,6 @@
 @props([
     'name',
     'label',
-    'placeholder',
     'value' => null,
     'error',
     'color' => 'dark',
@@ -21,7 +20,10 @@
             'flex h-10 rounded-full px-3 py-2',
         ])
     >
-        <button @click="$refs.datepicker.showPicker()" class="rounded-xs px-1">
+        <button
+            @click.prevent="$refs.datepicker.showPicker()"
+            class="rounded-xs px-1"
+        >
             <x-lucide-calendar class="size-4 text-slate-50" />
         </button>
         <input
@@ -29,7 +31,6 @@
             id="{{ $name }}"
             name="{{ $name }}"
             value="{{ $value }}"
-            placeholder="{{ $placeholder }}"
             x-ref="datepicker"
             class="hide-calendar-picker-indicator flex-1 rounded-xs px-1 text-base text-slate-50 placeholder:text-slate-400"
         />

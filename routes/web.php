@@ -14,6 +14,7 @@ Route::controller(MovieController::class)->group(function () {
 
 Route::controller(ProfileController::class)->group(function () {
     Route::get('/u/{username}', 'show')->name('profile');
+    Route::put('/ban/{id}', 'ban')->name('profile.ban');
 });
 
 Route::controller(ListController::class)->group(function () {
