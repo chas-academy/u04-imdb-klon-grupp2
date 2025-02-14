@@ -132,7 +132,7 @@ class AdminController extends Controller
         $movie = Movie::findOrFail($id);
 
         $request->validate([
-            'title' => ['required', 'string', 'max:255', 'unique:' . Movie::class, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'title' => ['required', 'string', 'max:255', 'unique:' . Movie::class . ',title,' . $id, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
             'description' => ['required', 'string', 'max:255'],
             'year' => ['required', 'integer', 'min:1850', 'max:' . (date('Y') + 1)],
             'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
@@ -181,26 +181,4 @@ class AdminController extends Controller
 
         return redirect(route('movie', ['id' => $movie->id, 'title' => $movie->title]))->with('success', 'Movie updated successfully.');
     }
-
-    /*public function banUser(Request $request, $id): RedirectResponse
-    {
-        $request->validateWithBag('banUserValidation', [
-            'date' => ['required', 'date', 'after:today'],
-        ]);
-        
-        try {
-            $user = User::findOrFail($id);
-            
-            $user->banned_until = $request->date;
-            $user->banned_total++;
-            $user->save();
-
-            return redirect()->back();
-        } catch (Exception) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors('Something went wrong when banning this user!', 'banUser');
-        }
-    }*/
 }
