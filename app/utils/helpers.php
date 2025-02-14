@@ -25,5 +25,10 @@ function generateSectionGridVariable(string $breakpoint, int $number)
 {
     validateBreakpoint($breakpoint);
 
-    return '--section-grid-cols-'.$breakpoint.': repeat('.$number.', minmax(0, 1fr))';
+    return '--section-grid-cols-' . $breakpoint . ': repeat(' . $number . ', minmax(0, 1fr))';
+}
+
+function getFileUrl($path, $file)
+{
+    return filter_var($file, FILTER_VALIDATE_URL) ? $file : url($path . '/' . $file);
 }
