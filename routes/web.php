@@ -44,6 +44,8 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/create-movie', [AdminController::class, 'createMovieForm'])->name('admin.create.movie');
     Route::post('/create-movie', [AdminController::class, 'createMovie'])->name('admin.store.movie');
+    Route::get('/edit-movie/{id}', [AdminController::class, 'editMovieForm'])->name('admin.edit.movie');
+    Route::put('/edit-movie/{id}', [AdminController::class, 'editMovie'])->name('admin.save.movie');
     Route::get('/create-user', [AdminController::class, 'createUserForm'])->name('admin.create.user');
     Route::post('/create-user', [AdminController::class, 'createUser'])->name('admin.store.user');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
