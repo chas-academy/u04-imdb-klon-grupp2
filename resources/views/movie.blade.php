@@ -131,12 +131,12 @@
                 </div>
             </div>
         </div>
-        <p class="max-w-144 pt-3">
+        <p class="max-w-144 pt-4">
             {!! $movie->description !!}
         </p>
     </div>
 
-    <div class="px-4 pt-12">
+    <div class="space-y-4 px-4 pt-12">
         <div class="flex items-center justify-between">
             <h2 class="text-2xl font-bold">Reviews</h2>
             <x-button
@@ -148,18 +148,24 @@
                 Write a review
             </x-button>
         </div>
-        <div class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
-            @foreach ($reviews as $review)
-                <x-review
-                    :title="$review->movie->title"
-                    :content="$review->content"
-                    :rating="$review->rating"
-                    :created_at="$review->created_at"
-                    :username="$review->user->username"
-                    link="{{ route('review', ['id' => $review->id]) }}"
-                />
-            @endforeach
-        </div>
+        @if ($reviews->isEmpty())
+            <p class="pt-10 text-center text-slate-200">
+                This movie does not have any reviews yet!
+            </p>
+        @else
+            <x-section :columns="[1, 'sm' => 2]">
+                @foreach ($reviews as $review)
+                    <x-review
+                        :title="$review->movie->title"
+                        :content="$review->content"
+                        :rating="$review->rating"
+                        :created_at="$review->created_at"
+                        :username="$review->user->username"
+                        link="{{ route('review', ['id' => $review->id]) }}"
+                    />
+                @endforeach
+            </x-section>
+        @endif
     </div>
     <x-modal.base
         name="create-review"
