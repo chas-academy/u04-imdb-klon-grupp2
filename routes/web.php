@@ -48,10 +48,12 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::post('/create-user', [AdminController::class, 'createUser'])->name('admin.store.user');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
 
-    Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
-        Route::get('/users', 'index')->name('reports.user');
-        Route::get('/reviews', 'index')->name('reports.review');
-        Route::get('/review/{id}', 'showReport')->name('reports.show');
+    Route::controller(ReportController::class)->prefix('/reports')->group(function () {
+        Route::get('/users', 'reportedUsers')->name('reported.users');
+        Route::get('/reviews', 'reportedReviews')->name('reported.reviews');
+        Route::get('/review/{id}', 'showReviewReport')->name('reported.review');
+        Route::get('/users/{username}', 'showUserReports')->name('reported.user');
+        Route::delete('/clear/{id}', 'clearReport')->name('clear.report');
     });
 });
 
