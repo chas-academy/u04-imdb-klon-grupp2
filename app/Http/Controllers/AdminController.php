@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -20,7 +22,6 @@ class AdminController extends Controller
             ->whereNotNull(['user_id', 'review_id'])
             ->with('user')
             ->latest()
-            ->take(3)
             ->get();
 
         $reportedUsers = Report::whereNotNull('reason')
@@ -28,23 +29,10 @@ class AdminController extends Controller
             ->whereNull('review_id')
             ->with('user')
             ->latest()
-            ->take(7)
-            ->get();
+            ->get()
+            ->unique('user_id');
 
-        $pendingReportedReviews = Report::with(['review', 'user'])
-            ->whereNotNull(['user_id', 'review_id'])
-            ->with('user')
-            ->latest()
-            ->count();
-
-        $pendingReportedUsers = Report::whereNotNull('reason')
-            ->whereNotNull('user_id')
-            ->whereNull('review_id')
-            ->with('user')
-            ->latest()
-            ->count();
-
-        return view('admin.dashboard', compact('latestUploadedMovies', 'reportedReviews', 'reportedUsers', 'pendingReportedReviews', 'pendingReportedUsers'));
+        return view('admin.dashboard', compact('latestUploadedMovies', 'reportedReviews', 'reportedUsers'));
     }
 
     public function users()
@@ -52,6 +40,11 @@ class AdminController extends Controller
         $users = User::orderBy('username')->get();
 
         return view('admin.users', compact('users'));
+    }
+
+    public function createUserForm()
+    {
+        return view('admin.create-user');
     }
 
     public function createMovieForm()
@@ -103,6 +96,111 @@ class AdminController extends Controller
 
         event(new Registered($movie));
 
-        return redirect(route('admin.create.movie')); //->with('success', 'Movie created successfully.');
+        return redirect(route('movie', ['id' => $movie->id, 'title' => $movie->title])); //->with('success', 'Movie created successfully.');
     }
+
+    public function createUser(Request $request) //: RedirectResponse
+    {
+        $request->validate([
+            'username' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9]+$/', 'min:3', 'unique:' . User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', Rules\Password::defaults()],
+        ], [
+            'username.regex' => 'The username contains invalid characters.',
+        ]);
+
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->is_admin == 'on' ? 'admin' : 'user',
+        ]);
+
+        event(new Registered($user));
+
+        return redirect(route('admin.dashboard')); //->with('success', 'User created successfully.');
+    }
+
+    public function editMovieForm($id)
+    {
+        $movie = Movie::findOrFail($id);
+        return view('admin.edit-movie', compact('movie'));
+    }
+
+    public function editMovie(Request $request, $id): RedirectResponse
+    {
+        $movie = Movie::findOrFail($id);
+
+        $request->validate([
+            'title' => ['required', 'string', 'max:255', 'unique:' . Movie::class, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'description' => ['required', 'string', 'max:255'],
+            'year' => ['required', 'integer', 'min:1850', 'max:' . (date('Y') + 1)],
+            'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'duration' => ['required', 'string', 'max:6'], // TODO: fix regex
+            'poster' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
+        ], [
+            'title.regex' => 'The title contains invalid characters.',
+            'director.regex' => 'The director contains invalid characters.',
+            'year.min' => 'We only accept movies from 1850 onwards.',
+            'year.max' => 'The year must be less than ' . (date('Y') + 1),
+            'year.integer' => 'The year field must contain numbers.',
+        ]);
+
+        $movie->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'year' => $request->year,
+            'director' => $request->director,
+            'duration' => $request->duration,
+        ]);
+
+        if ($request->hasFile('poster')) {
+            if ($movie->poster) {
+                Storage::disk('public')->delete('movies/' . $movie->id . '/' . $movie->poster);
+            }
+
+            $posterFile = $request->file('poster');
+            $posterFilename = 'poster_' . $posterFile->getClientOriginalName();
+            $posterPath = 'movies/' . $movie->id . '/' . $posterFilename;
+            Storage::disk('public')->put($posterPath, $posterFile->get());
+            $movie->update(['poster' => $posterFilename]);
+        }
+
+        if ($request->hasFile('cover_image')) {
+            if ($movie->cover_image) {
+                Storage::disk('public')->delete('movies/' . $movie->id . '/' . $movie->cover_image);
+            }
+
+            $coverFile = $request->file('cover_image');
+            $coverFilename = 'cover_' . $coverFile->getClientOriginalName();
+            $coverPath = 'movies/' . $movie->id . '/' . $coverFilename;
+            Storage::disk('public')->put($coverPath, $coverFile->get());
+            $movie->update(['cover_image' => $coverFilename]);
+        }
+
+        return redirect(route('movie', ['id' => $movie->id, 'title' => $movie->title]))->with('success', 'Movie updated successfully.');
+    }
+
+    /*public function banUser(Request $request, $id): RedirectResponse
+    {
+        $request->validateWithBag('banUserValidation', [
+            'date' => ['required', 'date', 'after:today'],
+        ]);
+        
+        try {
+            $user = User::findOrFail($id);
+            
+            $user->banned_until = $request->date;
+            $user->banned_total++;
+            $user->save();
+
+            return redirect()->back();
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors('Something went wrong when banning this user!', 'banUser');
+        }
+    }*/
 }
