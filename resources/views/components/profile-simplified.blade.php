@@ -12,7 +12,7 @@
         'gap-2' => $size === 'md',
     ])
 >
-    <x-avatar :image="$image" :size="$size" />
+    <x-avatar :username="$username" :image="$image" :size="$size" />
     <p
         @class([
             'text-slate-50',
@@ -20,6 +20,6 @@
             'text-base' => $size === 'md',
         ])
     >
-        {{ $username }}
+        <a href="{{ route('profile', $username) }}">{{ $username }}</a>
     </p>
 </div>
