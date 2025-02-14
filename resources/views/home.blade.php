@@ -6,7 +6,11 @@
                     href="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
                     class="transition hover:scale-101 nth-[2]:hidden nth-[3]:hidden sm:nth-[2]:block md:nth-[3]:block"
                 >
-                    <x-poster src="{{ $movie->poster }}" class="size-full" />
+                    <x-poster
+                        :id="$movie->id"
+                        :src="$movie->poster"
+                        class="size-full"
+                    />
                 </a>
             @endforeach
         </div>
@@ -16,7 +20,11 @@
                     href="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
                     class="transition hover:scale-101 sm:nth-[1]:hidden sm:nth-[n+6]:hidden md:nth-[2]:hidden md:nth-[n+6]:block md:nth-[n+7]:hidden lg:nth-[n+7]:block lg:nth-[n+9]:hidden"
                 >
-                    <x-poster src="{{ $movie->poster }}" class="size-full" />
+                    <x-poster
+                        :id="$movie->id"
+                        src="{{ $movie->poster }}"
+                        class="size-full"
+                    />
                 </a>
             @endforeach
         </x-section>
