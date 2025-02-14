@@ -13,6 +13,10 @@
 
         <div class="flex items-center gap-4">
             @if ($isListOwner)
+                <x-button x-data @click="$dispatch('open-modal', 'add-movie')">
+                    Add movie
+                </x-button>
+
                 <x-button class="hidden md:inline-flex">Add movie</x-button>
                 <x-button
                     x-data
@@ -42,6 +46,51 @@
         <x-button class="mt-6 md:hidden">Add movie</x-button>
     @endif
 
+    <x-modal.base
+        name="add-movie"
+        :show="$errors->edit->isNotEmpty() || $errors->editListValidation->isNotEmpty()"
+    >
+        <div
+            class="mt-header-mobile sm:mt-header-desktop mb-16 flex w-full max-w-5xl flex-1 flex-col items-center justify-center gap-4 px-4 md:mb-20"
+        >
+            <div>
+                <x-section :columns="[2, 'md' => 6]">
+                    @php
+                        $topTwelveMovies = app('App\Http\Controllers\ListController')->getTopTwelveMovies($list->id);
+                    @endphp
+
+                    @foreach ($topTwelveMovies as $movie)
+                        <div class="flex h-89 flex-col gap-2">
+                            <div>
+                                <x-movie
+                                    :title="$movie->title"
+                                    :rating="number_format($movie->rating, 1)"
+                                    :image="$movie->poster"
+                                    link="{{ route('movie', ['id' => $movie->id, 'title' => Str::slug($movie->title)]) }}"
+                                />
+                            </div>
+                            <div
+                                class="items-bottom mt-2 flex w-full justify-center"
+                            >
+                                <form
+                                    method="POST"
+                                    action="{{ route('lists.add-movie', ['list' => $list->id]) }}"
+                                >
+                                    @csrf
+                                    <input
+                                        type="hidden"
+                                        name="movie_id"
+                                        value="{{ $movie->id }}"
+                                    />
+                                    <x-button type="submit">Add movie</x-button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                </x-section>
+            </div>
+        </div>
+    </x-modal.base>
     <x-modal.base name="edit-list" :show="$errors->deleteList->isNotEmpty()">
         <x-modal.menu :error="$errors->deleteList->first()">
             <x-slot:title>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use App\Models\MovieList;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB; // Add this line
 
 class ListController extends Controller
 {
@@ -85,6 +87,36 @@ class ListController extends Controller
         ]);
     }
 
+    public function getTopTwelveMovies($listId)
+{
+    // Get the list
+    $list = MovieList::find($listId);
+
+    // Get the IDs of the movies already in the list
+    $existingMovieIds = $list->movies->pluck('id')->toArray();
+
+    // Get the top twelve movies excluding the ones already in the list
+    $topTwelveMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
+                            ->leftJoin('reviews', 'movies.id', '=', 'reviews.movie_id')
+                            ->select('movies.id', 'movies.title', 'movies.poster', DB::raw('AVG(reviews.rating) as rating'))
+                            ->groupBy('movies.id', 'movies.title', 'movies.poster')
+                            ->orderBy('rating', 'desc')
+                            ->take(12)
+                            ->get();
+
+    return $topTwelveMovies;
+}
+
+public function addMovie(Request $request, $listId)
+{
+    $list = MovieList::findOrFail($listId);
+    $movieId = $request->input('movie_id');
+
+    // Add the movie to the list
+    $list->movies()->attach($movieId);
+
+    return redirect()->back()->with('success', 'Movie added to the list successfully!');
+}
     /**
      * Show the form for editing the specified resource.
      */
