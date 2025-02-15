@@ -15,17 +15,15 @@
         >
             <x-button
                 variant="secondary"
-                size="sm"
                 href="{{ route('admin.create.user') }}"
-                class="w-full sm:w-auto"
+                class="w-full px-6 py-2 text-base sm:w-auto sm:px-3 sm:py-1 sm:text-xs"
             >
                 Create user
             </x-button>
             <x-button
                 variant="primary"
-                size="sm"
                 href="{{ route('admin.create.movie') }}"
-                class="w-full sm:w-auto"
+                class="w-full px-6 py-2 text-base sm:w-auto sm:px-3 sm:py-1 sm:text-xs"
             >
                 Create movie
             </x-button>
