@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
-use App\Models\User;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
-
-use function PHPSTORM_META\map;
 
 class ReportController extends Controller
 {
