@@ -16,8 +16,6 @@
                 <x-button x-data @click="$dispatch('open-modal', 'add-movie')">
                     Add movie
                 </x-button>
-
-                <x-button class="hidden md:inline-flex">Add movie</x-button>
                 <x-button
                     x-data
                     @click="$dispatch('open-modal', 'edit-list')"
@@ -91,6 +89,7 @@
             </div>
         </div>
     </x-modal.base>
+
     <x-modal.base name="edit-list" :show="$errors->deleteList->isNotEmpty()">
         <x-modal.menu :error="$errors->deleteList->first()">
             <x-slot:title>
