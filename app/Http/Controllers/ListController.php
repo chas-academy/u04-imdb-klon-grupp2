@@ -87,7 +87,7 @@ class ListController extends Controller
         ]);
     }
 
-        /**
+    /**
      * Get the top twelve movies excluding the ones already in the list
      */
     public function getTopThirtyMovies($listId)
@@ -113,6 +113,7 @@ class ListController extends Controller
     public function addMovie(Request $request, $listId)
     {
     $list = MovieList::findOrFail($listId);
+    
     $movieId = $request->input('movie_id');
 
     $list->movies()->attach($movieId);
