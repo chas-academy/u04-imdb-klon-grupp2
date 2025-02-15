@@ -64,26 +64,27 @@ class AdminController extends Controller
     public function createMovie(Request $request): RedirectResponse
     {
         $request->validate([
-            'title' => ['required', 'string', 'max:255', 'unique:'.Movie::class, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'title' => ['required', 'string', 'max:255', 'unique:' . Movie::class, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
             'description' => ['required', 'string', 'max:255'],
-            'year' => ['required', 'integer', 'min:1850', 'max:'.(date('Y') + 1)],
+            'year' => ['required', 'integer', 'min:1850', 'max:' . (date('Y') + 1)],
             'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
-            'duration' => ['required', 'string', 'max:6'], // TODO: fix regex
+            'duration' => ['required', 'string', 'max:6', 'regex:/^(?:[1-9]|1[0-9])h [0-5][0-9]m$/'],
             'poster' => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
             'cover_image' => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
         ], [
             'title.regex' => 'The title contains invalid characters.',
+            'duration.regex' => "The duration must be in the format 1h 30m",
             'director.regex' => 'The director contains invalid characters.',
             'year.min' => 'We only accept movies from 1850 onwards.',
-            'year.max' => 'The year must be less than '.(date('Y') + 1),
+            'year.max' => 'The year must be less than ' . (date('Y') + 1),
             'year.integer' => 'The year field must contain numbers.',
         ]);
 
         $posterFile = $request->file('poster');
         $coverFile = $request->file('cover_image');
 
-        $posterFilename = 'poster_'.$posterFile->getClientOriginalName();
-        $coverFilename = 'cover_'.$coverFile->getClientOriginalName();
+        $posterFilename = 'poster_' . $posterFile->getClientOriginalName();
+        $coverFilename = 'cover_' . $coverFile->getClientOriginalName();
 
         $movie = Movie::create([
             'title' => $request->title,
@@ -97,8 +98,8 @@ class AdminController extends Controller
             'rating_amount' => 0,
         ]);
 
-        $posterPath = 'movies/'.$movie->id.'/'.$posterFilename;
-        $coverPath = 'movies/'.$movie->id.'/'.$coverFilename;
+        $posterPath = 'movies/' . $movie->id . '/' . $posterFilename;
+        $coverPath = 'movies/' . $movie->id . '/' . $coverFilename;
 
         Storage::disk('public')->put($posterPath, $posterFile->get());
         Storage::disk('public')->put($coverPath, $coverFile->get());
@@ -111,8 +112,8 @@ class AdminController extends Controller
     public function createUser(Request $request) // : RedirectResponse
     {
         $request->validate([
-            'username' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9]+$/', 'min:3', 'unique:'.User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'username' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9]+$/', 'min:3', 'unique:' . User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', Rules\Password::defaults()],
         ], [
             'username.regex' => 'The username contains invalid characters.',
@@ -142,18 +143,18 @@ class AdminController extends Controller
         $movie = Movie::findOrFail($id);
 
         $request->validate([
-            'title' => ['required', 'string', 'max:255', 'unique:'.Movie::class.',title,'.$id, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'title' => ['required', 'string', 'max:255', 'unique:' . Movie::class . ',title,' . $id, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
             'description' => ['required', 'string', 'max:255'],
-            'year' => ['required', 'integer', 'min:1850', 'max:'.(date('Y') + 1)],
+            'year' => ['required', 'integer', 'min:1850', 'max:' . (date('Y') + 1)],
             'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
-            'duration' => ['required', 'string', 'max:6'], // TODO: fix regex
+            'duration' => ['required', 'string', 'max:6', 'regex:/^(?:[1-9]|1[0-9])h [0-5][0-9]m$/'],
             'poster' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
             'cover_image' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
         ], [
             'title.regex' => 'The title contains invalid characters.',
             'director.regex' => 'The director contains invalid characters.',
             'year.min' => 'We only accept movies from 1850 onwards.',
-            'year.max' => 'The year must be less than '.(date('Y') + 1),
+            'year.max' => 'The year must be less than ' . (date('Y') + 1),
             'year.integer' => 'The year field must contain numbers.',
         ]);
 
@@ -167,24 +168,24 @@ class AdminController extends Controller
 
         if ($request->hasFile('poster')) {
             if ($movie->poster) {
-                Storage::disk('public')->delete('movies/'.$movie->id.'/'.$movie->poster);
+                Storage::disk('public')->delete('movies/' . $movie->id . '/' . $movie->poster);
             }
 
             $posterFile = $request->file('poster');
-            $posterFilename = 'poster_'.$posterFile->getClientOriginalName();
-            $posterPath = 'movies/'.$movie->id.'/'.$posterFilename;
+            $posterFilename = 'poster_' . $posterFile->getClientOriginalName();
+            $posterPath = 'movies/' . $movie->id . '/' . $posterFilename;
             Storage::disk('public')->put($posterPath, $posterFile->get());
             $movie->update(['poster' => $posterFilename]);
         }
 
         if ($request->hasFile('cover_image')) {
             if ($movie->cover_image) {
-                Storage::disk('public')->delete('movies/'.$movie->id.'/'.$movie->cover_image);
+                Storage::disk('public')->delete('movies/' . $movie->id . '/' . $movie->cover_image);
             }
 
             $coverFile = $request->file('cover_image');
-            $coverFilename = 'cover_'.$coverFile->getClientOriginalName();
-            $coverPath = 'movies/'.$movie->id.'/'.$coverFilename;
+            $coverFilename = 'cover_' . $coverFile->getClientOriginalName();
+            $coverPath = 'movies/' . $movie->id . '/' . $coverFilename;
             Storage::disk('public')->put($coverPath, $coverFile->get());
             $movie->update(['cover_image' => $coverFilename]);
         }
