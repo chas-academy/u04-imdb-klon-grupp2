@@ -19,12 +19,16 @@
                     >
                         @csrf
                         @method('PUT')
-                        <x-button type="submit" variant="secondary">
+                        <x-button
+                            type="submit"
+                            class="px-2 py-1 text-sm sm:px-4 sm:py-2 sm:text-base md:px-6 md:py-3 md:text-lg"
+                            variant="secondary"
+                        >
                             Clear report
                         </x-button>
                     </form>
                     <x-button
-                        class="bg-red-400"
+                        class="bg-red-400 px-2 py-1 text-sm sm:px-4 sm:py-2 sm:text-base md:px-6 md:py-3 md:text-lg"
                         x-data
                         @click="$dispatch('open-modal', 'delete-review')"
                     >
