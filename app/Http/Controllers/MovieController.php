@@ -109,7 +109,6 @@ class MovieController extends Controller
     public function destroy($id)
     {
         try {
-
             $movie = Movie::findOrFail($id);
             $user = Auth::user();
 
@@ -119,8 +118,8 @@ class MovieController extends Controller
 
             $movie->delete();
 
-            return redirect(route('admin'));
-        } catch (Exception $e) {
+            return redirect(route('admin.dashboard'));
+        } catch (Exception) {
             return redirect()
                 ->back()
                 ->withErrors('Something went wrong with deleting the movie!', 'deleteMovie');
