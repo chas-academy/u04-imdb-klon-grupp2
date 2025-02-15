@@ -16,7 +16,7 @@
                 :content="$review->content"
                 :rating="$review->rating"
                 :id="$review->movie->id"
-                :image="$review->movie->cover_image"
+                :image="$review->movie->poster"
                 :created_at="$review->created_at"
                 :username="$isCurrentUserProfile ? null : $username"
                 link="{{ route('review', ['id' => $review->id]) }}"
