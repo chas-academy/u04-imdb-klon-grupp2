@@ -112,14 +112,15 @@ class ListController extends Controller
      */
     public function addMovie(Request $request, $listId)
     {
-    $list = MovieList::findOrFail($listId);
+        $list = MovieList::findOrFail($listId);
     
-    $movieId = $request->input('movie_id');
+        $movieId = $request->input('movie_id');
 
-    $list->movies()->attach($movieId);
+        $list->movies()->attach($movieId);
 
-    return redirect()->back()->with('success', 'Movie added to the list successfully!');
+        return redirect()->back()->with('success', 'Movie added to the list successfully!');
     }
+    
     /**
      * Show the form for editing the specified resource.
      */
