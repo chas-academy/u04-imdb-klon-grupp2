@@ -65,7 +65,7 @@
                     class="w-full sm:hidden"
                     variant="secondary"
                     size="md"
-                    href=""
+                    href="{{ route('admin.edit.movie', ['id' => $movie->id]) }}"
                 >
                     Edit
                 </x-button>
@@ -89,7 +89,12 @@
                     >
                         Delete
                     </x-button>
-                    <x-button class="" variant="secondary" size="md" href="">
+                    <x-button
+                        class=""
+                        variant="secondary"
+                        size="md"
+                        href="{{ route('admin.edit.movie', ['id' => $movie->id]) }}"
+                    >
                         Edit
                     </x-button>
                 </div>
