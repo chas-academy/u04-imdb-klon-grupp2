@@ -17,9 +17,22 @@ class ListController extends Controller
     public function index($username)
     {
         $user = User::where('username', $username)->firstOrFail();
-        $lists = $user->lists()->with('movies')->get();
+        $lists = $user->lists()->with('movies')->latest()->get();
+        $lists = $lists->map(function ($list) {
+            return [
+                'id' => $list->id,
+                'title' => $list->title,
+                'posters' => $list->movies->map(fn ($movie) => [
+                    'src' => $movie->poster,
+                    'title' => $movie->title,
+                ]),
+            ];
+        });
 
-        return view('lists', ['user' => $user, 'lists' => $lists]);
+        return view('lists', [
+            'myLists' => $lists,
+            'user' => $user,
+        ]);
     }
 
     /**
