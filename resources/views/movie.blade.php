@@ -37,7 +37,8 @@
             </div>
             <x-poster
                 class="w-32 sm:hidden"
-                src="{{ $movie->poster }}"
+                :id="$movie->id"
+                :src="$movie->poster"
                 alt="Poster of {{ $movie->title }}"
             />
         </div>
@@ -111,7 +112,8 @@
             <div class="flex w-70 flex-col gap-3">
                 <x-poster
                     class="h-104 min-w-70"
-                    src="{{ $movie->poster }}"
+                    :id="$movie->id"
+                    :src="$movie->poster"
                     alt="Poster of {{ $movie->title }}"
                 />
                 <x-button variant="primary" size="md" href="">
