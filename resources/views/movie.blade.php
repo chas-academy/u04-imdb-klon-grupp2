@@ -126,10 +126,10 @@
                 </x-button>
             </div>
             <div class="flex flex-col gap-3">
-                <img
-                    src="{{ $movie->cover_image }}"
-                    alt="Cover image of {{ $movie->title }}"
-                    class="h-104 w-182 rounded-xs object-cover"
+                <x-cover-image
+                    :title="$movie->title"
+                    :id="$movie->id"
+                    :src="$movie->cover_image"
                 />
                 <div class="flex flex-wrap gap-3">
                     @foreach ($movie->genres as $genre)
