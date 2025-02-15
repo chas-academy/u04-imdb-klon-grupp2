@@ -49,6 +49,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::get('/create-user', [AdminController::class, 'createUserForm'])->name('admin.create.user');
     Route::post('/create-user', [AdminController::class, 'createUser'])->name('admin.store.user');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::put('/make-admin/{id}', [ProfileController::class, 'makeAdmin'])->name('admin.profile.make-admin');
 
     Route::controller(ReportController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'reportedUsers')->name('reported.users');
@@ -61,4 +62,4 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
