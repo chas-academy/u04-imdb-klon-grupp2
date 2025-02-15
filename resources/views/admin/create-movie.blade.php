@@ -81,7 +81,7 @@
                         label="Cover image"
                     />
 
-                    <x-button type="submit" size="md">Upload movie</x-button>
+                    <x-button type="submit" size="md">Create movie</x-button>
                 </div>
             </form>
         </div>
