@@ -18,21 +18,30 @@ class AdminController extends Controller
     {
         $latestUploadedMovies = Movie::latest()->limit(10)->get();
 
-        $reportedReviews = Report::with(['review', 'user'])
-            ->whereNotNull(['user_id', 'review_id'])
-            ->with('user')
+        $reportedReviews = Report::with(['review'])
+            ->whereNotNull('review_id')
+            ->where('decision_made', false)
             ->latest()
             ->get();
 
+        foreach ($reportedReviews as $report) {
+            $report->user = User::where('id', $report->review->user_id)->first();
+        }
+
         $reportedUsers = Report::whereNotNull('reason')
             ->whereNotNull('user_id')
-            ->whereNull('review_id')
-            ->with('user')
+            ->where('decision_made', false)
             ->latest()
-            ->get()
-            ->unique('user_id');
+            ->get();
 
-        return view('admin.dashboard', compact('latestUploadedMovies', 'reportedReviews', 'reportedUsers'));
+        $reportsByUser = $reportedUsers->groupBy('user_id');
+        foreach ($reportsByUser as $user_id => $value) {
+            $reportsByUser[$user_id] = $value->count();
+        }
+
+        $reportedUsers = $reportedUsers->unique('user_id');
+
+        return view('admin.dashboard', compact('latestUploadedMovies', 'reportedReviews', 'reportedUsers', 'reportsByUser'));
     }
 
     public function users()
