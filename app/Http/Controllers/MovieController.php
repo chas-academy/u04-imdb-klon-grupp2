@@ -14,8 +14,44 @@ class MovieController extends Controller
     public function index()
     {
         $topRatedMovies = Movie::orderByDesc('rating_average')->limit(11)->get();
+        $latestMovies = Movie::latest()->limit(30)->get();
 
-        return view('home', ['topRatedMovies' => $topRatedMovies]);
+        if (Auth::check()) {
+            $user = Auth::user();
+            $userLists = $user->lists()->with('movies');
+            $lists = $userLists->latest('updated_at')->limit(10)->get();
+            $latestUpdatedList = $lists->first();
+            $latestCreatedList = $userLists->latest()->first();
+
+            if ($lists->count() > 0) {
+                $lists = $lists->map(function ($list) {
+                    return [
+                        'id' => $list->id,
+                        'title' => $list->title,
+                        'posters' => $list->movies->map(fn ($movie) => [
+                            'src' => $movie->poster,
+                            'title' => $movie->title,
+                            'id' => $movie->id,
+                        ]),
+                    ];
+                });
+
+                if ($latestUpdatedList->id == $latestCreatedList->id) {
+                    $latestUpdatedList = $userLists->where('lists.id', '!=', $latestCreatedList->id)->latest('updated_at')->first();
+                }
+            }
+
+            return view('home', [
+                'topRatedMovies' => $topRatedMovies,
+                'myLists' => $lists,
+                'latestCreatedList' => $latestCreatedList,
+                'latestUpdatedList' => $latestUpdatedList,
+                'latestMovies' => $latestMovies,
+                'user' => $user,
+            ]);
+        }
+
+        return view('home', compact('latestMovies', 'topRatedMovies'));
     }
 
     /**
