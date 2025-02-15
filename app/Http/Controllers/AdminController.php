@@ -152,6 +152,7 @@ class AdminController extends Controller
             'cover_image' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
         ], [
             'title.regex' => 'The title contains invalid characters.',
+            'duration.regex' => 'The duration must be in the format 1h 30m',
             'director.regex' => 'The director contains invalid characters.',
             'year.min' => 'We only accept movies from 1850 onwards.',
             'year.max' => 'The year must be less than '.(date('Y') + 1),
