@@ -55,7 +55,9 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
         Route::get('/reviews', 'reportedReviews')->name('reported.reviews');
         Route::get('/review/{id}', 'showReviewReport')->name('reported.review');
         Route::get('/users/{username}', 'showUserReports')->name('reported.user');
-        Route::delete('/clear/{id}', 'clearReport')->name('clear.report');
+        Route::put('/clear/{username}/{id}', 'clearUserReport')->name('clear.user.report');
+        Route::put('/clear/{id}', 'clearReviewReport')->name('clear.review.report');
+        Route::delete('/delete/{id}', 'deleteReview')->name('delete.review');
     });
 });
 
