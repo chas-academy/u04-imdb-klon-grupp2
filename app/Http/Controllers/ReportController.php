@@ -34,9 +34,13 @@ class ReportController extends Controller
         ]);
 
         try {
+            $reviewId = $request->is('review/*') ? $id : null;
+            $userId = $request->is('profile/*') ? $id : null;
+
             Report::create([
                 'reason' => $request->reason,
-                'review_id' => $id,
+                'review_id' => $reviewId,
+                'user_id' => $userId,
             ]);
 
             return redirect(url()->previous());
