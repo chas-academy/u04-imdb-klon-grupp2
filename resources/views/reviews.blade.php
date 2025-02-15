@@ -15,6 +15,7 @@
                 :title="$review->movie->title"
                 :content="$review->content"
                 :rating="$review->rating"
+                :id="$review->movie->id"
                 :image="$review->movie->cover_image"
                 :created_at="$review->created_at"
                 :username="$isCurrentUserProfile ? null : $username"

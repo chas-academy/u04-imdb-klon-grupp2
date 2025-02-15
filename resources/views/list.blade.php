@@ -30,6 +30,7 @@
         @foreach ($list->movies as $movie)
             <x-movie
                 :title="$movie->title"
+                :id="$movie->id"
                 :image="$movie->poster"
                 :rating="$movie->rating_average"
                 link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"

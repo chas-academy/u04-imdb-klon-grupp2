@@ -71,7 +71,8 @@
                                 :content="$review->content"
                                 :created_at="$review->created_at"
                                 :rating="$review->rating"
-                                :image="$review->movie->cover_image"
+                                :id="$review->movie->id"
+                                :image="$review->movie->poster"
                                 link="{{ route('review', ['id' => $review->id]) }}"
                             />
                         @endforeach
