@@ -138,19 +138,19 @@
                 </div>
             </div>
         </div>
-        <p class="max-w-144 pt-3">
+        <p class="max-w-144 pt-3 pb-3">
             {!! $movie->description !!}
         </p>
+        <x-button
+            x-data
+            @click="$dispatch('open-modal', 'create-review')"
+            variant="secondary"
+            size="sm"
+        >
+            Write a review
+        </x-button>
     </div>
 
-    <x-button
-        x-data
-        @click="$dispatch('open-modal', 'create-review')"
-        variant="secondary"
-        size="sm"
-    >
-        Write a review
-    </x-button>
     <x-modal.base
         name="create-review"
         :show="$errors->createReview->isNotEmpty() || $errors->createReviewValidation->isNotEmpty()"
