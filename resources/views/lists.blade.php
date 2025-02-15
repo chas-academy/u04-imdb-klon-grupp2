@@ -1,61 +1,37 @@
-<x-layout>
-    <div
-        class="{{ $myLists->isEmpty() ? 'mb-6' : 'mt-16 mb-6 flex items-start justify-between' }}"
-    >
+@php
+    $title = Auth::check() && Auth::user()->is($user) ? 'My lists' : "$user->username's lists";
+@endphp
+
+<x-layout class="flex flex-col gap-6 pt-1 md:pt-12">
+    <div class="flex items-start justify-between">
+        <x-section-header.back-link
+            :title="$title"
+            href="{{ route('profile', ['username' => $user->username]) }}"
+            backLabel="Back to profile"
+        />
         @if (Auth::check() && Auth::user()->is($user))
-            <x-section-header.back-link
-                title="My lists"
-                backLabel="Back to profile"
-                href="{{ route('profile', ['username' => Auth::user()->username]) }}"
-            />
-
-            @if ($myLists->isEmpty())
-                <div
-                    class="flex h-screen flex-col items-center justify-center gap-4"
-                >
-                    <x-empty-state content="You don’t have any lists yet!" />
-                    <x-button
-                        x-data
-                        @click="$dispatch('open-modal', 'create-list')"
-                    >
-                        Create list
-                    </x-button>
-                </div>
-            @else
-                <div class="ml-auto flex items-center">
-                    <x-button
-                        x-data
-                        class="sm:px-2 sm:py-1 md:px-6 md:py-2"
-                        @click="$dispatch('open-modal', 'create-list')"
-                    >
-                        Create list
-                    </x-button>
-                </div>
-            @endif
-        @else
-            <x-section-header.back-link
-                title="{{ $user->username }}'s lists"
-                backLabel="Back to profile"
-                href="{{ route('profile', ['username' => $user->username]) }}"
-            />
-
-            @if ($myLists->isEmpty())
-                <div class="relative flex h-screen items-center justify-center">
-                    <div
-                        class="flex -translate-y-1/2 transform flex-col gap-4 text-center"
-                    >
-                        <x-empty-state
-                            content="{{ $user->username }} doesn’t have any lists yet!"
-                        />
-                    </div>
-                </div>
-            @endif
+            <x-button
+                x-data
+                @click="$dispatch('open-modal', 'create-list')"
+                size="sm"
+                class="sm:hidden"
+            >
+                Create list
+            </x-button>
+            <x-button
+                x-data
+                @click="$dispatch('open-modal', 'create-list')"
+                size="md"
+                class="hidden sm:inline-flex"
+            >
+                Create list
+            </x-button>
         @endif
     </div>
 
-    @if (! $myLists->isEmpty())
-        <x-section :columns="[2, 'sm' => 4, 'lg' => 6]">
-            @foreach ($myLists as $list)
+    @if ($lists->isNotEmpty())
+        <x-section :columns="[2, 'md' => 4, 'lg' => 6]">
+            @foreach ($lists as $list)
                 <x-list
                     :title="$list['title']"
                     :posters="$list['posters']->toArray()"
@@ -63,6 +39,24 @@
                 />
             @endforeach
         </x-section>
+    @elseif ($lists->isEmpty() && Auth::check() && Auth::user()->is($user))
+        <div class="flex flex-1 flex-col items-center justify-center gap-2">
+            <p class="text-slate-200">You don't have any lists yet!</p>
+            <x-button
+                x-data
+                @click="$dispatch('open-modal', 'create-list')"
+                size="md"
+                class="w-full sm:w-auto"
+            >
+                Create list
+            </x-button>
+        </div>
+    @else
+        <div class="flex flex-1 flex-col items-center justify-center">
+            <p class="text-slate-200">
+                {{ $username }} doesn't have any lists yet!
+            </p>
+        </div>
     @endif
 
     <x-create-list-modal />
