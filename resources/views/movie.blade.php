@@ -52,14 +52,21 @@
         </x-button>
         @if ($isAdmin)
             <div class="mt-2 flex gap-2 sm:hidden">
-                <x-button
-                    class="w-full bg-red-400 sm:hidden"
-                    variant="primary"
-                    size="md"
-                    href=""
+                <form
+                    method="post"
+                    action="{{ route('admin.movie.destroy', $movie->id) }}"
                 >
-                    Delete
-                </x-button>
+                    @csrf
+                    @method('delete')
+                    <x-button
+                        class="w-full bg-red-400 sm:hidden"
+                        variant="primary"
+                        size="md"
+                    >
+                        Delete
+                    </x-button>
+                </form>
+
                 <x-button
                     class="w-full sm:hidden"
                     variant="secondary"
@@ -80,14 +87,20 @@
             </h1>
             @if ($isAdmin)
                 <div class="flex gap-2">
-                    <x-button
-                        class="bg-red-400 hover:bg-red-500"
-                        variant="primary"
-                        size="md"
-                        href=""
+                    <form
+                        method="post"
+                        action="{{ route('admin.movie.destroy', $movie->id) }}"
                     >
-                        Delete
-                    </x-button>
+                        @csrf
+                        @method('delete')
+                        <x-button
+                            class="bg-red-400 hover:bg-red-500"
+                            variant="primary"
+                            size="md"
+                        >
+                            Delete
+                        </x-button>
+                    </form>
                     <x-button class="" variant="secondary" size="md" href="">
                         Edit
                     </x-button>

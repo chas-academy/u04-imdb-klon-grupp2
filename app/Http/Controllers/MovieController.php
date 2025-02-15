@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
-use App\Models\MovieList;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -114,13 +113,13 @@ class MovieController extends Controller
             $movie = Movie::findOrFail($id);
             $user = Auth::user();
 
-            if (!$user || $user->role !== 'admin') {
+            if (! $user || $user->role !== 'admin') {
                 throw new Exception('You are not allowed to delete this movie!');
             }
 
             $movie->delete();
 
-            return redirect (route('admin'));
+            return redirect(route('admin'));
         } catch (Exception $e) {
             return redirect()
                 ->back()

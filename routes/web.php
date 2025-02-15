@@ -46,6 +46,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::get('/users', fn () => view('admin.users'))->name('admin.users');
     Route::get('/featured', fn () => view('admin.featured-lists'))->name('admin.featured');
     Route::put('/make-admin/{id}', [ProfileController::class, 'makeAdmin'])->name('admin.profile.make-admin');
+    Route::delete('/m/{id}', 'destroy')->name('admin.movie.destroy');
 
     Route::controller(ReviewController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'index')->name('reports.user');
