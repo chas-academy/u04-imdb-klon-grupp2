@@ -62,4 +62,4 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     });
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
