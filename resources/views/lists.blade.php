@@ -10,17 +10,12 @@
             />
 
             @if ($myLists->isEmpty())
-                <div class="relative flex h-screen items-center justify-center">
-                    <div
-                        class="flex -translate-y-1/2 transform flex-col gap-4 text-center"
-                    >
-                        <x-empty-state
-                            content="You don’t have any lists yet!"
-                        />
-                    </div>
+                <div
+                    class="flex h-screen flex-col items-center justify-center gap-4"
+                >
+                    <x-empty-state content="You don’t have any lists yet!" />
                     <x-button
                         x-data
-                        class="sm:px-2 sm:py-1 md:px-6 md:py-2"
                         @click="$dispatch('open-modal', 'create-list')"
                     >
                         Create list
