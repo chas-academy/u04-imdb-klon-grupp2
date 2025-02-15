@@ -41,7 +41,7 @@
                         readonly
                         autofocus
                         required
-                        :error="$errors->first('email')"
+                        :error="$errors->first('password')"
                         label="Password"
                         placeholder=""
                     />

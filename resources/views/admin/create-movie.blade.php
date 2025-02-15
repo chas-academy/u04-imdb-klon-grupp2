@@ -58,6 +58,7 @@
                     <x-input.textarea
                         name="description"
                         label="Description"
+                        :value="old('description')"
                         :error="$errors->first('description')"
                         placeholder="Enter the movie description"
                     />
