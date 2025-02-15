@@ -99,6 +99,7 @@
                     <x-review.reported
                         :title="$userReview->review->movie->title"
                         :content="$userReview->review->content"
+                        :id="$userReview->review->movie->id"
                         :image="$userReview->review->movie->poster"
                         :username="$userReview->user->username"
                         :link="route('reported.review', ['id' => $userReview->id])"

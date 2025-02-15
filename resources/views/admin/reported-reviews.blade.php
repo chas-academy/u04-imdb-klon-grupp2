@@ -11,26 +11,11 @@
             <x-review.reported
                 :title="$report->review->movie->title"
                 :content="$report->review->content"
+                :id="$report->review->movie->id"
                 :image="$report->review->movie->poster"
                 :username="$report->user->username"
                 :link="route('reported.review', ['id' => $report->id])"
             />
         @endforeach
     </div>
-
-    {{--
-        <div class="m-auto flex max-w-xl flex-col gap-4">
-        <div class="mt-4 space-y-4">
-        @foreach ($reviews as $review)
-        <x-review.reported
-        :title="$review->movie->title"
-        :content="$review->content"
-        :image="$review->movie->poster"
-        :username="$review->user->username"
-        :link="route('reported.review', ['id' => $review->id])"
-        />
-        @endforeach
-        </div>
-        </div>
-    --}}
 </x-layout>

@@ -44,6 +44,7 @@
                 <x-review
                     :title="$report->review->movie->title"
                     :content="$report->review->content"
+                    :id="$report->review->movie->id"
                     :image="$report->review->movie->poster"
                     :rating="$report->review->movie->rating_average"
                     created_at="{{ $report->review->movie->created_at->diffForHumans() }}"
