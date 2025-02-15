@@ -12,8 +12,8 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-button class="hidden md:inline-flex">Add movie</x-button>
             @if ($isListOwner)
+                <x-button class="hidden md:inline-flex">Add movie</x-button>
                 <x-button
                     x-data
                     @click="$dispatch('open-modal', 'edit-list')"
@@ -37,7 +37,9 @@
         @endforeach
     </x-section>
 
-    <x-button class="mt-6 md:hidden">Add movie</x-button>
+    @if ($isListOwner)
+        <x-button class="mt-6 md:hidden">Add movie</x-button>
+    @endif
 
     <x-modal.base name="edit-list" :show="$errors->deleteList->isNotEmpty()">
         <x-modal.menu :error="$errors->deleteList->first()">
