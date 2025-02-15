@@ -38,20 +38,20 @@
     </x-button>
 
     <div class="ml-2 flex flex-col items-start" x-show="fileSelected">
-        <div class="flex items-center gap-2">
+        <div class="flex max-w-xl items-center gap-2 truncate">
             @if ($existingFileUrl)
-                <span class="text-sm text-slate-200">
+                <span class="truncate text-sm text-slate-200">
                     <a
                         x-text="fileName"
                         href="{{ $existingFileUrl }}"
                         target="_blank"
-                        class="text-sm text-blue-500 underline"
+                        class="truncate text-sm text-blue-500 underline"
                     ></a>
                 </span>
             @else
                 <span
                     x-text="fileName"
-                    class="text-sm text-slate-200"
+                    class="truncate text-sm text-slate-200"
                 ></span>
             @endif
 
