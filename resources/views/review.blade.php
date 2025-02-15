@@ -43,7 +43,7 @@
             <div
                 class="flex flex-wrap items-center justify-between gap-2 sm:flex-col sm:items-start"
             >
-                <x-profile-simplified
+                <x-profile.simplified
                     :username="$review->user->username"
                     :image="$review->user->image"
                     size="sm"
