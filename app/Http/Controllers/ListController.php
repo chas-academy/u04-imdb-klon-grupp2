@@ -30,7 +30,7 @@ class ListController extends Controller
         });
 
         return view('lists', [
-            'myLists' => $lists,
+            'lists' => $lists,
             'user' => $user,
         ]);
     }
