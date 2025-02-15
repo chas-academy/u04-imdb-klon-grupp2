@@ -6,7 +6,7 @@
             href="{{ route('admin.dashboard') }}"
         />
     </div>
-    <div class="mt-4 grid grid-cols-2 gap-4 space-y-4">
+    <div class="mt-4 grid gap-4 space-y-4 sm:grid-cols-1 md:grid-cols-2">
         @foreach ($reports as $report)
             <x-review.reported
                 :title="$report->review->movie->title"
