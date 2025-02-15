@@ -50,6 +50,7 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('/admin')->group(fun
     Route::post('/create-user', [AdminController::class, 'createUser'])->name('admin.store.user');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
     Route::put('/make-admin/{id}', [ProfileController::class, 'makeAdmin'])->name('admin.profile.make-admin');
+    Route::delete('/m/{id}', [MovieController::class, 'destroy'])->name('admin.movie.destroy');
 
     Route::controller(ReportController::class)->prefix('/reports')->group(function () {
         Route::get('/users', 'reportedUsers')->name('reported.users');

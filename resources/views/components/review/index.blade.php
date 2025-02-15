@@ -14,7 +14,7 @@
 @endphp
 
 <a
-    {{ $attributes->class('flex gap-3 rounded-sm bg-slate-700 p-2 transition hover:scale-101') }}
+    {{ $attributes->class('flex min-h-36 gap-3 rounded-sm bg-slate-700 p-2 transition hover:scale-101') }}
     href="{{ $link }}"
 >
     <x-poster
@@ -24,7 +24,7 @@
         alt="Poster for {{ $title }}"
     />
 
-    <div class="flex flex-1 flex-col gap-1">
+    <div class="flex flex-1 flex-col gap-2">
         <div class="flex-1 space-y-1">
             <div class="flex justify-between gap-2">
                 <h2 class="text-lg font-bold text-slate-50">

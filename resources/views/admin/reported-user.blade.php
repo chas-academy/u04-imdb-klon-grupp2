@@ -5,7 +5,7 @@
         backLabel="Back to dashboard"
     />
     <div class="my-4 flex justify-between">
-        <x-profile-simplified
+        <x-profile.simplified
             :username="$user->username"
             :image="$user->image"
             size="md"

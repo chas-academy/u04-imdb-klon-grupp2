@@ -3,7 +3,7 @@
         class="m-auto flex flex-col items-center justify-between gap-4 sm:flex-row sm:gap-0"
     >
         <div class="sm:flex-1 sm:self-start">
-            <x-profile-simplified
+            <x-profile.simplified
                 :username="auth()->user()->username"
                 :image="auth()->user()->image"
                 size="md"
@@ -68,7 +68,7 @@
             <div class="mt-4 space-y-4">
                 @foreach ($reportedUsers->take(7) as $reportedUser)
                     <div class="flex items-center justify-between">
-                        <x-profile-simplified
+                        <x-profile.simplified
                             :username="$reportedUser->user->username"
                             :image="$reportedUser->user->image"
                             size="md"
@@ -95,9 +95,9 @@
             <div class="mt-4 space-y-4">
                 @foreach ($reportedReviews->take(3) as $userReview)
                     <x-review.reported
+                        :id="$userReview->review->movie->id"
                         :title="$userReview->review->movie->title"
                         :content="$userReview->review->content"
-                        :id="$userReview->review->movie->id"
                         :image="$userReview->review->movie->poster"
                         :username="$userReview->user->username"
                         :link="route('reported.review', ['id' => $userReview->id])"

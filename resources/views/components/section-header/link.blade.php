@@ -4,7 +4,7 @@
     'href',
 ])
 
-<div>
+<div class="w-fit">
     @isset($extraLabel)
         <span class="text-sm text-indigo-400">{{ $extraLabel }}</span>
     @endisset

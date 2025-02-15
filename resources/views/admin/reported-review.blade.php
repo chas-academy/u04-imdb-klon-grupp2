@@ -7,7 +7,7 @@
     <div>
         <div class="my-4 flex flex-col gap-2">
             <div class="flex items-center justify-between gap-4">
-                <x-profile-simplified
+                <x-profile.simplified
                     :username="$report->user->username"
                     :image=" $report->user->image"
                     size="md"
@@ -28,7 +28,7 @@
                         </x-button>
                     </form>
                     <x-button
-                        class="bg-red-400 px-2 py-1 text-sm sm:px-4 sm:py-2 sm:text-base md:px-6 md:py-3 md:text-lg"
+                        class="bg-red-400 px-2 py-1 text-sm hover:bg-red-500 sm:px-4 sm:py-2 sm:text-base md:px-6 md:py-3 md:text-lg"
                         x-data
                         @click="$dispatch('open-modal', 'delete-review')"
                     >
@@ -46,9 +46,9 @@
 
             <div class="flex max-w-xl flex-col gap-4 text-sm text-slate-400">
                 <x-review
+                    :id="$report->review->movie->id"
                     :title="$report->review->movie->title"
                     :content="$report->review->content"
-                    :id="$report->review->movie->id"
                     :image="$report->review->movie->poster"
                     :rating="$report->review->movie->rating_average"
                     created_at="{{ $report->review->movie->created_at->diffForHumans() }}"

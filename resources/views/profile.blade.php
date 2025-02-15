@@ -67,11 +67,11 @@
                     <x-section :columns="[1, 'md' => 2]">
                         @foreach ($reviews as $review)
                             <x-review
+                                :id="$review->movie->id"
                                 :title="$review->movie->title "
                                 :content="$review->content"
                                 :created_at="$review->created_at"
                                 :rating="$review->rating"
-                                :id="$review->movie->id"
                                 :image="$review->movie->poster"
                                 link="{{ route('review', ['id' => $review->id]) }}"
                             />

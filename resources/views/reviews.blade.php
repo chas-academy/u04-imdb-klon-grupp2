@@ -12,10 +12,10 @@
     <div class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2">
         @foreach ($reviews as $review)
             <x-review
+                :id="$review->movie->id"
                 :title="$review->movie->title"
                 :content="$review->content"
                 :rating="$review->rating"
-                :id="$review->movie->id"
                 :image="$review->movie->poster"
                 :created_at="$review->created_at"
                 :username="$isCurrentUserProfile ? null : $username"

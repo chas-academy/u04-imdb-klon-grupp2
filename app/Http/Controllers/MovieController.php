@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,44 @@ class MovieController extends Controller
     public function index()
     {
         $topRatedMovies = Movie::orderByDesc('rating_average')->limit(11)->get();
+        $latestMovies = Movie::latest()->limit(30)->get();
 
-        return view('home', ['topRatedMovies' => $topRatedMovies]);
+        if (Auth::check()) {
+            $user = Auth::user();
+            $userLists = $user->lists()->with('movies');
+            $lists = $userLists->latest('updated_at')->limit(10)->get();
+            $latestUpdatedList = $lists->first();
+            $latestCreatedList = $userLists->latest()->first();
+
+            if ($lists->count() > 0) {
+                $lists = $lists->map(function ($list) {
+                    return [
+                        'id' => $list->id,
+                        'title' => $list->title,
+                        'posters' => $list->movies->map(fn($movie) => [
+                            'src' => $movie->poster,
+                            'title' => $movie->title,
+                            'id' => $movie->id,
+                        ]),
+                    ];
+                });
+
+                if ($latestUpdatedList->id == $latestCreatedList->id) {
+                    $latestUpdatedList = $userLists->where('lists.id', '!=', $latestCreatedList->id)->latest('updated_at')->first();
+                }
+            }
+
+            return view('home', [
+                'topRatedMovies' => $topRatedMovies,
+                'myLists' => $lists,
+                'latestCreatedList' => $latestCreatedList,
+                'latestUpdatedList' => $latestUpdatedList,
+                'latestMovies' => $latestMovies,
+                'user' => $user,
+            ]);
+        }
+
+        return view('home', compact('latestMovies', 'topRatedMovies'));
     }
 
     /**
@@ -46,6 +83,7 @@ class MovieController extends Controller
         return view('movie', [
             'movie' => $movie,
             'isAdmin' => $isAdmin,
+            'reviews' => $movie->reviews,
         ]);
     }
 
@@ -68,8 +106,25 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movie $movie)
+    public function destroy($id)
     {
-        //
+        try {
+            $movie = Movie::findOrFail($id);
+            $user = Auth::user();
+
+            if (! $user || $user->role !== 'admin') {
+                throw new Exception('You are not allowed to delete this movie!');
+            }
+
+            // TODO: remove local poster and cover_image files
+
+            $movie->delete();
+
+            return redirect(route('admin.dashboard'));
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withErrors('Something went wrong with deleting the movie!', 'deleteMovie');
+        }
     }
 }

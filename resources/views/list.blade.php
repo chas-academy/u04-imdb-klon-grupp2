@@ -3,7 +3,7 @@
         <div class="space-y-1">
             <x-section-header.back-link
                 :title="$list->title"
-                backLabel="Back to lists"
+                backLabel="Back"
                 href="{{ $backLink }}"
             />
             <p class="text-sm text-slate-400">
@@ -12,8 +12,8 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-button class="hidden md:inline-flex">Add movie</x-button>
             @if ($isListOwner)
+                <x-button class="hidden md:inline-flex">Add movie</x-button>
                 <x-button
                     x-data
                     @click="$dispatch('open-modal', 'edit-list')"
@@ -29,8 +29,8 @@
     <x-section :columns="[2, 'sm' => 4, 'md' => 6]">
         @foreach ($list->movies as $movie)
             <x-movie
-                :title="$movie->title"
                 :id="$movie->id"
+                :title="$movie->title"
                 :image="$movie->poster"
                 :rating="$movie->rating_average"
                 link="{{ route('movie', ['id' => $movie->id, 'title' => $movie->title]) }}"
@@ -38,7 +38,9 @@
         @endforeach
     </x-section>
 
-    <x-button class="mt-6 md:hidden">Add movie</x-button>
+    @if ($isListOwner)
+        <x-button class="mt-6 md:hidden">Add movie</x-button>
+    @endif
 
     <x-modal.base name="edit-list" :show="$errors->deleteList->isNotEmpty()">
         <x-modal.menu :error="$errors->deleteList->first()">

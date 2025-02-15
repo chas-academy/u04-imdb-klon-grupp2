@@ -9,7 +9,7 @@
 
     <div class="m-auto flex max-w-xl flex-col gap-4">
         @forelse ($users as $user)
-            <x-profile-simplified
+            <x-profile.simplified
                 :username="$user->username"
                 :image="$user->image"
                 size="md"

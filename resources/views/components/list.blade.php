@@ -5,7 +5,7 @@
 ])
 
 @php
-    $posters = array_pad($posters, 4, ['src' => null, 'title' => null]);
+    $posters = array_pad($posters, 4, ['src' => null, 'title' => null, 'id' => null]);
     $posters = array_slice($posters, 0, 4);
 @endphp
 

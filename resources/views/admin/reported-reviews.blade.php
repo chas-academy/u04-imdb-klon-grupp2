@@ -9,9 +9,9 @@
     <div class="mt-4 grid gap-4 space-y-4 sm:grid-cols-1 md:grid-cols-2">
         @foreach ($reports as $report)
             <x-review.reported
+                :id="$report->review->movie->id"
                 :title="$report->review->movie->title"
                 :content="$report->review->content"
-                :id="$report->review->movie->id"
                 :image="$report->review->movie->poster"
                 :username="$report->user->username"
                 :link="route('reported.review', ['id' => $report->id])"

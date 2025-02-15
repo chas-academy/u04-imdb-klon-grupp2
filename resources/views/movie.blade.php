@@ -53,14 +53,21 @@
         </x-button>
         @if ($isAdmin)
             <div class="mt-2 flex gap-2 sm:hidden">
-                <x-button
-                    class="w-full bg-red-400 sm:hidden"
-                    variant="primary"
-                    size="md"
-                    href=""
+                <form
+                    method="post"
+                    action="{{ route('admin.movie.destroy', $movie->id) }}"
                 >
-                    Delete
-                </x-button>
+                    @csrf
+                    @method('delete')
+                    <x-button
+                        class="w-full bg-red-400 sm:hidden"
+                        variant="primary"
+                        size="md"
+                    >
+                        Delete
+                    </x-button>
+                </form>
+
                 <x-button
                     class="w-full sm:hidden"
                     variant="secondary"
@@ -81,14 +88,20 @@
             </h1>
             @if ($isAdmin)
                 <div class="flex gap-2">
-                    <x-button
-                        class="bg-red-400 hover:bg-red-500"
-                        variant="primary"
-                        size="md"
-                        href=""
+                    <form
+                        method="post"
+                        action="{{ route('admin.movie.destroy', $movie->id) }}"
                     >
-                        Delete
-                    </x-button>
+                        @csrf
+                        @method('delete')
+                        <x-button
+                            class="bg-red-400 hover:bg-red-500"
+                            variant="primary"
+                            size="md"
+                        >
+                            Delete
+                        </x-button>
+                    </form>
                     <x-button
                         class=""
                         variant="secondary"
@@ -138,19 +151,44 @@
                 </div>
             </div>
         </div>
-        <p class="max-w-144 pt-3 pb-3">
+        <p class="max-w-144 pt-4 pb-3">
             {!! $movie->description !!}
         </p>
-        <x-button
-            x-data
-            @click="$dispatch('open-modal', 'create-review')"
-            variant="secondary"
-            size="sm"
-        >
-            Write a review
-        </x-button>
     </div>
 
+    <div class="space-y-4 px-4 pt-12">
+        <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold">Reviews</h2>
+            <x-button
+                x-data
+                @click="$dispatch('open-modal', 'create-review')"
+                variant="secondary"
+                size="sm"
+            >
+                Write a review
+            </x-button>
+        </div>
+        @if ($reviews->isEmpty())
+            <p class="pt-10 text-center text-slate-200">
+                This movie does not have any reviews yet!
+            </p>
+        @else
+            <x-section :columns="[1, 'sm' => 2]">
+                @foreach ($reviews as $review)
+                    <x-review
+                        :id="$review->movie->id"
+                        :image="$review->movie->poster"
+                        :title="$review->movie->title"
+                        :content="$review->content"
+                        :rating="$review->rating"
+                        :created_at="$review->created_at"
+                        :username="$review->user->username"
+                        link="{{ route('review', ['id' => $review->id]) }}"
+                    />
+                @endforeach
+            </x-section>
+        @endif
+    </div>
     <x-modal.base
         name="create-review"
         :show="$errors->createReview->isNotEmpty() || $errors->createReviewValidation->isNotEmpty()"

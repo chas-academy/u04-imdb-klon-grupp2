@@ -4,7 +4,8 @@
     'href',
     'backLabel',
 ])
-<div>
+
+<div class="w-fit">
     <a href="{{ $href }}" class="group flex flex-col">
         <div class="flex items-center gap-2">
             <x-lucide-move-left
