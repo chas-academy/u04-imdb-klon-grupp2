@@ -8,7 +8,11 @@
         class="mr-10 flex w-full flex-col gap-4 md:flex-row md:items-center md:justify-between"
     >
         <div class="flex items-center gap-4">
-            <x-avatar :image="$user->image" size="lg" />
+            <x-avatar
+                :username="$user->username"
+                :image="$user->image"
+                size="lg"
+            />
 
             <div class="flex grow flex-col gap-3 text-slate-50">
                 <div class="text-lg font-bold">
