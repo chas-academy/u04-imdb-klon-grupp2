@@ -4,49 +4,44 @@
         href="{{ route('admin.dashboard') }}"
         backLabel="Back to dashboard"
     />
-    <div>
+    <div class="my-4 flex justify-between">
+        <x-profile-simplified
+            :username="$user->username"
+            :image="$user->image"
+            size="md"
+        />
+        <x-button type="submit" class="ml-auto bg-red-400">Ban user</x-button>
+    </div>
+
+    <div class="flex max-w-xl flex-col">
         @foreach ($reports as $report)
-            <div class="my-4 flex flex-col gap-2">
-                <div class="flex items-center justify-between gap-4">
-                    <x-profile-simplified
-                        :username="$report->user->username"
-                        :image=" $report->user->image"
-                        size="md"
-                    />
-                    <div class="ml-auto flex gap-2">
-                        <form
-                            method="POST"
-                            action="{{ route('clear.report', $report->id) }}"
-                        >
-                            @csrf
-                            @method('DELETE')
-                            <x-button type="submit" variant="secondary">
-                                Clear report
-                            </x-button>
-                        </form>
-                        <form
-                            method="POST"
-                            action="{{ route('admin.ban.user', $report->user->id) }}"
-                        >
-                            <x-button type="submit" class="bg-red-400">
-                                Ban user
-                            </x-button>
-                        </form>
+            <div class="my-4">
+                <div class="flex justify-between text-sm text-slate-400">
+                    <div>
+                        <p>
+                            Reported at:
+                            <span class="text-slate-50">
+                                {{ $report->created_at->diffForHumans() }}
+                            </span>
+                        </p>
+                        <p>
+                            Reported reason:
+                            <span class="text-slate-50">
+                                {{ $report->reason }}
+                            </span>
+                        </p>
                     </div>
-                </div>
-                <div class="mt- text-sm text-slate-400">
-                    <p>
-                        Reported reason:
-                        <span class="text-slate-50">
-                            {{ "$report->reason" }}
-                        </span>
-                    </p>
-                    <p>
-                        Reported at:
-                        <span class="text-slate-50">
-                            {{ $report->created_at->diffForHumans() }}
-                        </span>
-                    </p>
+                    <form
+                        method="POST"
+                        action="{{ route('clear.user.report', ['id' => $report->id, 'username' => $report->user->username]) }}"
+                        class="ml-auto"
+                    >
+                        @csrf
+                        @method('PUT')
+                        <x-button size="sm" variant="secondary">
+                            Clear report
+                        </x-button>
+                    </form>
                 </div>
             </div>
         @endforeach
