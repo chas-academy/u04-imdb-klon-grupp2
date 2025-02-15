@@ -8,8 +8,8 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ListController extends Controller
 {
@@ -95,14 +95,14 @@ class ListController extends Controller
         $list = MovieList::find($listId);
 
         $existingMovieIds = $list->movies->pluck('id')->toArray();
-    
+
         $topThirtyfourMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
-                            ->leftJoin('reviews', 'movies.id', '=', 'reviews.movie_id')
-                            ->select('movies.id', 'movies.title', 'movies.poster', DB::raw('AVG(reviews.rating) as rating'))
-                            ->groupBy('movies.id', 'movies.title', 'movies.poster')
-                            ->orderBy('rating', 'desc')
-                            ->take(30)
-                            ->get();
+            ->leftJoin('reviews', 'movies.id', '=', 'reviews.movie_id')
+            ->select('movies.id', 'movies.title', 'movies.poster', DB::raw('AVG(reviews.rating) as rating'))
+            ->groupBy('movies.id', 'movies.title', 'movies.poster')
+            ->orderBy('rating', 'desc')
+            ->take(30)
+            ->get();
 
         return $topThirtyfourMovies;
     }
@@ -113,14 +113,14 @@ class ListController extends Controller
     public function addMovie(Request $request, $listId)
     {
         $list = MovieList::findOrFail($listId);
-    
+
         $movieId = $request->input('movie_id');
 
         $list->movies()->attach($movieId);
 
         return redirect()->back()->with('success', 'Movie added to the list successfully!');
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
