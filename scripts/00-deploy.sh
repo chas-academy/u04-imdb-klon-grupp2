@@ -11,3 +11,5 @@ php artisan migrate --force
 
 echo "seeding"
 php artisan db:seed
+
+php artisan storage:link
