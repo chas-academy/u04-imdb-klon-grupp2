@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 Route::controller(MovieController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/m/{id}/{title}', 'show')->name('movie');
-    Route::delete('/m{id}/{title}', 'destroy')->middleware(['auth'])->name('movie.destroy');
 });
 
 Route::controller(ProfileController::class)->group(function () {

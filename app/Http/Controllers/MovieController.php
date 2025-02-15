@@ -111,17 +111,17 @@ class MovieController extends Controller
     {
         try {
 
-            $movie = MovieList::findOrFail($id);
+            $movie = Movie::findOrFail($id);
             $user = Auth::user();
 
-            if (! $movie->isOwnBy($user->id)) {
+            if (!$user || $user->role !== 'admin') {
                 throw new Exception('You are not allowed to delete this movie!');
             }
 
             $movie->delete();
 
-            return redirect('/');
-        } catch (Exception) {
+            return redirect (route('admin'));
+        } catch (Exception $e) {
             return redirect()
                 ->back()
                 ->withErrors('Something went wrong with deleting the movie!', 'deleteMovie');
