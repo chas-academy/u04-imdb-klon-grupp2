@@ -80,7 +80,8 @@
                             size="sm"
                             href="{{ route('reported.user', ['username' => $reportedUser->user->username]) }}"
                         >
-                            Check report
+                            Check
+                            {{ $reportsByUser[$reportedUser->user_id] > 1 ? $reportsByUser[$reportedUser->user_id] . ' reports' : 'report' }}
                         </x-button>
                     </div>
                 @endforeach
