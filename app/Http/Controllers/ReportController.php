@@ -106,7 +106,7 @@ class ReportController extends Controller
         $report->save();
 
         $user = User::where('username', $username)->firstOrFail();
-        $n_reports = Report::where('user_id', $user->id)->count();
+        $n_reports = Report::where('user_id', $user->id)->where('decision_made', false)->count();
 
         return $n_reports == 0 ? redirect(route('admin.dashboard')) : redirect(route('reported.user', $username));
     }
