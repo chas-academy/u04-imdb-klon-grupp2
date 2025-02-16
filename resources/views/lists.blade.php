@@ -9,7 +9,8 @@
             href="{{ route('profile', ['username' => $user->username]) }}"
             backLabel="Back to profile"
         />
-        @if (Auth::check() && Auth::user()->is($user))
+
+        @if (Auth::check() && Auth::user()->is($user) && $lists->isNotEmpty())
             <x-button
                 x-data
                 @click="$dispatch('open-modal', 'create-list')"
