@@ -2,7 +2,9 @@
     <div
         class="m-auto flex flex-col items-center justify-between gap-4 sm:flex-row sm:gap-0"
     >
-        <div class="sm:flex-1 sm:self-start">
+        <div
+            class="flex items-center gap-2 text-center sm:flex-1 sm:self-start"
+        >
             <x-profile.simplified
                 :username="auth()->user()->username"
                 :image="auth()->user()->image"
@@ -16,7 +18,7 @@
             <x-button
                 variant="secondary"
                 href="{{ route('admin.create.user') }}"
-                class="w-full px-6 py-2 text-base sm:w-auto sm:px-3 sm:py-1 sm:text-xs"
+                class="mr-0 w-full px-6 py-2 text-base sm:w-auto sm:px-3 sm:py-1 sm:text-xs"
             >
                 Create user
             </x-button>
@@ -68,11 +70,13 @@
             <div class="mt-4 space-y-4">
                 @foreach ($reportedUsers->take(7) as $reportedUser)
                     <div class="flex items-center justify-between">
-                        <x-profile.simplified
-                            :username="$reportedUser->user->username"
-                            :image="$reportedUser->user->image"
-                            size="md"
-                        />
+                        <div class="flex items-center gap-2 text-center">
+                            <x-profile.simplified
+                                :username="$reportedUser->user->username"
+                                :image="$reportedUser->user->image"
+                                size="md"
+                            />
+                        </div>
                         <x-button
                             variant="secondary"
                             size="sm"

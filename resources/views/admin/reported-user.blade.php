@@ -4,7 +4,11 @@
         href="{{ route('admin.dashboard') }}"
         backLabel="Back to dashboard"
     />
-    <div class="my-4 flex justify-between">
+    </div>
+
+    <div class="flex flex-col justify-start">
+        <div class="flex max-w-xl flex-row items-center justify-between gap-1">
+            <div class="flex items-center justify-center gap-2 text-center">
         <x-profile.simplified
             :username="$user->username"
             :image="$user->image"
