@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,11 +80,26 @@ class MovieController extends Controller
         $movie = Movie::with(['reviews', 'genres'])->findOrFail($id);
         $user = Auth::user();
         $isAdmin = $user && $user->role === 'admin';
+        $userLists = $user ?
+            User::with('lists')
+                ->findOrFail($user->id)
+                ->lists
+                ->map(fn ($list) => [
+                    'id' => $list->id,
+                    'title' => $list->title,
+                    'posters' => $list->movies->map(fn ($movie) => [
+                        'src' => $movie->poster,
+                        'title' => $movie->title,
+                        'id' => $movie->id,
+                    ]),
+                ]) :
+            null;
 
         return view('movie', [
             'movie' => $movie,
             'isAdmin' => $isAdmin,
             'reviews' => $movie->reviews,
+            'userLists' => $userLists,
         ]);
     }
 

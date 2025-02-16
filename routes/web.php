@@ -24,6 +24,7 @@ Route::controller(ListController::class)->group(function () {
     Route::get('/list/{id}', 'show')->name('list');
     Route::post('/list', 'store')->middleware(['auth'])->name('list.store');
     Route::delete('/list/{id}', 'destroy')->middleware(['auth'])->name('list.destroy');
+    Route::put('/list/{listId}/{movieId}', 'addToList')->middleware(['auth'])->name('list.add-to-list');
 });
 
 Route::controller(ReviewController::class)->group(function () {

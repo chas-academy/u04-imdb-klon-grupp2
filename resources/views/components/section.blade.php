@@ -21,7 +21,7 @@
     $styleAttributeValue = implode('; ', $twVariables);
 @endphp
 
-<section class="relative w-full">
+<section {{ $attributes->twMerge('relative w-full') }}>
     <div
         style="{{ $styleAttributeValue }}"
         @class([
