@@ -40,12 +40,12 @@
         @endif
     @else
         <div class="flex flex-col gap-12">
-            @if ($lists->isNotEmpty())
-                <div class="flex flex-col items-start gap-4">
-                    <x-section-header.link
-                        :title="$listsTitle"
-                        href="{{ route('lists', ['username' => $user->username]) }}"
-                    />
+            <div class="flex flex-col items-start gap-4">
+                <x-section-header.link
+                    :title="$listsTitle"
+                    href="{{ route('lists', ['username' => $user->username]) }}"
+                />
+                @if ($lists->isNotEmpty())
                     <x-section :columns="[2, 'md' => 4]">
                         @foreach ($lists as $list)
                             <x-list
@@ -55,8 +55,22 @@
                             />
                         @endforeach
                     </x-section>
-                </div>
-            @endif
+                @else
+                    <div class="flex flex-col items-start gap-2">
+                        <p class="text-slate-200">
+                            Looks like your list section is empty. Time to
+                            create your first list!
+                        </p>
+                        <x-button
+                            x-data
+                            @click="$dispatch('open-modal', 'create-list')"
+                            size="sm"
+                        >
+                            Create list
+                        </x-button>
+                    </div>
+                @endif
+            </div>
 
             @if ($reviews->isNotEmpty())
                 <div class="flex flex-col items-start gap-4">
