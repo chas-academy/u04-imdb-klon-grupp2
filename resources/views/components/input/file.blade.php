@@ -46,7 +46,7 @@
                         x-text="fileName"
                         :href="existingFileUrl"
                         target="_blank"
-                        class="truncate text-sm text-blue-500 underline"
+                        class="truncate text-sm text-indigo-400 underline"
                     ></a>
                 </span>
             </template>
