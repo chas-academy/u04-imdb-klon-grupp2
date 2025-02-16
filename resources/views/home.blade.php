@@ -48,7 +48,7 @@
                         :title="$list['title']"
                         :posters="$list['posters']->toArray()"
                         :link="route('list', ['id' => $list['id']])"
-                        class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                        class="sm:nth-[n+5]:hidden lg:nth-[n+5]:flex lg:nth-[n+7]:hidden"
                     />
                 @endforeach
             </x-section>
@@ -76,7 +76,7 @@
                                 :title="$movie->title"
                                 :image="$movie->poster"
                                 :rating="$movie->rating_average"
-                                class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                                class="sm:nth-[n+5]:hidden lg:nth-[n+5]:flex lg:nth-[n+7]:hidden"
                                 :link="route('movie', ['id' => $movie->id, 'title' => $movie->title])"
                             />
                         @endforeach
@@ -108,7 +108,7 @@
                             :title="$movie->title"
                             :image="$movie->poster"
                             :rating="$movie->rating_average"
-                            class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                            class="sm:nth-[n+5]:hidden lg:nth-[n+5]:flex lg:nth-[n+7]:hidden"
                             :link="route('movie', ['id' => $movie->id, 'title' => $movie->title])"
                         />
                     @endforeach
