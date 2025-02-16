@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use App\Models\MovieList;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ListController extends Controller
@@ -83,6 +85,26 @@ class ListController extends Controller
             'backLink' => $backLink,
             'isListOwner' => $isListOwner,
         ]);
+    }
+
+    /**
+     * Get the top Thirty movies excluding the ones already in the list
+     */
+    public function getTopThirtyMovies($listId)
+    {
+        $list = MovieList::find($listId);
+
+        $existingMovieIds = $list->movies->pluck('id')->toArray();
+
+        $topThirtyMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
+            ->leftJoin('reviews', 'movies.id', '=', 'reviews.movie_id')
+            ->select('movies.id', 'movies.title', 'movies.poster', DB::raw('AVG(reviews.rating) as rating'))
+            ->groupBy('movies.id', 'movies.title', 'movies.poster')
+            ->orderBy('rating', 'desc')
+            ->take(30)
+            ->get();
+
+        return $topThirtyMovies;
     }
 
     /**

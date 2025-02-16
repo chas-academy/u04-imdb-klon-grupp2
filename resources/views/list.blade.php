@@ -13,7 +13,9 @@
 
         <div class="flex items-center gap-4">
             @if ($isListOwner)
-                <x-button class="hidden md:inline-flex">Add movie</x-button>
+                <x-button x-data @click="$dispatch('open-modal', 'add-movie')">
+                    Add movie
+                </x-button>
                 <x-button
                     x-data
                     @click="$dispatch('open-modal', 'edit-list')"
@@ -41,6 +43,52 @@
     @if ($isListOwner)
         <x-button class="mt-6 md:hidden">Add movie</x-button>
     @endif
+
+    <x-modal.base
+        name="add-movie"
+        :show="$errors->edit->isNotEmpty() || $errors->editListValidation->isNotEmpty()"
+    >
+        <div
+            class="mt-header-mobile sm:mt-header-desktop mb-16 flex w-full max-w-5xl flex-1 flex-col items-center justify-center gap-4 px-4 md:mb-20"
+        >
+            <div class="overflow-auto">
+                <x-section :columns="[2, 'md' => 6]">
+                    @php
+                        $topThirtyMovies = app('App\Http\Controllers\ListController')->getTopThirtyMovies($list->id);
+                    @endphp
+
+                    @foreach ($topThirtyMovies as $movie)
+                        <div class="flex flex-col gap-2">
+                            <div class="h-80">
+                                <x-movie
+                                    :title="$movie->title"
+                                    :rating="number_format($movie->rating, 1)"
+                                    :image="$movie->poster"
+                                    link="{{ route('movie', ['id' => $movie->id, 'title' => Str::slug($movie->title)]) }}"
+                                    :id="$movie->id"
+                                />
+                            </div>
+                            <div
+                                class="items-bottom mt-2 flex w-full justify-center"
+                            >
+                                <form
+                                    method="post"
+                                    action="{{ route('list.add-to-list', ['listId' => $list['id'], 'movieId' => $movie->id]) }}"
+                                >
+                                    @csrf
+                                    @method('put')
+
+                                    <x-button class="w-full">
+                                        Add to list
+                                    </x-button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                </x-section>
+            </div>
+        </div>
+    </x-modal.base>
 
     <x-modal.base name="edit-list" :show="$errors->deleteList->isNotEmpty()">
         <x-modal.menu :error="$errors->deleteList->first()">
