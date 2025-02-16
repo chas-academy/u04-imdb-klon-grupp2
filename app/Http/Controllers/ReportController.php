@@ -45,7 +45,7 @@ class ReportController extends Controller
                 'user_id' => $userId,
             ]);
 
-            return redirect(url()->previous());
+            return redirect()->back();
         } catch (Exception) {
             return redirect()
                 ->back()

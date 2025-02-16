@@ -1,7 +1,6 @@
 @php
     $formattedDate = formatDate($review->created_at);
     $backLabel = request('from') === 'movie' ? 'Back to movie' : (request('from') === 'profile' ? 'Back to profile' : 'Back');
-    $backHref = url()->previous();
 @endphp
 
 <x-layout class="pt-1 sm:pt-10">
@@ -9,7 +8,7 @@
         <x-section-header.back-link
             :title="$review->movie->title"
             extraLabel="Review"
-            href="{{ $backHref }}"
+            href="{{ $backLink }}"
             backLabel="{{ $backLabel }}"
         />
         <x-button
