@@ -96,7 +96,7 @@ class ListController extends Controller
 
         $existingMovieIds = $list->movies->pluck('id')->toArray();
 
-        $topThirtyfourMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
+        $topThirtyMovies = Movie::whereNotIn('movies.id', $existingMovieIds)
             ->leftJoin('reviews', 'movies.id', '=', 'reviews.movie_id')
             ->select('movies.id', 'movies.title', 'movies.poster', DB::raw('AVG(reviews.rating) as rating'))
             ->groupBy('movies.id', 'movies.title', 'movies.poster')
@@ -104,7 +104,7 @@ class ListController extends Controller
             ->take(30)
             ->get();
 
-        return $topThirtyfourMovies;
+        return $topThirtyMovies;
     }
 
     /**
