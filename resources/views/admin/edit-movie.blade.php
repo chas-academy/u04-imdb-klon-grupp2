@@ -18,7 +18,7 @@
                 <div class="flex flex-col gap-4">
                     <x-input.text
                         name="title"
-                        :value="$movie->title"
+                        :value="old('title') ? old('title') : $movie->title"
                         autofocus
                         required
                         :error="$errors->first('title')"
@@ -28,7 +28,7 @@
 
                     <x-input.text
                         name="year"
-                        :value="$movie->year"
+                        :value="old('year') ? old('year') : $movie->year"
                         autofocus
                         required
                         :error="$errors->first('year')"
@@ -38,7 +38,7 @@
 
                     <x-input.text
                         name="director"
-                        :value="$movie->director"
+                        :value="old('director') ? old('director') : $movie->director"
                         autofocus
                         required
                         :error="$errors->first('director')"
@@ -48,7 +48,7 @@
 
                     <x-input.text
                         name="duration"
-                        :value="$movie->duration"
+                        :value="old('duration') ? old('duration') : $movie->duration"
                         autofocus
                         required
                         :error="$errors->first('duration')"
@@ -58,19 +58,11 @@
 
                     <x-input.textarea
                         name="description"
-                        :value="$movie->description"
+                        :value="old('description') ? old('description') : $movie->description"
                         label="Description"
                         :error="$errors->first('description')"
                         placeholder="Enter the movie description"
                     />
-
-                    {{--
-                        @if (! $errors->isEmpty())
-                        <x-input.error
-                        message="{{ $errors->first('requiredContent') }}"
-                        />
-                        @endif
-                    --}}
 
                     <x-input.file
                         :error="$errors->first('poster')"
