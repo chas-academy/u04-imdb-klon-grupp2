@@ -65,22 +65,22 @@
                                     :rating="number_format($movie->rating, 1)"
                                     :image="$movie->poster"
                                     link="{{ route('movie', ['id' => $movie->id, 'title' => Str::slug($movie->title)]) }}"
+                                    :id="$movie->id"
                                 />
                             </div>
                             <div
                                 class="items-bottom mt-2 flex w-full justify-center"
                             >
                                 <form
-                                    method="POST"
-                                    action="{{ route('lists.add-movie', ['list' => $list->id]) }}"
+                                    method="post"
+                                    action="{{ route('list.add-to-list', ['listId' => $list['id'], 'movieId' => $movie->id]) }}"
                                 >
                                     @csrf
-                                    <input
-                                        type="hidden"
-                                        name="movie_id"
-                                        value="{{ $movie->id }}"
-                                    />
-                                    <x-button type="submit">Add movie</x-button>
+                                    @method('put')
+
+                                    <x-button class="w-full">
+                                        Add to list
+                                    </x-button>
                                 </form>
                             </div>
                         </div>
