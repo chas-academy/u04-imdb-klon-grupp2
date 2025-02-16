@@ -75,14 +75,14 @@
                     <x-input.file
                         :error="$errors->first('poster')"
                         name="poster"
-                        existingFileUrl="{{ asset('storage/movies/' . $movie->id . '/' . $movie->poster) }}"
+                        existingFileUrl="{{ getFileUrl('storage/movies/' . $movie->id, $movie->poster) }}"
                         label="Poster"
                     />
 
                     <x-input.file
                         :error="$errors->first('cover_image')"
                         name="cover_image"
-                        existingFileUrl="{{ asset('storage/movies/' . $movie->id . '/' . $movie->cover_image) }}"
+                        existingFileUrl="{{ getFileUrl('storage/movies/' . $movie->id, $movie->cover_image) }}"
                         label="Cover image"
                     />
 

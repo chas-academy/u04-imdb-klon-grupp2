@@ -30,5 +30,5 @@ function generateSectionGridVariable(string $breakpoint, int $number)
 
 function getFileUrl($path, $file)
 {
-    return filter_var($file, FILTER_VALIDATE_URL) ? $file : url($path.'/'.$file);
+    return filter_var($file, FILTER_VALIDATE_URL) ? $file : asset($path.'/'.$file);
 }
