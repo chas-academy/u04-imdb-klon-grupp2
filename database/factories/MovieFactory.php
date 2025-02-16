@@ -16,32 +16,32 @@ class MovieFactory extends Factory
      */
     public function definition(): array
     {
+        $imageIndex = fake()->numberBetween(0, 9);
 
         $posterImages = [
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3YkK3uvYsonPoZrqXhH_7sxYaqHVVP9HHnA&s',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJw5nkHpTPd2yb2HUGNAaldQRObBvxMZ-kHw&s',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ59Hq95KS8vmG2DuyXY--6gNvlAdTGxBY1FA&s',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK5wTF3eGCEibG6LsLdHnxfuIW3HouZkiG7g&s',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNkgTYCQCJ6VEFaRvUQD5hdlNQmZCgd5oQzA&s',
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ekE6Hhz9gvIbiFSUPxt-FyAh4zXTXX0bjQ&s',
-            'https://m.media-amazon.com/images/M/MV5BZWU5ZjJkNTQtMzQwOS00ZGE4LWJkMWUtMGQ5YjdiM2FhYmRhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BZWNiZjVlZTUtNGUwYi00MjJmLTg2MDctNWEzYTJiMzY1ODc4XkEyXkFqcGc@._V1_QL75_UX480_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BYWVlMmM5YmMtZGJkYy00ODgxLTgyNTctYzM2MTYwZDRkYTJmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BZGUxMjVmNGUtZGI4Zi00MmUxLWE1NGItOWE1MDhkOThiYmFhXkEyXkFqcGc@._V1_.jpg',
-
+            'https://m.media-amazon.com/images/M/MV5BYzNhNTI2ODYtY2FiOS00MDUzLTliOTEtY2E4NDFmZDgwMDliXkEyXkFqcGc@._V1_QL75_UY562_CR309,0,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BNDRjY2E0ZmEtN2QwNi00NTEwLWI3MWItODNkMGYwYWFjNGE0XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BYjM5NDI3NjgtYWM0Ni00ZDFkLWE0ODktMTVlZjZkOWE3ZTNhXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BM2FjMjBiZjgtZDkyYy00YTRlLTk5N2QtODE2ZWIyYWE0Yzg0XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BNzMyNWZlYmYtZDgxMC00ZTU3LWFiYzctNGE0ZDc0OTlhZTRlXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BOTQ5Y2QyYTktYmFmZi00NWJlLWE0MzgtYTA4M2I0ZjQwZjcxXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BZmM1MGM0MDQtZTAzNy00ZGJkLWI4MDUtNjBmMzdhYjhlM2QwXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BNzZhMTc5MWUtOTE2MS00MjUwLTljYWEtYTk1ZmVjNzhmMzYzXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BMTU3MGViZTItMmI5NS00MzMwLWFkNjctOGFlNWVmNDM0N2QyXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BYmNjMDg1Y2EtNmZiOS00NGUzLThjZGYtNzU2OGI5M2VkMDFhXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
         ];
 
         $coverImages = [
-            'https://m.media-amazon.com/images/M/MV5BNTE0MTgwMjctZDIxZC00ZDIwLTkxY2EtZmNlYjJhMjNmYWE4XkEyXkFqcGc@._V1_QL75_UX820_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BM2U1OGJiZTYtMzhiYi00MTc3LWJlZDYtNGI1N2Q3NWE3ODg1XkEyXkFqcGc@._V1_QL75_UY281_CR1,0,190,281_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BNjM1ZDQxYWUtMzQyZS00MTE1LWJmZGYtNGUyNTdlYjM3ZmVmXkEyXkFqcGc@._V1_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BMTY4NzcwODg3Nl5BMl5BanBnXkFtZTcwNTEwOTMyMw@@._V1_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BY2FhZGE3NmEtNWJjOC00NDI1LWFhMTQtMjcxNmQzZmEwNGIzXkEyXkFqcGc@._V1_QL75_UX190_CR0,0,190,281_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BOWQ4YTBmNTQtMDYxMC00NGFjLTkwOGQtNzdhNmY1Nzc1MzUxXkEyXkFqcGc@._V1_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BNzIxMDQ2YTctNDY4MC00ZTRhLTk4ODQtMTVlOWY4NTdiYmMwXkEyXkFqcGc@._V1_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BMzdhODkyYmUtMzE3ZS00YmQxLThlMGItNTQwNGJmYTk3ZjE3XkEyXkFqcGc@._V1_QL75_UY281_CR7,0,190,281_.jpg',
-            'https://m.media-amazon.com/images/M/MV5BNTg1Y2U0ZmQtMDhiMy00OWYzLWI1OWMtNzUxOWE3MGNlZjc1XkEyXkFqcGc@._V1_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BMTViZDgzNWItNWFkOC00NjZjLWExNzUtOTA3NGFlYzA4ZjIwXkEyXkFqcGc@._V1_FMjpg_UX2800_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BMTUxYmI2OTktYjc3Mi00ZTM0LWFkMDItMDVmMjZhOWZkZDE2XkEyXkFqcGc@._V1_FMjpg_UX2800_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BNjUwYzQ5NzItMmNhMS00MmI3LWIxYjAtMjdlNTQ5ZWVjNTg4XkEyXkFqcGc@._V1_FMjpg_UX2800_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BMjcyNjRmOTUtZjliZC00ZDJiLWI3NmMtZWZiZmNmMTk4ZTM3XkEyXkFqcGc@._V1_FMjpg_UX2800_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BMGRkMzhlZDAtMTgwMS00YjczLTkzY2YtZjY4NmZkMGJiMjE0XkEyXkFqcGc@._V1_FMjpg_UX1600_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BMDFkMjRmZTQtNGE1Yi00NmRiLWJhOWMtY2UyZTk3M2FhYTc5XkEyXkFqcGc@._V1_FMjpg_UX1600_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BMTBmMDlkZTMtMGUwNS00MTdiLWFkOWEtZWU4YjM1MDRiZTIxXkEyXkFqcGc@._V1_FMjpg_UX1600_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BZTA2ZjIxMmEtMjgzMi00MTQ5LWExNDUtNzE1ZTkwMzAyNDMzXkEyXkFqcGc@._V1_FMjpg_UX1600_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BN2EwNjI4NTAtMzIwOC00ZjIxLWFkOGMtNjk1NTA2ZjJkNWFmXkEyXkFqcGc@._V1_FMjpg_UX1600_.jpg',
+            'https://m.media-amazon.com/images/M/MV5BNmI1MjAyNTAtNTQ2Ny00NDU2LThmODktYzQ0MWQyYjgxZGU1XkEyXkFqcGc@._V1_FMjpg_UX1600_.jpg',
         ];
 
         return [
@@ -50,8 +50,8 @@ class MovieFactory extends Factory
             'director' => fake()->name(),
             'year' => fake()->year(),
             'duration' => fake()->numberBetween(60, 180),
-            'poster' => fake()->randomElement($posterImages),
-            'cover_image' => fake()->randomElement($coverImages),
+            'poster' => $posterImages[$imageIndex],
+            'cover_image' => $coverImages[$imageIndex],
             'rating_average' => fake()->randomFloat(1, 1, 10),
             'rating_amount' => fake()->numberBetween(1, 1000),
         ];
