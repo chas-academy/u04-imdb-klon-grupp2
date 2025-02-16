@@ -10,11 +10,13 @@
     <div class="m-auto flex max-w-xl flex-col gap-4">
         @forelse ($users as $user)
             <div class="flex items-center justify-between">
-                <x-profile.simplified
-                    :username="$user->username"
-                    :image="$user->image"
-                    size="md"
-                />
+                <div class="flex items-center gap-2 text-center">
+                    <x-profile.simplified
+                        :username="$user->username"
+                        :image="$user->image"
+                        size="md"
+                    />
+                </div>
                 <x-button
                     href="{{ route('reported.user', $user->username) }}"
                     variant="secondary"
