@@ -1,36 +1,45 @@
-<x-layout>
-    <div class="my-4 flex justify-between">
-        <x-section-header.back-link
-            title="{{ $user->username . ' report' }}"
-            href="{{ route('admin.dashboard') }}"
-            backLabel="Back to dashboard"
-        />
-    </div>
+@php
+    use Carbon\Carbon;
+@endphp
+
+<x-layout class="space-y-4 pt-4">
+    <x-section-header.back-link
+        title="{{ $user->username . ' report' }}"
+        href="{{ route('admin.dashboard') }}"
+        backLabel="Back to dashboard"
+    />
 
     <div class="flex flex-col justify-start">
-        <div class="flex max-w-xl flex-row items-center justify-between gap-1">
-            <div class="flex items-center justify-center gap-2 text-center">
-                <x-profile.simplified
-                    :username="$user->username"
-                    :image="$user->image"
-                    size="md"
-                />
-            </div>
-            <x-button
+        <div class="flex items-center justify-between">
+            <x-profile.simplified
+                :username="$user->username"
+                :image="$user->image"
                 size="md"
-                type="submit"
-                class="bg-red-400 hover:bg-red-500"
-            >
-                Ban user
-            </x-button>
+            />
+
+            @if ($user->isBanned())
+                <span class="text-sm text-slate-400">
+                    User is banned until
+                    {{ Carbon::parse($user->banned_until)->format('F jS') }}
+                </span>
+            @else
+                <x-button
+                    x-data
+                    @click="$dispatch('open-modal', 'ban-user')"
+                    class="bg-red-400 hover:bg-red-500"
+                >
+                    Ban user
+                </x-button>
+            @endif
         </div>
-        <div>
+
+        <div class="flex flex-col gap-8">
             @foreach ($reports as $report)
-                <div class="my-4 max-w-xl">
-                    <div class="flex justify-between text-sm text-slate-400">
-                        <div>
+                <div class="my-4 flex max-w-xl flex-col gap-6">
+                    <div class="flex flex-col gap-4 text-sm text-slate-400">
+                        <div class="flex flex-col gap-2">
                             <p>
-                                Reported at:
+                                Reported
                                 <span class="text-slate-50">
                                     {{ $report->created_at->diffForHumans() }}
                                 </span>
@@ -45,19 +54,19 @@
                         <form
                             method="POST"
                             action="{{ route('clear.user.report', ['id' => $report->id, 'username' => $report->user->username]) }}"
-                            class="ml-auto"
                         >
                             @csrf
                             @method('PUT')
-                            <div class="flex h-full items-center">
-                                <x-button size="sm" variant="secondary">
-                                    Clear report
-                                </x-button>
-                            </div>
+
+                            <x-button size="sm" variant="secondary">
+                                Clear report
+                            </x-button>
                         </form>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
+
+    <x-ban-user-modal :errors="$errors" :user="$user" />
 </x-layout>

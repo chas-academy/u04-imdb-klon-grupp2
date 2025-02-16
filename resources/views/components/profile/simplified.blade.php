@@ -20,6 +20,6 @@
             'text-base' => $size === 'md',
         ])
     >
-        <a href="{{ route('profile', $username) }}">{{ $username }}</a>
+        {{ $username }}
     </p>
 </a>
