@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        Report::factory(20)->create();
         Review::factory(50)->create();
+        Report::factory(20)->create();
     }
 }
