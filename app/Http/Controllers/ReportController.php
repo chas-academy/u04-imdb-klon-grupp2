@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Models\Review;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
