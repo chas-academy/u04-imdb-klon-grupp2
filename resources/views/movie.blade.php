@@ -1,10 +1,12 @@
 <x-layout class="px-0 sm:pt-18">
     <!-- Mobile View -->
-    <img
-        src="{{ $movie->cover_image }}"
-        alt="Cover image of {{ $movie->title }}"
+    <x-cover-image
+        :title="$movie->title"
+        :id="$movie->id"
+        :src="$movie->cover_image"
         class="h-64 w-full object-cover sm:hidden"
     />
+
     <div class="px-4">
         <div class="flex justify-between pt-4 sm:hidden">
             <div class="flex flex-col gap-4 sm:hidden">
@@ -37,7 +39,8 @@
             </div>
             <x-poster
                 class="w-32 sm:hidden"
-                src="{{ $movie->poster }}"
+                :id="$movie->id"
+                :src="$movie->poster"
                 alt="Poster of {{ $movie->title }}"
             />
         </div>
@@ -71,7 +74,7 @@
                     class="w-full sm:hidden"
                     variant="secondary"
                     size="md"
-                    href=""
+                    href="{{ route('admin.edit.movie', ['id' => $movie->id]) }}"
                 >
                     Edit
                 </x-button>
@@ -101,7 +104,12 @@
                             Delete
                         </x-button>
                     </form>
-                    <x-button class="" variant="secondary" size="md" href="">
+                    <x-button
+                        class=""
+                        variant="secondary"
+                        size="md"
+                        href="{{ route('admin.edit.movie', ['id' => $movie->id]) }}"
+                    >
                         Edit
                     </x-button>
                 </div>
@@ -124,7 +132,8 @@
             <div class="flex w-70 flex-col gap-3">
                 <x-poster
                     class="h-104 min-w-70"
-                    src="{{ $movie->poster }}"
+                    :id="$movie->id"
+                    :src="$movie->poster"
                     alt="Poster of {{ $movie->title }}"
                 />
                 <x-button variant="primary" size="md" href="">
@@ -132,9 +141,10 @@
                 </x-button>
             </div>
             <div class="flex flex-col gap-3">
-                <img
-                    src="{{ $movie->cover_image }}"
-                    alt="Cover image of {{ $movie->title }}"
+                <x-cover-image
+                    :title="$movie->title"
+                    :id="$movie->id"
+                    :src="$movie->cover_image"
                     class="h-104 w-182 rounded-xs object-cover"
                 />
                 <div class="flex flex-wrap gap-3">
@@ -144,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <p class="max-w-144 pt-4">
+        <p class="max-w-144 pt-4 pb-3">
             {!! $movie->description !!}
         </p>
     </div>
@@ -169,6 +179,8 @@
             <x-section :columns="[1, 'sm' => 2]">
                 @foreach ($reviews as $review)
                     <x-review
+                        :id="$review->movie->id"
+                        :image="$review->movie->poster"
                         :title="$review->movie->title"
                         :content="$review->content"
                         :rating="$review->rating"

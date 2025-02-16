@@ -47,6 +47,7 @@ class ProfileController extends Controller
                     'posters' => $list->movies->map(fn ($movie) => [
                         'src' => $movie->poster,
                         'title' => $movie->title,
+                        'id' => $movie->id,
                     ]),
                 ]
             ),

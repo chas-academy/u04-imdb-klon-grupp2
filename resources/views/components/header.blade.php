@@ -15,7 +15,11 @@
             <a
                 href="{{ route('profile', ['username' => auth()->user()->username]) }}"
             >
-                <x-avatar size="sm" :image="auth()->user()->image" />
+                <x-avatar
+                    size="sm"
+                    :username="auth()->user()->username"
+                    :image="auth()->user()->image"
+                />
             </a>
         @endauth
 

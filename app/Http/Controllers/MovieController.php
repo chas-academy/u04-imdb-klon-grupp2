@@ -116,6 +116,8 @@ class MovieController extends Controller
                 throw new Exception('You are not allowed to delete this movie!');
             }
 
+            // TODO: remove local poster and cover_image files
+
             $movie->delete();
 
             return redirect(route('admin.dashboard'));

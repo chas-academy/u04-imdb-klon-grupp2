@@ -5,7 +5,7 @@
 ])
 
 @php
-    $posters = array_pad($posters, 4, ['src' => null, 'title' => null]);
+    $posters = array_pad($posters, 4, ['src' => null, 'title' => null, 'id' => null]);
     $posters = array_slice($posters, 0, 4);
 @endphp
 
@@ -16,6 +16,7 @@
     <div class="grid grid-cols-2 overflow-hidden rounded-xs">
         @foreach ($posters as $poster)
             <x-poster
+                :id="$poster['id']"
                 :src="$poster['src']"
                 alt="Poster for {{ $poster['title'] }}"
                 :rounded="false"

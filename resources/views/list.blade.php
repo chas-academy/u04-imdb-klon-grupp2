@@ -3,7 +3,7 @@
         <div class="space-y-1">
             <x-section-header.back-link
                 :title="$list->title"
-                backLabel="Back to lists"
+                backLabel="Back"
                 href="{{ $backLink }}"
             />
             <p class="text-sm text-slate-400">
@@ -29,6 +29,7 @@
     <x-section :columns="[2, 'sm' => 4, 'md' => 6]">
         @foreach ($list->movies as $movie)
             <x-movie
+                :id="$movie->id"
                 :title="$movie->title"
                 :image="$movie->poster"
                 :rating="$movie->rating_average"

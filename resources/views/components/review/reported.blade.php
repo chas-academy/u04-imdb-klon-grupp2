@@ -4,13 +4,19 @@
     'image',
     'username',
     'link',
+    'id',
 ])
 
 <a
     {{ $attributes->class('flex gap-3 rounded-sm bg-slate-700 p-2 transition hover:scale-101') }}
     href="{{ $link }}"
 >
-    <x-poster :src="$image" class="w-20" alt="Poster for {{ $title }}" />
+    <x-poster
+        :id="$id"
+        :src="$image"
+        class="w-20"
+        alt="Poster for {{ $title }}"
+    />
 
     <div class="flex flex-1 flex-col gap-1">
         <div class="flex-1 space-y-1">

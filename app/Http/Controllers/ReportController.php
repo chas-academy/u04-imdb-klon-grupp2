@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Models\Review;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -58,6 +60,74 @@ class ReportController extends Controller
     public function show(Report $report)
     {
         //
+    }
+
+    public function reportedReviews()
+    {
+        $reports = Report::with(['review'])->whereNotNull(['review_id'])->where('decision_made', false)->latest()->get();
+
+        foreach ($reports as $report) {
+            $report->user = User::where('id', $report->review->user_id)->first();
+        }
+
+        return view('admin.reported-reviews', compact('reports'));
+    }
+
+    public function reportedUsers()
+    {
+        $reports = Report::with(['review', 'user'])->whereNotNull(['user_id'])->where('decision_made', false)->orderBy('updated_at')->get();
+
+        $users = $reports->map(function ($report) {
+            return User::where('id', $report->user_id)->first();
+        })->unique();
+
+        return view('admin.reported-users', compact('users'));
+    }
+
+    public function showUserReports($username)
+    {
+        $user = User::where('username', $username)->first();
+        $reports = Report::where('user_id', $user->id)->where('decision_made', false)->orderBy('updated_at')->get();
+
+        return view('admin.reported-user', compact('reports', 'user'));
+    }
+
+    public function showReviewReport($id)
+    {
+        $report = Report::with(['review'])->where('id', $id)->first();
+        $report->user = User::where('id', $report->review->user_id)->first();
+
+        return view('admin.reported-review', compact('report'));
+    }
+
+    public function clearUserReport($username, $id)
+    {
+        $report = Report::where('id', $id)->firstOrFail();
+        $report->decision_made = true;
+        $report->save();
+
+        $user = User::where('username', $username)->firstOrFail();
+        $n_reports = Report::where('user_id', $user->id)->where('decision_made', false)->count();
+
+        return $n_reports == 0 ? redirect(route('admin.dashboard')) : redirect(route('reported.user', $username));
+    }
+
+    public function clearReviewReport($id)
+    {
+        $report = Report::where('id', $id)->firstOrFail();
+        $report->decision_made = true;
+        $report->save();
+
+        return redirect(route('reported.reviews'));
+    }
+
+    public function deleteReview($id)
+    {
+        $report = Report::where('id', $id)->firstOrFail();
+        $review = Review::where('id', $report->review_id)->firstOrFail();
+        $review->delete();
+
+        return redirect(route('reported.reviews'));
     }
 
     /**

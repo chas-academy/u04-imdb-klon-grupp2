@@ -1,6 +1,7 @@
 @props([
     'size',
     'image' => null,
+    'username' => null,
 ])
 
 @php
@@ -13,7 +14,7 @@
 
 @if (isset($image))
     <img
-        src="{{ $image }}"
+        src="{{ getFileUrl('/storage/avatars/' . $username, $image) }}"
         @class(array_merge($sizes, ['rounded-full border-1 border-slate-50 object-cover']))
         {{ $attributes }}
     />

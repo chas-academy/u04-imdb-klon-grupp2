@@ -25,7 +25,8 @@
     <div class="relative mt-3 flex items-center gap-4">
         <x-poster
             class="w-32 sm:w-40"
-            src="{{ $review->movie->cover_image }}"
+            :id="$review->movie->id"
+            :src="$review->movie->poster"
         />
         <x-button
             variant="icon"

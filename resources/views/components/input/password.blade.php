@@ -4,6 +4,8 @@
     'placeholder',
     'error',
     'color' => 'dark',
+    'value' => '',
+    'readonly' => false,
 ])
 
 <div
@@ -26,8 +28,10 @@
             :type="hidden ? 'password' : 'text'"
             id="{{ $name }}"
             name="{{ $name }}"
+            value="{{ $value }}"
             placeholder="{{ $placeholder }}"
             class="flex-1 rounded-xs px-1 text-base text-slate-50 placeholder:text-slate-400"
+            {{ $readonly ? 'readonly' : '' }}
         />
 
         <x-button
