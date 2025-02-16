@@ -138,8 +138,8 @@
                     alt="Poster of {{ $movie->title }}"
                 />
                 <x-button
-                    x-data
-                    @click="$dispatch('open-modal', 'add-to-list')"
+                    x-data="{ isLoggedIn: {{ auth()->check() ? 'true' : 'false' }} }"
+                    @click="isLoggedIn ? $dispatch('open-modal', 'add-to-list') : window.location.href = '{{ route('login') }}'"
                     variant="primary"
                     size="md"
                 >
@@ -207,7 +207,7 @@
                 :message="$errors->addToList->first()"
                 class="relative text-lg"
             />
-            @if ($userLists->isNotEmpty())
+            @if ($userLists && $userLists->isNotEmpty())
                 <x-section :columns="[2, 'sm' => 4, 'md' => 6]">
                     @foreach ($userLists as $list)
                         <div class="flex flex-col gap-2">
@@ -230,7 +230,7 @@
                 </x-section>
             @else
                 <div
-                    class="relative flex flex-1 flex-col items-center justify-center gap-4"
+                    class="pointer-events-none relative flex flex-1 flex-col items-center justify-center gap-4"
                 >
                     <p class="text-slate-200">You don't have a list yet!</p>
                     <x-button
@@ -239,6 +239,7 @@
                             $dispatch('close-modal', 'add-to-list')
                             $dispatch('open-modal', 'create-list')
                         "
+                        class="pointer-events-auto"
                     >
                         Create list
                     </x-button>
