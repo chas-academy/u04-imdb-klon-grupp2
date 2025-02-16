@@ -1,10 +1,12 @@
 <x-layout class="px-0 sm:pt-18">
     <!-- Mobile View -->
-    <img
-        src="{{ $movie->cover_image }}"
-        alt="Cover image of {{ $movie->title }}"
+    <x-cover-image
+        :title="$movie->title"
+        :id="$movie->id"
+        :src="$movie->cover_image"
         class="h-64 w-full object-cover sm:hidden"
     />
+
     <div class="px-4">
         <div class="flex justify-between pt-4 sm:hidden">
             <div class="flex flex-col gap-4 sm:hidden">
@@ -143,6 +145,7 @@
                     :title="$movie->title"
                     :id="$movie->id"
                     :src="$movie->cover_image"
+                    class="h-104 w-182 rounded-xs object-cover"
                 />
                 <div class="flex flex-wrap gap-3">
                     @foreach ($movie->genres as $genre)
