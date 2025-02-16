@@ -110,7 +110,7 @@ class ListController extends Controller
             if (! $list->isOwnedBy($user->id)) {
                 return redirect()
                     ->back()
-                    ->withErrors('Movie is already in list!', 'addToList');
+                    ->withErrors('You are not allowed to edit this list!', 'addToList');
             }
 
             if ($list->movies()->where('movie_id', $movieId)->exists()) {
