@@ -64,10 +64,10 @@ class AdminController extends Controller
     public function createMovie(Request $request): RedirectResponse
     {
         $request->validate([
-            'title' => ['required', 'string', 'max:255', 'unique:'.Movie::class, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'title' => ['required', 'string', 'max:255', 'unique:'.Movie::class, 'regex:/^[a-zA-Z0-9.,!?\'"][a-zA-Z0-9\s\-:.,!?\'"]*[a-zA-Z0-9.,!?\'"]$/'],
             'description' => ['required', 'string', 'max:255'],
             'year' => ['required', 'integer', 'min:1850', 'max:'.(date('Y') + 1)],
-            'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-.]*[a-zA-Z0-9]$/'],
             'duration' => ['required', 'string', 'max:6', 'regex:/^(?:[1-9]|1[0-9])h [0-5][0-9]m$/'],
             'poster' => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
             'cover_image' => ['required', 'image', 'mimes:jpeg,png', 'max:2048'],
@@ -143,10 +143,10 @@ class AdminController extends Controller
         $movie = Movie::findOrFail($id);
 
         $request->validate([
-            'title' => ['required', 'string', 'max:255', 'unique:'.Movie::class.',title,'.$id, 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'title' => ['required', 'string', 'max:255', 'unique:'.Movie::class.',title,'.$id, 'regex:/^[a-zA-Z0-9.,!?\'"][a-zA-Z0-9\s\-:.,!?\'"]*[a-zA-Z0-9.,!?\'"]$/'],
             'description' => ['required', 'string', 'max:255'],
             'year' => ['required', 'integer', 'min:1850', 'max:'.(date('Y') + 1)],
-            'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-:]*[a-zA-Z0-9]$/'],
+            'director' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9][a-zA-Z0-9\s\-.]*[a-zA-Z0-9]$/'],
             'duration' => ['required', 'string', 'max:6', 'regex:/^(?:[1-9]|1[0-9])h [0-5][0-9]m$/'],
             'poster' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
             'cover_image' => ['nullable', 'image', 'mimes:jpeg,png', 'max:2048'],
