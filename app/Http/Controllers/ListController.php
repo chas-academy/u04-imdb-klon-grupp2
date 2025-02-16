@@ -101,6 +101,34 @@ class ListController extends Controller
         //
     }
 
+    public function addToList($listId, $movieId)
+    {
+        try {
+            $list = MovieList::findOrFail($listId);
+            $user = Auth::user();
+
+            if (! $list->isOwnedBy($user->id)) {
+                return redirect()
+                    ->back()
+                    ->withErrors('Movie is already in list!', 'addToList');
+            }
+
+            if ($list->movies()->where('movie_id', $movieId)->exists()) {
+                return redirect()
+                    ->back()
+                    ->withErrors('Movie is already in list!', 'addToList');
+            }
+
+            $list->movies()->attach($movieId);
+
+            return redirect()->back();
+        } catch (Exception) {
+            return redirect()
+                ->back()
+                ->withErrors('Something went wrong when adding the movie to the list!', 'addToList');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
