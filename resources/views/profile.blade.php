@@ -57,10 +57,10 @@
                     </x-section>
                 @else
                     <div class="flex flex-col items-start gap-2">
-                        <p class="text-slate-200">
-                            Looks like your list section is empty. Time to
-                            create your first list!
-                        </p>
+                        <x-empty-state
+                            content="Looks like your list section is empty. Time to
+                            create your first list!"
+                        />
                         <x-button
                             x-data
                             @click="$dispatch('open-modal', 'create-list')"
