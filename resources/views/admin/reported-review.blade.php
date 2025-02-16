@@ -52,7 +52,7 @@
                     :image="$report->review->movie->poster"
                     :rating="$report->review->movie->rating_average"
                     created_at="{{ $report->review->movie->created_at->diffForHumans() }}"
-                    link="{{ route('movie', ['id' => $report->review->movie->id, 'title' => $report->review->movie->title]) }}"
+                    link="{{ route('review', ['id' => $report->review->id]) }}"
                 />
 
                 <p>
