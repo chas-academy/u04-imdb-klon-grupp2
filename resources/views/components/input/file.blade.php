@@ -16,6 +16,7 @@
                 '',
             ),
         fileSelected: {{ $existingFileUrl ? 'true' : 'false' }},
+        existingFileUrl: '{{ $existingFileUrl }}',
     }"
 >
     <x-input.label for="{{ $name }}">
@@ -39,21 +40,22 @@
 
     <div class="ml-2 flex flex-col items-start" x-show="fileSelected">
         <div class="flex max-w-xl items-center gap-2 truncate">
-            @if ($existingFileUrl)
+            <template x-if="existingFileUrl">
                 <span class="truncate text-sm text-slate-200">
                     <a
                         x-text="fileName"
-                        href="{{ $existingFileUrl }}"
+                        :href="existingFileUrl"
                         target="_blank"
                         class="truncate text-sm text-blue-500 underline"
                     ></a>
                 </span>
-            @else
+            </template>
+            <template x-if="!existingFileUrl">
                 <span
                     x-text="fileName"
                     class="truncate text-sm text-slate-200"
                 ></span>
-            @endif
+            </template>
 
             <x-button
                 variant="secondary"
@@ -75,6 +77,7 @@
         x-ref="fileInput"
         @change="
             fileSelected = $refs.fileInput.files.length > 0;
+            existingFileUrl = null;
             fileName = fileSelected ? $refs.fileInput.files[0].name : '';
         "
     />
