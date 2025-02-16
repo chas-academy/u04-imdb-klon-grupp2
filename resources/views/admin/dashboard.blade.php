@@ -54,7 +54,7 @@
                     :image="$movie->poster"
                     :rating="$movie->rating_average"
                     :link="route('movie', ['id' => $movie->id, 'title' => $movie->title])"
-                    class="sm:nth-[n+5]:hidden lg:nth-[n+5]:block lg:nth-[n+7]:hidden"
+                    class="sm:nth-[n+5]:hidden lg:nth-[n+5]:flex lg:nth-[n+7]:hidden"
                 />
             @endforeach
         </x-section>
