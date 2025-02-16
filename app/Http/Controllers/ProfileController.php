@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -138,7 +139,15 @@ class ProfileController extends Controller
             $currentUser = Auth::user();
 
             if ($currentUser->role !== 'admin') {
-                throw new Exception('You are not allowed to ban this user');
+                return redirect()
+                    ->back()
+                    ->withErrors('You are not allowed to ban this user!', 'banUser');
+            }
+
+            if ($user->isBanned()) {
+                return redirect()
+                    ->back()
+                    ->withErrors('This user is already banned until '.Carbon::parse($user->banned_until)->format('F jS').'!', 'banUser');
             }
 
             $user->banned_until = $request->date;
