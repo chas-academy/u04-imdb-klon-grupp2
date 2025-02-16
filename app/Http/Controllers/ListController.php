@@ -115,9 +115,9 @@ class ListController extends Controller
         try {
             $list = MovieList::findOrFail($listId);
             $movieId = $request->input('movie_id');
-    
+
             $list->movies()->attach($movieId);
-    
+
             return redirect()->back()->with('success', 'Movie added to the list successfully!');
         } catch (Exception $e) {
             return redirect()
