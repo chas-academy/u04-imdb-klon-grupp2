@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ReviewController extends Controller
 {
@@ -63,7 +64,12 @@ class ReviewController extends Controller
         $review = Review::with(['user', 'movie'])->findOrFail($id);
         $isAuthor = Auth::check() && $review->isWrittenBy(Auth::user());
 
-        return view('review', ['review' => $review, 'isAuthor' => $isAuthor]);
+        $previousUrl = url()->previous();
+        $backLink = Str::contains($previousUrl, ['/m/', '/u/'])
+            ? $previousUrl
+            : route('movie', ['id' => $review->movie->id, 'title' => $review->movie->title]);
+
+        return view('review', ['review' => $review, 'isAuthor' => $isAuthor, 'backLink' => $backLink]);
     }
 
     /**
