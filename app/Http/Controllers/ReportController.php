@@ -6,6 +6,7 @@ use App\Models\Report;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Exception;
 
 class ReportController extends Controller
 {
